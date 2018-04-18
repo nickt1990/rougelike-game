@@ -16,6 +16,8 @@ using System.Collections;
         //Protected, virtual functions can be overridden by inheriting classes.
         protected virtual void Start ()
         {
+            System.Console.WriteLine("I am changing this");
+            
             //Get a component reference to this object's BoxCollider2D
             boxCollider = GetComponent <BoxCollider2D> ();
             
