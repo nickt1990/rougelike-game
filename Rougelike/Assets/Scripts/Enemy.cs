@@ -28,31 +28,31 @@ using System.Collections;
             
             //Call the start function of our base class MovingObject.
             base.Start ();
-        }
-        
-        
-        //Override the AttemptMove function of MovingObject to include functionality needed for Enemy to skip turns.
-        //See comments in MovingObject for more on how base AttemptMove function works.
-        protected override void AttemptMove <T> (int xDir, int yDir)
+    }
+
+
+    //Override the AttemptMove function of MovingObject to include functionality needed for Enemy to skip turns.
+    //See comments in MovingObject for more on how base AttemptMove function works.
+    protected void AttemptMove<T>(int xDir, int yDir)
+    {
+        //Check if skipMove is true, if so set it to false and skip this turn.
+        if(skipMove)
         {
-            //Check if skipMove is true, if so set it to false and skip this turn.
-            if(skipMove)
-            {
-                skipMove = false;
-                return;
-                
-            }
-            
-            //Call the AttemptMove function from MovingObject.
-            base.AttemptMove <T> (xDir, yDir);
-            
-            //Now that Enemy has moved, set skipMove to true to skip next move.
-            skipMove = true;
+            skipMove = false;
+            return;
+
         }
-        
-        
-        //MoveEnemy is called by the GameManger each turn to tell each Enemy to try to move towards the player.
-        public void MoveEnemy ()
+
+        //Call the AttemptMove function from MovingObject.
+        //base.AttemptMove<T>(xDir, yDir);
+
+        //Now that Enemy has moved, set skipMove to true to skip next move.
+        skipMove = true;
+    }
+
+
+    //MoveEnemy is called by the GameManger each turn to tell each Enemy to try to move towards the player.
+    public void MoveEnemy ()
         {
             //Declare variables for X and Y axis move directions, these range from -1 to 1.
             //These values allow us to choose between the cardinal directions: up, down, left and right.

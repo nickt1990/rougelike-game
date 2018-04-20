@@ -84,7 +84,7 @@ namespace Completed
 			levelText = GameObject.Find("LevelText").GetComponent<Text>();
 			
 			//Set the text of levelText to the string "Day" and append the current level number.
-			levelText.text = "Day " + level;
+			levelText.text = "Floor " + level;
 			
 			//Set levelImage to active blocking player's view of the game board during setup.
 			levelImage.SetActive(true);
@@ -116,12 +116,10 @@ namespace Completed
 		{
 			//Check that playersTurn or enemiesMoving or doingSetup are not currently true.
 			if(playersTurn || enemiesMoving || doingSetup)
-				
-				//If any of these are true, return and do not start MoveEnemies.
-				return;
-			
-			//Start moving enemies.
-			StartCoroutine (MoveEnemies ());
+				return; //If any of these are true, return and do not start MoveEnemies.
+
+            //Start moving enemies.
+            StartCoroutine (MoveEnemies ());
 		}
 		
 		//Call this to add the passed in Enemy to the List of Enemy objects.
@@ -136,7 +134,7 @@ namespace Completed
 		public void GameOver()
 		{
 			//Set levelText to display number of levels passed and game over message
-			levelText.text = "After " + level + " days, you starved.";
+			//levelText.text = "After " + level + " days, " + newPlayer.playerName + " the " + newPlayer.classType.GetClassName() + " starved.";
 			
 			//Enable black background image gameObject.
 			levelImage.SetActive(true);
@@ -165,7 +163,7 @@ namespace Completed
 			for (int i = 0; i < enemies.Count; i++)
 			{
 				//Call the MoveEnemy function of Enemy at index i in the enemies List.
-				enemies[i].MoveEnemy ();
+				enemies[i].Move();
 				
 				//Wait for Enemy's moveTime before moving next Enemy, 
 				yield return new WaitForSeconds(enemies[i].moveTime);
