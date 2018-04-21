@@ -52,7 +52,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8b6cc62a0b98c54280b9440d012bd51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  columns: 8
+  columns: 19
   rows: 8
   wallCount:
     minimum: 5
