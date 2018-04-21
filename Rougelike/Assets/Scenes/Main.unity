@@ -348,6 +348,46 @@ Prefab:
       propertyPath: use
       value: 122
       objectReference: {fileID: 0}
+    - target: {fileID: 114776900083552028, guid: 040dbbccdbcb9f548bc7241baa05cb3c,
+        type: 2}
+      propertyPath: moveSound1
+      value: 
+      objectReference: {fileID: 8300000, guid: 892962212a4b74d1c9f578a3b6ea6439, type: 3}
+    - target: {fileID: 114776900083552028, guid: 040dbbccdbcb9f548bc7241baa05cb3c,
+        type: 2}
+      propertyPath: moveSound2
+      value: 
+      objectReference: {fileID: 8300000, guid: a826bc3d758db43d6ae9caf415b63d1d, type: 3}
+    - target: {fileID: 114776900083552028, guid: 040dbbccdbcb9f548bc7241baa05cb3c,
+        type: 2}
+      propertyPath: eatSound1
+      value: 
+      objectReference: {fileID: 8300000, guid: 1cb61f83d60374c7389bb547431919e3, type: 3}
+    - target: {fileID: 114776900083552028, guid: 040dbbccdbcb9f548bc7241baa05cb3c,
+        type: 2}
+      propertyPath: eatSound2
+      value: 
+      objectReference: {fileID: 8300000, guid: 062161c1897a54088a5430f8c197e1b8, type: 3}
+    - target: {fileID: 114776900083552028, guid: 040dbbccdbcb9f548bc7241baa05cb3c,
+        type: 2}
+      propertyPath: drinkSound1
+      value: 
+      objectReference: {fileID: 8300000, guid: b6b608537288246c9a464915db27bf52, type: 3}
+    - target: {fileID: 114776900083552028, guid: 040dbbccdbcb9f548bc7241baa05cb3c,
+        type: 2}
+      propertyPath: drinkSound2
+      value: 
+      objectReference: {fileID: 8300000, guid: bcb9dda73ee914d3e8f252895f73f461, type: 3}
+    - target: {fileID: 114776900083552028, guid: 040dbbccdbcb9f548bc7241baa05cb3c,
+        type: 2}
+      propertyPath: gameOverSound
+      value: 
+      objectReference: {fileID: 8300000, guid: e2beefeb2273f4efe992adf5b8d67c29, type: 3}
+    - target: {fileID: 114776900083552028, guid: 040dbbccdbcb9f548bc7241baa05cb3c,
+        type: 2}
+      propertyPath: foodText
+      value: 
+      objectReference: {fileID: 1188130224}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 040dbbccdbcb9f548bc7241baa05cb3c, type: 2}
   m_IsPrefabParent: 0
@@ -444,6 +484,16 @@ Prefab:
         type: 2}
       propertyPath: right
       value: 275
+      objectReference: {fileID: 0}
+    - target: {fileID: 114776900083552028, guid: 040dbbccdbcb9f548bc7241baa05cb3c,
+        type: 2}
+      propertyPath: down
+      value: 274
+      objectReference: {fileID: 0}
+    - target: {fileID: 114776900083552028, guid: 040dbbccdbcb9f548bc7241baa05cb3c,
+        type: 2}
+      propertyPath: use
+      value: 256
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 040dbbccdbcb9f548bc7241baa05cb3c, type: 2}
@@ -740,6 +790,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1991942778}
+  - {fileID: 1188130223}
   - {fileID: 1098226717}
   m_Father: {fileID: 0}
   m_RootOrder: 3
@@ -778,7 +829,7 @@ RectTransform:
   m_Children:
   - {fileID: 1506377269}
   m_Father: {fileID: 619634284}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -818,6 +869,80 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1098226716}
+--- !u!1 &1188130222
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1188130223}
+  - component: {fileID: 1188130225}
+  - component: {fileID: 1188130224}
+  m_Layer: 5
+  m_Name: FoodText2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1188130223
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1188130222}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 619634284}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.05}
+  m_AnchorMax: {x: 0.5, y: 0.05}
+  m_AnchoredPosition: {x: 413, y: 0}
+  m_SizeDelta: {x: 160, y: 30}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1188130224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1188130222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: b284a6525342f44599e9ce79e37c2d61, type: 3}
+    m_FontSize: 24
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 2
+    m_MaxSize: 40
+    m_Alignment: 7
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 1
+    m_VerticalOverflow: 1
+    m_LineSpacing: 1
+  m_Text: 'Health: 100'
+--- !u!222 &1188130225
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1188130222}
 --- !u!1 &1506377268
 GameObject:
   m_ObjectHideFlags: 0
@@ -924,7 +1049,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.05}
   m_AnchorMax: {x: 0.5, y: 0.05}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -407, y: 0}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1991942779
@@ -959,7 +1084,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 'Food: 100'
+  m_Text: 'Health: 100'
 --- !u!222 &1991942780
 CanvasRenderer:
   m_ObjectHideFlags: 0

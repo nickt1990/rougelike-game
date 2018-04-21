@@ -34,7 +34,7 @@ using UnityEngine.UI;
             //Get the current food point total stored in GameManager.instance between levels.
             food = GameManager.instance.playerFoodPoints;
 
-            //foodText.text = "Food: " + food; //todo get error
+            foodText.text = "Health: " + food; //todo get error
             
             //Call the Start function of the MovingObject base class.
             base.Start ();
@@ -71,7 +71,7 @@ using UnityEngine.UI;
         {
             //Every time player moves, subtract from food points total.
             food--;
-            //foodText.text = "Food: " + food;//todo get error
+            foodText.text = "Health: " + food;
 
             //Call the AttemptMove method of the base class, passing in the component T (in this case Wall) and x and y direction to move.
             base.AttemptMove <T> (xDir, yDir);
@@ -130,7 +130,7 @@ using UnityEngine.UI;
             {
                 //Add pointsPerFood to the players current food total.
                 food += pointsPerFood;
-                foodText.text = "+" + pointsPerFood + " Food: " + food;
+				foodText.text = "+" + pointsPerFood + " Health: " + food;
                 SoundManager.instance.RandomizeSfx(eatSound1,eatSound2);
                 
                 //Disable the food object the player collided with.
@@ -142,7 +142,7 @@ using UnityEngine.UI;
             {
                 //Add pointsPerSoda to players food points total
                 food += pointsPerSoda;
-                foodText.text = "+" + pointsPerSoda + " Food: " + food;//todo get error with p2
+				foodText.text = "+" + pointsPerSoda + " Health: " + food;//todo get error with p2
                 SoundManager.instance.RandomizeSfx(drinkSound1,drinkSound2);
                 
                 //Disable the soda object the player collided with.
@@ -168,7 +168,7 @@ using UnityEngine.UI;
             
             //Subtract lost food points from the players total.
             food -= loss;
-            foodText.text = "-" + loss + " Food: " + food;
+			foodText.text = "-" + loss + " Health: " + food;
             
             //Check to see if game has ended.
             CheckIfGameOver ();
