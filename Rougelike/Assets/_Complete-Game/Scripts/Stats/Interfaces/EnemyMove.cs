@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class EnemyMove : MonoBehaviour, IMovementBehavior
+public class EnemyMove : MonoBehaviour
 {
     public LivingEntity currentPlayer;
 
@@ -48,10 +48,8 @@ public class EnemyMove : MonoBehaviour, IMovementBehavior
 
     //The virtual keyword means AttemptMove can be overridden by inheriting classes using the override keyword.
     //AttemptMove takes a generic parameter T to specify the type of component we expect our unit to interact with if blocked (Player for Enemies, Wall for Player).
-    public void AttemptMove<T>(int xDir, int yDir, LivingEntity playerMoving)
+    public void AttemptMove<T>(int xDir, int yDir)
     {
-        currentPlayer = playerMoving;
-
         //Hit will store whatever our linecast hits when Move is called.
         RaycastHit2D hit;
 
@@ -79,10 +77,10 @@ public class EnemyMove : MonoBehaviour, IMovementBehavior
     protected void OnCantMove<T>(T component)
     {
         //Set hitWall to equal the component passed in as a parameter.
-        AnotherEnemy enemy = component as AnotherEnemy;
+        Enemy enemy = component as Enemy;
 
         //Call the DamageWall function of the Wall we are hitting.
-        currentPlayer.TakeDamage(enemy.physicalAttack);
+        //currentPlayer.TakeDamage(physicalAttack);
 
         //Set the attack trigger of the player's animation controller in order to play the player's attack animation.
         currentPlayer.animator.SetTrigger("Enemy1Attack");

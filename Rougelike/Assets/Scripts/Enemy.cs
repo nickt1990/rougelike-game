@@ -71,7 +71,7 @@ using System.Collections;
                 xDir = target.position.x > transform.position.x ? 1 : -1;
             
             //Call the AttemptMove function and pass in the generic parameter Player, because Enemy is moving and expecting to potentially encounter a Player
-            AttemptMove <Player> (xDir, yDir);
+            AttemptMove <PlayerOld> (xDir, yDir);
         }
         
         
@@ -80,7 +80,7 @@ using System.Collections;
         protected override void OnCantMove <T> (T component)
         {
             //Declare hitPlayer and set it to equal the encountered component.
-            Player hitPlayer = component as Player;
+            PlayerOld hitPlayer = component as PlayerOld;
             
             //Call the LoseFood function of hitPlayer passing it playerDamage, the amount of foodpoints to be subtracted.
             hitPlayer.LoseFood (playerDamage);

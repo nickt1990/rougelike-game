@@ -4,10 +4,8 @@ using UnityEngine.SceneManagement;      //Allows us to use SceneManager
 using UnityEngine.UI;
 
 //Player inherits from MovingObject, our base class for objects that can move, Enemy also inherits from this.
-public class Player : MovingObject
+public class PlayerOld : MovingObject
 {
-    MyPlayer newPlayer = new MyPlayer("Paul", 100, 20, 20, 20, 20, new Paladin());
-
     public float restartLevelDelay = 1f;        //Delay time in seconds to restart level.
     public int pointsPerFood = 10;              //Number of points to add to player food points when picking up a food object.
     public int pointsPerSoda = 20;              //Number of points to add to player food points when picking up a soda object.
@@ -83,33 +81,33 @@ public class Player : MovingObject
 
     //AttemptMove overrides the AttemptMove function in the base class MovingObject
     //AttemptMove takes a generic parameter T which for Player will be of the type Wall, it also takes integers for x and y direction to move in.
-    ////protected override void AttemptMove<T>(int xDir, int yDir)
-    ////{
+    protected override void AttemptMove<T>(int xDir, int yDir)
+    {
 
-    ////    HealthText.text = "Health: " + newPlayer.healthPoints;
+        //HealthText.text = "Health: " + newPlayer.healthPoints;
 
-    ////    //Call the AttemptMove method of the base class, passing in the component T (in this case Wall) and x and y direction to move.
-    ////    base.AttemptMove<T>(xDir, yDir);
+        //Call the AttemptMove method of the base class, passing in the component T (in this case Wall) and x and y direction to move.
+        base.AttemptMove<T>(xDir, yDir);
 
-    ////    //Hit allows us to reference the result of the Linecast done in Move.
-    ////    RaycastHit2D hit;
-    ////    if (Move(xDir, yDir, out hit))
-    ////    {
-    ////        SoundManager.instance.RandomizeSfx(moveSound1, moveSound2);
-    ////    }
+        //Hit allows us to reference the result of the Linecast done in Move.
+        RaycastHit2D hit;
+        if (Move(xDir, yDir, out hit))
+        {
+            SoundManager.instance.RandomizeSfx(moveSound1, moveSound2);
+        }
 
-    ////    //If Move returns true, meaning Player was able to move into an empty space.
-    ////    if (Move(xDir, yDir, out hit))
-    ////    {
-    ////        //Call RandomizeSfx of SoundManager to play the move sound, passing in two audio clips to choose from.
-    ////    }
+        //If Move returns true, meaning Player was able to move into an empty space.
+        if (Move(xDir, yDir, out hit))
+        {
+            //Call RandomizeSfx of SoundManager to play the move sound, passing in two audio clips to choose from.
+        }
 
-    ////    //Since the player has moved and lost food points, check if the game has ended.
-    ////    CheckIfGameOver();
+        //Since the player has moved and lost food points, check if the game has ended.
+        CheckIfGameOver();
 
-    ////    //Set the playersTurn boolean of GameManager to false now that players turn is over.
-    ////    GameManager.instance.playersTurn = false;
-    ////}
+        //Set the playersTurn boolean of GameManager to false now that players turn is over.
+        GameManager.instance.playersTurn = false;
+    }
 
 
     //OnCantMove overrides the abstract function OnCantMove in MovingObject.
@@ -182,7 +180,7 @@ public class Player : MovingObject
         animator.SetTrigger("playerHit");
 
         //Subtract lost food points from the players total.
-        newPlayer.healthPoints -= loss;
+        //newPlayer.healthPoints -= loss;
         HealthText.text = "-" + loss + " Food: " + food;
 
         //Check to see if game has ended.

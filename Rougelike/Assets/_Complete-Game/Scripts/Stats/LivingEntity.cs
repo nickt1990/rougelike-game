@@ -6,44 +6,82 @@ using System;
 
 public class LivingEntity : MonoBehaviour, IStats
 {
-    [HideInInspector] public Animator animator;					//Used to store a reference to the Player's animator component.
-
-    public Text healthText;
-    public Text manaText;
-
-    public float inverseMoveTime;           //Used to make movement more efficient.
-    public float moveTime = 0.1f;           //Time it will take object to move, in seconds.
-
-    #region Inherits From
-    public IAttackBehavior attackBehavior;
+    #region Interfaces
+    public IAttack attackBehavior;
     public IDialogueBehavior dialogueBehavior;
-    public IMovementBehavior movementBehavior;
+    public IMovement movementBehavior;
     #endregion
 
-    #region IStats Variables
-    public int healthPoints
+    [HideInInspector] public Animator animator;					//Used to store a reference to the Player's animator component.
+
+    public Image healthBar;
+    public Text healthValue;
+
+    public BoxCollider2D boxCollider { get; set; }
+    public Rigidbody2D rb2D { get; set; }
+    public float moveTime { get; set; }
+    public float inverseMoveTime { get; set; }
+
+    [SerializeField]
+    private LayerMask _blockingLayer;
+    public LayerMask BlockingLayer
     {
         get
         {
-            return HP;
+            return _blockingLayer;
         }
         set
         {
-            _healthPoints = HP;
+            _blockingLayer = value;
         }
     }
-    public int magicPoints
+
+    #region Get/Set Stats
+    [SerializeField]
+    private string entityName;
+    public string Name
     {
         get
         {
-            return MP;
+            return entityName;
         }
         set
         {
-            _magicPoints = value;
+            entityName = value;
         }
     }
-    public int physicalAttack
+
+    [SerializeField]
+    private int HealthPoints;
+    public int HP
+    {
+        get
+        {
+            return HealthPoints;
+        }
+        set
+        {
+            HealthPoints = value;
+        }
+    }
+
+    [SerializeField]
+    private int MagicPoints;
+    public int MP
+    {
+        get
+        {
+            return MagicPoints;
+        }
+        set
+        {
+            MagicPoints = value;
+        }
+    }
+
+    [SerializeField]
+    private int PhysicalAttack;
+    public int PhysAtk
     {
         get
         {
@@ -51,10 +89,12 @@ public class LivingEntity : MonoBehaviour, IStats
         }
         set
         {
-            _physicalAttack = value;
+            PhysicalAttack = value;
         }
     }
-    public int magicAttack
+    [SerializeField]
+    private int MagicAttack;
+    public int MagAtk
     {
         get
         {
@@ -62,76 +102,42 @@ public class LivingEntity : MonoBehaviour, IStats
         }
         set
         {
-            _magicAttack = value;
+            MagicAttack = value;
         }
     }
-    public int speed
+
+    [SerializeField]
+    private int speed;
+    public int Speed
     {
         get
         {
-            return Speed;
+            return speed;
         }
         set
         {
-            _speed = value;
+            speed = value;
         }
     }
+
+    private int maxHP;
     #endregion
 
-    public string Name;
-    public int HP;
-    public int MP;
-    public int PhysicalAttack;
-    public int MagicAttack;
-    public int Speed;
-
-    private int _healthPoints;
-    private int _magicPoints;
-    private int _physicalAttack;
-    private int _magicAttack;
-    private int _speed;
-
-    public LivingEntity()
+    public virtual void Start()
     {
-        playerName = Name;
-        healthPoints = HP;
-        magicPoints = MP;
-        physicalAttack = PhysicalAttack;
-        magicAttack = MagicAttack;
-        speed = Speed;
-    }
+        //Get a component reference to this object's BoxCollider2D
+        boxCollider = GetComponent<BoxCollider2D>();
 
-    private void Start()
-    {
+        //Get a component reference to this object's Rigidbody2D
+        rb2D = GetComponent<Rigidbody2D>();
+
+        //By storing the reciprocal of the move time we can use it by multiplying instead of dividing, this is more efficient.
+        inverseMoveTime = 1f / moveTime;
+
         //Get a component reference to the Player's animator component
         animator = GetComponent<Animator>();
 
-        //Set the foodText to reflect the current player food total.
-        healthText.text = "Health: " + healthPoints;
-        manaText.text = "Mana: " + magicPoints;
-
-    }
-
-    public string playerName { get; set; }
-
-    public void SetAttackBheavior(IAttackBehavior _attackBehavior)
-    {
-        attackBehavior = _attackBehavior;
-    }
-
-    public void SetDialogueBehavior(IDialogueBehavior _dialogueBehavior)
-    {
-        dialogueBehavior = _dialogueBehavior;
-    }
-
-    public void SetMovementBehavior(IMovementBehavior _movementBehavior)
-    {
-        movementBehavior = _movementBehavior;
-    }
-
-    public void PerformAttack()
-    {
-        attackBehavior.Attack();
+        maxHP = HP;
     }
 
     public void BeginDialogue()
@@ -139,29 +145,37 @@ public class LivingEntity : MonoBehaviour, IStats
         dialogueBehavior.Talk();
     }
 
-    public void Move()
-    {
-        //movementBehavior.Move();
-    }
-
     /// <summary>
-    /// Called when an entity is going to lose health points
+    /// Called when an entity is about to take damage
     /// </summary>
-    /// <param name="loss"> The amount of health points the entity will lose</param>
+    /// <param name="loss"> The amount of HP that the entity is going to lose </param>
     public void TakeDamage(int loss)
     {
         //Set the trigger for the player animator to transition to the playerHit animation.
-        animator.SetTrigger("playerHit");
 
         //Subtract lost food points from the players total.
-        healthPoints -= loss;
+        HP -= loss;
+
+        healthBar.fillAmount -= ((float)loss / (float)maxHP);
 
         //Update the food display with the new total.
-        healthText.text = "-" + loss + " Health: " + healthPoints;
+        healthValue.text = HP.ToString();
 
-        //Check to see if game has ended.
+        //Check to see if the entity is dead
+        CheckIfDead(); 
+    }
 
-        //> DONT FORGET ABOUT THIS <
-        //CheckIfGameOver(); 
+    private void CheckIfDead()
+    {
+        //Check if food point total is less than or equal to zero.
+        if (HP <= 0)
+        {
+            OnDeath();
+        }
+    }
+
+    public virtual void OnDeath()
+    {
+        gameObject.SetActive(false);
     }
 }
