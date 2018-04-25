@@ -8,6 +8,13 @@ namespace Completed
 {
     public class Player : LivingEntity, IMovement, IAttack
     {
+        public KeyCode left = KeyCode.A;
+        public KeyCode right = KeyCode.D;
+        public KeyCode up = KeyCode.W;
+        public KeyCode down = KeyCode.S;
+        public KeyCode use = KeyCode.E;
+
+        public int playerNumber;
         public IClassType classType;
         public float restartLevelDelay = 1f;        //Delay time in seconds to restart level.
 
@@ -43,28 +50,21 @@ namespace Completed
             if (!GameManager.instance.playersTurn)
                 return;
 
-            int horizontal = 0;     //Used to store the horizontal move direction.
-            int vertical = 0;       //Used to store the vertical move direction.
-
-            //Get input from the input manager, round it to an integer and store in horizontal to set x axis move direction
-            horizontal = (int)(Input.GetAxisRaw("Horizontal"));
-
-            //Get input from the input manager, round it to an integer and store in vertical to set y axis move direction
-            vertical = (int)(Input.GetAxisRaw("Vertical"));
-
-            //Check if moving horizontally, if so set vertical to zero.
-            if (horizontal != 0)
+            if (Input.GetKey(left))
             {
-                vertical = 0;
+                AttemptMove<Enemy>(-1, 0);
             }
-
-            //End of mobile platform dependendent compilation section started above with #elif
-            //Check if we have a non-zero value for horizontal or vertical
-            if (horizontal != 0 || vertical != 0)
+            else if (Input.GetKey(right))
             {
-                //Call AttemptMove passing in the generic parameter Wall, since that is what Player may interact with if they encounter one (by attacking it)
-                //Pass in horizontal and vertical as parameters to specify the direction to move Player in.
-                AttemptMove<Enemy>(horizontal, vertical);
+                AttemptMove<Enemy>(1, 0);
+            }
+            else if (Input.GetKey(up))
+            {
+                AttemptMove<Enemy>(0, 1);
+            }
+            else if (Input.GetKey(down))
+            {
+                AttemptMove<Enemy>(0, -1);
             }
 
         }

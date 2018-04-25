@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 61528736721721510}
   - component: {fileID: 114685453275122964}
   m_Layer: 8
-  m_Name: Enemy1
+  m_Name: ZombieWeak
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -284,12 +284,12 @@ MonoBehaviour:
   _blockingLayer:
     serializedVersion: 2
     m_Bits: 256
-  entityName: ZombBoi
+  entityName: Zomboy
   HealthPoints: 125
-  MagicPoints: 21
-  PhysicalAttack: 21
-  MagicAttack: 21
-  speed: 21
+  MagicPoints: 10
+  PhysicalAttack: 10
+  MagicAttack: 10
+  speed: 10
   attackSound1: {fileID: 8300000, guid: 0db8cac2749584a009540aa5671ee80d, type: 3}
   attackSound2: {fileID: 8300000, guid: 114514a3b3697484ebaa08f7fbf842d3, type: 3}
 --- !u!114 &114908322256556564

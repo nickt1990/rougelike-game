@@ -90,7 +90,6 @@ namespace Completed
         }
         #endregion
 
-
         public void CheckIfDead()
         {
         }

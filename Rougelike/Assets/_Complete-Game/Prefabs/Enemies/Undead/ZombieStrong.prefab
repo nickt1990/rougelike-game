@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6161064}
   - component: {fileID: 11461064}
   m_Layer: 8
-  m_Name: Enemy2
+  m_Name: ZombieStrong
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -115,10 +115,10 @@ MonoBehaviour:
     m_Bits: 256
   entityName: ZombMAN
   HealthPoints: 200
-  MagicPoints: 22
-  PhysicalAttack: 22
-  MagicAttack: 22
-  speed: 22
+  MagicPoints: 25
+  PhysicalAttack: 25
+  MagicAttack: 25
+  speed: 25
   attackSound1: {fileID: 8300000, guid: 0db8cac2749584a009540aa5671ee80d, type: 3}
   attackSound2: {fileID: 8300000, guid: 114514a3b3697484ebaa08f7fbf842d3, type: 3}
 --- !u!212 &21261064
