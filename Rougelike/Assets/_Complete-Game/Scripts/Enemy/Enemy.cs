@@ -21,10 +21,6 @@ namespace Completed
             //This allows the GameManager to issue movement commands.
             GameManager.instance.AddEnemyToList(this);
 
-            // Set the enemy health for the user to see
-            healthBar = GameObject.Find("HealthBarValue").GetComponent<Image>();
-            healthValue = GameObject.Find("HealthNumberValue").GetComponent<Text>();
-
             healthValue.text = HP.ToString();
 
             //Find the Player GameObject using it's tag and store a reference to its transform component.

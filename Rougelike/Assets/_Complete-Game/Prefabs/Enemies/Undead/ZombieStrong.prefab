@@ -108,8 +108,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
-  healthBar: {fileID: 0}
-  healthValue: {fileID: 0}
+  healthBar: {fileID: 114092112249466814}
+  healthValue: {fileID: 114926696918227532}
   _blockingLayer:
     serializedVersion: 2
     m_Bits: 256
@@ -188,7 +188,7 @@ GameObject:
   - component: {fileID: 114674097349269720}
   - component: {fileID: 114409682628403668}
   m_Layer: 8
-  m_Name: HealthBar
+  m_Name: HealthBarCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -205,7 +205,7 @@ GameObject:
   - component: {fileID: 222648986611454560}
   - component: {fileID: 114926696918227532}
   m_Layer: 8
-  m_Name: HealthNumberValue
+  m_Name: HealthBarValue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -222,7 +222,7 @@ GameObject:
   - component: {fileID: 222143602567069290}
   - component: {fileID: 114092112249466814}
   m_Layer: 8
-  m_Name: HealthBarValue
+  m_Name: HealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
