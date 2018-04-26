@@ -7,9 +7,11 @@ using System;
 public class Character : MonoBehaviour, IStats
 {
     #region Interfaces
-    public IAttack attackBehavior;
-    public IDialogueBehavior dialogueBehavior;
-    public IMovementBehavior movementBehavior;
+    public IAttack attackBehavior;              // A character can attack in some way
+    public IDialogueBehavior dialogueBehavior;  // A character can talk in some way
+    public IMovementBehavior movementBehavior;  // A character can move in some way
+    public IClassType classType;                // A character can have a class
+    public ISkill[] skills;                     // A character can have skill(s)
     #endregion
 
     [HideInInspector] public Animator animator;					//Used to store a reference to the Player's animator component.
@@ -36,91 +38,116 @@ public class Character : MonoBehaviour, IStats
         }
     }
 
-    #region Get/Set Stats
-    [SerializeField]
-    private string entityName;
-    public string Name
-    {
-        get
-        {
-            return entityName;
-        }
-        set
-        {
-            entityName = value;
-        }
-    }
+    #region Stats
 
-    [SerializeField]
-    private int HealthPoints;
-    public int HP
-    {
-        get
+        // Used as a base for the class to go off of, and also used if character has no class
+        #region Base Stats
+        [Header("Base Stats")]
+        [SerializeField]
+        private string entityName;
+        public string Name
         {
-            return HealthPoints;
+            get
+            {
+                return entityName;
+            }
+            set
+            {
+                entityName = value;
+            }
         }
-        set
-        {
-            HealthPoints = value;
-        }
-    }
 
-    [SerializeField]
-    private int MagicPoints;
-    public int MP
-    {
-        get
+        [SerializeField]
+        private int BaseHealthPoints;
+        public int HP
         {
-            return MagicPoints;
+            get
+            {
+                return BaseHealthPoints;
+            }
+            set
+            {
+                BaseHealthPoints = value;
+            }
         }
-        set
-        {
-            MagicPoints = value;
-        }
-    }
 
-    [SerializeField]
-    private int PhysicalAttack;
-    public int PhysAtk
-    {
-        get
+        [SerializeField]
+        private int BaseMagicPoints;
+        public int MP
         {
-            return PhysicalAttack;
+            get
+            {
+                return BaseMagicPoints;
+            }
+            set
+            {
+                BaseMagicPoints = value;
+            }
         }
-        set
-        {
-            PhysicalAttack = value;
-        }
-    }
-    [SerializeField]
-    private int MagicAttack;
-    public int MagAtk
-    {
-        get
-        {
-            return MagicAttack;
-        }
-        set
-        {
-            MagicAttack = value;
-        }
-    }
 
-    [SerializeField]
-    private int speed;
-    public int Speed
-    {
-        get
+        [SerializeField]
+        private int BasePhysicalAttack;
+        public int PhysAtk
         {
-            return speed;
+            get
+            {
+                return BasePhysicalAttack;
+            }
+            set
+            {
+                BasePhysicalAttack = value;
+            }
         }
-        set
+        [SerializeField]
+        private int BaseMagicAttack;
+        public int MagAtk
         {
-            speed = value;
+            get
+            {
+                return BaseMagicAttack;
+            }
+            set
+            {
+                BaseMagicAttack = value;
+            }
         }
-    }
 
-    private int maxHP;
+        [SerializeField]
+        private int BaseSpeed;
+        public int baseSpeed
+        {
+            get
+            {
+                return BaseSpeed;
+            }
+            set
+            {
+                BaseSpeed = value;
+            }
+        }
+
+        private int maxHP;
+        #endregion
+
+        // After the class modifies the base stats
+        #region Modified Stats
+        [Header("Class Modified Stats")]
+        [NonSerialized]
+        public int HealthPoints;
+
+        [NonSerialized]
+        public int MagicPoints;
+
+        [NonSerialized]
+        public int PhysicalAttack;
+
+        [NonSerialized]
+        public int MagicAttack;
+
+        [NonSerialized]
+        public int Speed;
+        #endregion
+
     #endregion
 
     public virtual void Start()
@@ -137,9 +164,9 @@ public class Character : MonoBehaviour, IStats
         //Get a component reference to the Player's animator component
         animator = GetComponent<Animator>();
 
-        healthValue.text = HP.ToString();
+        healthValue.text = HealthPoints.ToString();
 
-        maxHP = HP; // Max amount of HP that a player starts with
+        maxHP = HealthPoints; // Max amount of HP that a player starts with
     }
 
     public void SetMovementBehavior(IMovementBehavior mb)
@@ -150,6 +177,11 @@ public class Character : MonoBehaviour, IStats
     public void SetDialogueBehavior(IDialogueBehavior db)
     {
         dialogueBehavior = db;
+    }
+
+    public void SetClassType(IClassType ct)
+    {
+        classType = ct;
     }
 
     public void BeginDialogue()

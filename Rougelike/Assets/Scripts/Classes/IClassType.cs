@@ -5,8 +5,9 @@ using System.Text;
 
 public interface IClassType
 {
+    IStatModifier statModifier { get; set; }
+    string className { get; set; }
     string GetClassName();
-    void StatModifier();
     void Strength();
     void Weakness();
 

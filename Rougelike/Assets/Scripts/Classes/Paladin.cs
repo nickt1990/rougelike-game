@@ -5,20 +5,30 @@ using System.Text;
 
 public class Paladin : IClassType
 {
-    string _className;
-    public Paladin()
+    public Character character;
+    public string className { get; set; }
+
+    public IStatModifier statModifier { get; set; }
+    public ISkill skill;
+    public List<ISkill> skills = new List<ISkill>();
+
+    public Paladin(Character _character)
     {
-        _className = "Paladin";
+        character = _character;
+        className = "Paladin";
+        AddDefaultSkills();
+        statModifier = new PaladinModifier(_character);
+    }
+
+    public void AddDefaultSkills()
+    {
+        skills.Add(new DoubleStab());
+        skills.Add(new Heal());
     }
 
     public string GetClassName()
     {
-        return _className;
-    }
-
-    public void StatModifier()
-    {
-        Console.WriteLine("My magic and strength are high.  But my speed is low");
+        return className;
     }
 
     public void Strength()

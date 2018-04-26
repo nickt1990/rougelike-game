@@ -7,8 +7,4 @@ public interface IMovementBehavior
     void CheckMovement();
 }
 
-namespace Completed
-{
-}
-
 

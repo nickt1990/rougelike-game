@@ -9,30 +9,16 @@ namespace Completed
     public class Player : Character, IAttack
     {
         public int playerNumber;
-
-        public IClassType classType;
-
+        public IExecutable executable;
         public float restartLevelDelay = 1f;        //Delay time in seconds to restart level.
-
-        public Player(IClassType _thisClass)
-        {
-            classType = _thisClass;
-        }
 
         public override void Start()
         {
-            base.Start();   // Base classes Start function gives Living Entity all things a Living Entity needs
-
             SetMovementBehavior(new PlayerMovement(this));
-        }
 
-        /// <summary>
-        /// This will be called if the player has chosen to change their class
-        /// </summary>
-        /// <param name="newClass"></param>
-        public void SetClass(IClassType newClass)
-        {
-            classType = newClass;
+            SetClassType(new Paladin(this));
+
+            base.Start();   // Base classes Start function gives Living Entity all things a Living Entity needs
         }
 
         /// <summary>
@@ -45,8 +31,6 @@ namespace Completed
                 return;
 
             movementBehavior.CheckMovement();
-
-
         }
 
         /// <summary>
@@ -79,16 +63,22 @@ namespace Completed
         }
 
         #region Attack Functionality
+
         public void PerformPhysicalAttack<T>(T component) where T : Component
         {
             //Set hitWall to equal the component passed in as a parameter.
             Enemy target = component as Enemy;
 
             //Call the DamageWall function of the Wall we are hitting.
-            target.TakeDamage(PhysAtk);
+            target.TakeDamage(PhysicalAttack);
 
             //Set the attack trigger of the player's animation controller in order to play the player's attack animation.
             animator.SetTrigger("playerChop");
+        } 
+
+        public void PerformSkill<T>(T component, ISkill skill)
+        {
+            Enemy target = component as Enemy;
         }
 
         public void PerformMagicAttack<T>(T target) where T : Component

@@ -8,8 +8,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 433658}
-  - component: {fileID: 11433656}
-  - component: {fileID: 11433658}
+  - component: {fileID: 114531964618736650}
+  - component: {fileID: 114976594868592892}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -30,7 +30,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &11433656
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 133658}
+  m_IsPrefabParent: 1
+--- !u!114 &114531964618736650
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -38,14 +49,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 133658}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7d59e4dfb9c9404b9471de0c983feac, type: 3}
+  m_Script: {fileID: 11500000, guid: aa0df26288375a843a92d8639064a159, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   levelStartDelay: 2
   turnDelay: 0.1
   playerFoodPoints: 100
   playersTurn: 1
---- !u!114 &11433658
+--- !u!114 &114976594868592892
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -53,7 +64,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 133658}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fff182172d726402b9e9eacdb89c9724, type: 3}
+  m_Script: {fileID: 11500000, guid: 2d220cc5ae3dbd344abdcdf1a50a4577, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   columns: 19
@@ -93,14 +104,3 @@ MonoBehaviour:
   - {fileID: 110520, guid: 7094f72151ec74f569c4e03f1ec0f8e7, type: 2}
   - {fileID: 110520, guid: b0ace21a29149403094422fb3bd96aa9, type: 2}
   - {fileID: 110520, guid: e85c94355cc4641da919bd5d0ac956d4, type: 2}
---- !u!1001 &100100000
-Prefab:
-  m_ObjectHideFlags: 1
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications: []
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 133658}
-  m_IsPrefabParent: 1
