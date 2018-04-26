@@ -1,14 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEngine.UI;	//Allows us to use UI.
-using UnityEngine.SceneManagement;
-using System;
-
-
-public interface IMovementBehavior
-{
-    void CheckMovement();
-}
 
 namespace Completed
 {
@@ -186,14 +177,5 @@ namespace Completed
 
     }
 
-}
-class EnemyMovement : IMovementBehavior
-{
-    public Character currentCharacter { get; set; }
-
-    public void CheckMovement()
-    {
-        throw new NotImplementedException();
-    }
 }
 
