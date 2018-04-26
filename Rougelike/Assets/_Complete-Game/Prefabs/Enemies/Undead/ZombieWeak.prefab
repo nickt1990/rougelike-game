@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 114224586211010294}
   - component: {fileID: 114308949552794528}
   m_Layer: 8
-  m_Name: HealthBar
+  m_Name: EnemyCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,6 +75,23 @@ GameObject:
   - component: {fileID: 114310121995765296}
   m_Layer: 8
   m_Name: HealthBG
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1751763463661676
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 224917866679066520}
+  - component: {fileID: 222165757709764284}
+  - component: {fileID: 114477632899286966}
+  m_Layer: 8
+  m_Name: Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -240,6 +257,39 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114477632899286966
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1751763463661676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: b284a6525342f44599e9ce79e37c2d61, type: 3}
+    m_FontSize: 300
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 0
+    m_MaxSize: 300
+    m_Alignment: 1
+    m_AlignByGeometry: 1
+    m_RichText: 1
+    m_HorizontalOverflow: 1
+    m_VerticalOverflow: 1
+    m_LineSpacing: 1
+  m_Text: Name
 --- !u!114 &114542754399620806
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -292,6 +342,7 @@ MonoBehaviour:
   speed: 10
   attackSound1: {fileID: 8300000, guid: 0db8cac2749584a009540aa5671ee80d, type: 3}
   attackSound2: {fileID: 8300000, guid: 114514a3b3697484ebaa08f7fbf842d3, type: 3}
+  EnemyNameText: {fileID: 114477632899286966}
 --- !u!114 &114908322256556564
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -369,6 +420,12 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
+--- !u!222 &222165757709764284
+CanvasRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1751763463661676}
 --- !u!222 &222518552980810696
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -419,6 +476,7 @@ RectTransform:
   m_Children:
   - {fileID: 224858008599574600}
   - {fileID: 224994217580764104}
+  - {fileID: 224917866679066520}
   m_Father: {fileID: 4191601187233550}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -463,6 +521,24 @@ RectTransform:
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -0.4018}
   m_SizeDelta: {x: 1, y: 0.1964}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!224 &224917866679066520
+RectTransform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1751763463661676}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.12800598, z: 0}
+  m_LocalScale: {x: 0.0005, y: 0.0005, z: 1}
+  m_Children: []
+  m_Father: {fileID: 224024554163645366}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0.000000035863, y: -0.128}
+  m_SizeDelta: {x: 2000, y: 268.25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224994217580764104
 RectTransform:

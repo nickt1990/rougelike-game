@@ -6,7 +6,7 @@ using System;
 
 namespace Completed
 {
-    public class Player : LivingEntity, IMovement, IAttack
+    public class Player : Character, IMovement, IAttack
     {
         public KeyCode left = KeyCode.A;
         public KeyCode right = KeyCode.D;

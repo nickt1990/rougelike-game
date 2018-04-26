@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class EnemyMove : MonoBehaviour
 {
-    public LivingEntity currentPlayer;
+    public Character currentPlayer;
 
     public AudioClip moveSound1;                //1 of 2 Audio clips to play when player moves.
     public AudioClip moveSound2;                //2 of 2 Audio clips to play when player moves.
