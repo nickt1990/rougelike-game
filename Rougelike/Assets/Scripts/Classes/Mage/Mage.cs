@@ -6,16 +6,26 @@ using System.Text;
 
 public class Mage : IClassType
 {
-    public Character character;
     public string className { get; set; }
 
-    public IStatModifier statModifier { get; set; }
+    public List<ISkill> skills { get; set; }
 
-    public Mage(Character _character)
+    public IStatModifier statModifier { get; set; }
+    public Mage(Character character)
     {
-        character = _character;
         className = "Mage";
-        statModifier = new MageModifier(_character);
+        statModifier = new MageModifier(character);
+        skills = AddDefaultSkills();
+    }
+
+    public List<ISkill> AddDefaultSkills()
+    {
+        List<ISkill> allSkills = new List<ISkill>();
+
+        allSkills.Add(new Heal());
+        allSkills.Add(new FireBall());
+        
+        return allSkills;
     }
 
     public string GetClassName()

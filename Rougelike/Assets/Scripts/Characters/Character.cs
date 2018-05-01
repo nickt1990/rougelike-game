@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.UI;	//Allows us to use UI.
 using UnityEngine.SceneManagement;
 using System;
@@ -11,7 +11,6 @@ public class Character : MonoBehaviour, IStats
     public IDialogueBehavior dialogueBehavior;  // A character can talk in some way
     public IMovementBehavior movementBehavior;  // A character can move in some way
     public IClassType classType;                // A character can have a class
-    public ISkill[] skills;                     // A character can have skill(s)
     #endregion
 
     [HideInInspector] public Animator animator;					//Used to store a reference to the Player's animator component.
@@ -38,120 +37,127 @@ public class Character : MonoBehaviour, IStats
         }
     }
 
+    [Header("Damage Modification")]
+    public List<Element> ElementalWeaknesses = new List<Element>();   // List of element that the Character is weak against (2x damage taken)
+    public List<Element> ElementalResistances = new List<Element>();  // List of element that the character is strong against (1/2 damage taken)
+
     #region Stats
 
-        // Used as a base for the class to go off of, and also used if character has no class
-        #region Base Stats
-        [Header("Base Stats")]
-        [SerializeField]
-        private string entityName;
-        public string Name
+    // Used as a base for the class to go off of, and also used if character has no class
+    #region Base Stats
+    [Header("Base Stats")]
+    [SerializeField]
+    private string entityName;
+    public string Name
+    {
+        get
         {
-            get
-            {
-                return entityName;
-            }
-            set
-            {
-                entityName = value;
-            }
+            return entityName;
         }
-
-        [SerializeField]
-        private int BaseHealthPoints;
-        public int HP
+        set
         {
-            get
-            {
-                return BaseHealthPoints;
-            }
-            set
-            {
-                BaseHealthPoints = value;
-            }
+            entityName = value;
         }
+    }
 
-        [SerializeField]
-        private int BaseMagicPoints;
-        public int MP
+    [SerializeField]
+    private int BaseHealthPoints;
+    public int HP
+    {
+        get
         {
-            get
-            {
-                return BaseMagicPoints;
-            }
-            set
-            {
-                BaseMagicPoints = value;
-            }
+            return BaseHealthPoints;
         }
-
-        [SerializeField]
-        private int BasePhysicalAttack;
-        public int PhysAtk
+        set
         {
-            get
-            {
-                return BasePhysicalAttack;
-            }
-            set
-            {
-                BasePhysicalAttack = value;
-            }
+            BaseHealthPoints = value;
         }
-        [SerializeField]
-        private int BaseMagicAttack;
-        public int MagAtk
+    }
+
+    [SerializeField]
+    private int BaseMagicPoints;
+    public int MP
+    {
+        get
         {
-            get
-            {
-                return BaseMagicAttack;
-            }
-            set
-            {
-                BaseMagicAttack = value;
-            }
+            return BaseMagicPoints;
         }
-
-        [SerializeField]
-        private int BaseSpeed;
-        public int baseSpeed
+        set
         {
-            get
-            {
-                return BaseSpeed;
-            }
-            set
-            {
-                BaseSpeed = value;
-            }
+            BaseMagicPoints = value;
         }
+    }
 
-        private int maxHP;
-        #endregion
+    [SerializeField]
+    private int BasePhysicalAttack;
+    public int PhysAtk
+    {
+        get
+        {
+            return BasePhysicalAttack;
+        }
+        set
+        {
+            BasePhysicalAttack = value;
+        }
+    }
+    [SerializeField]
+    private int BaseMagicAttack;
+    public int MagAtk
+    {
+        get
+        {
+            return BaseMagicAttack;
+        }
+        set
+        {
+            BaseMagicAttack = value;
+        }
+    }
 
-        // After the class modifies the base stats
-        #region Modified Stats
-        [Header("Class Modified Stats")]
-        [NonSerialized]
-        public int HealthPoints;
+    [SerializeField]
+    private int BaseSpeed;
+    public int baseSpeed
+    {
+        get
+        {
+            return BaseSpeed;
+        }
+        set
+        {
+            BaseSpeed = value;
+        }
+    }
 
-        [NonSerialized]
-        public int MagicPoints;
+    public int maxHP;
+    #endregion
 
-        [NonSerialized]
-        public int PhysicalAttack;
+    // After the class modifies the base stats
+    #region Modified Stats
+    [Header("Class Modified Stats")]
+    [NonSerialized]
+    public int HealthPoints;
 
-        [NonSerialized]
-        public int MagicAttack;
+    [NonSerialized]
+    public int MagicPoints;
 
-        [NonSerialized]
-        public int Speed;
-        #endregion
+    [NonSerialized]
+    public int PhysicalAttack;
+
+    [NonSerialized]
+    public int MagicAttack;
+
+    [NonSerialized]
+    public int Speed;
+    private Character _character;
+    #endregion
 
     #endregion
 
     public virtual void Start()
     {
+        //character = this;
+
         //Get a component reference to this object's BoxCollider2D
         boxCollider = GetComponent<BoxCollider2D>();
 
@@ -164,9 +170,7 @@ public class Character : MonoBehaviour, IStats
         //Get a component reference to the Player's animator component
         animator = GetComponent<Animator>();
 
-        healthValue.text = HealthPoints.ToString();
-
-        maxHP = HealthPoints; // Max amount of HP that a player starts with
+        SetClassType(new NoClass(this));    // Every Character starts with No Class - This can be changed at any time if a specific character needs one.
     }
 
     public void SetMovementBehavior(IMovementBehavior mb)
@@ -186,27 +190,27 @@ public class Character : MonoBehaviour, IStats
 
     public void BeginDialogue()
     {
-        
+
     }
 
     /// <summary>
     /// Called when an entity is about to take damage
     /// </summary>
-    /// <param name="loss"> The amount of HP that the entity is going to lose </param>
-    public void TakeDamage(int loss)
+    /// <param name="damage"> The amount of HP that the entity is going to lose </param>
+    public void TakeDamage(int damage)
     {
         //Set the trigger for the player animator to transition to the playerHit animation.
 
         //Subtract lost food points from the players total.
-        HP -= loss;
+        HP -= damage;
 
-        healthBar.fillAmount -= ((float)loss / (float)maxHP);   // Changes the fill amount to decrease when a character takes damage
+        healthBar.fillAmount -= ((float)damage / (float)maxHP);   // Changes the fill amount to decrease when a character takes damage
 
         //Update the food display with the new total.
         healthValue.text = HP.ToString();
 
         //Check to see if the entity is dead
-        CheckIfDead(); 
+        CheckIfDead();
     }
 
     private void CheckIfDead()
