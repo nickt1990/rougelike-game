@@ -100,17 +100,16 @@ MonoBehaviour:
   _blockingLayer:
     serializedVersion: 2
     m_Bits: 256
+  ElementalWeaknesses: 
+  ElementalResistances: 
   entityName: Billy
-  HealthPoints: 100
-  MagicPoints: 17
-  PhysicalAttack: 19
-  MagicAttack: 36
-  speed: 38
-  left: 97
-  right: 100
-  up: 119
-  down: 115
-  use: 101
+  BaseHealthPoints: 100
+  BaseMagicPoints: 10
+  BasePhysicalAttack: 10
+  BaseMagicAttack: 10
+  BaseSpeed: 10
+  maxHP: 0
+  expBar: {fileID: 0}
   playerNumber: 1
   restartLevelDelay: 1
 --- !u!212 &21246652

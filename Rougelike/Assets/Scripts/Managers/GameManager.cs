@@ -9,9 +9,10 @@ public class GameManager : MonoBehaviour
 {
     public float levelStartDelay = 2f;                      //Time to wait before starting level, in seconds.
     public float turnDelay = 0.1f;                          //Delay between each Player turn.
-    public int playerFoodPoints = 100;                      //Starting value for Player food points.
     public static GameManager instance = null;              //Static instance of GameManager which allows it to be accessed by any other script.
     [HideInInspector] public bool playersTurn = true;       //Boolean to check if it's players turn, hidden in inspector but public.
+
+    public Player player1;
 
     private Text levelText;                                 //Text to display current level number.
     private Text levelUpText;
@@ -21,8 +22,6 @@ public class GameManager : MonoBehaviour
     private List<Character> enemies;                            //List of all Enemy units, used to issue them move commands.
     private bool enemiesMoving;                             //Boolean to check if enemies are moving.
     private bool doingSetup = true;                         //Boolean to check if we're setting up board, prevent Player from moving during setup.
-
-
 
     //Awake is always called before any Start functions
     void Awake()
@@ -55,7 +54,7 @@ public class GameManager : MonoBehaviour
     //this is called only once, and the paramter tell it to be called only after the scene was loaded
     //(otherwise, our Scene Load callback would be called the very first load, and we don't want that)
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
-    static public void CallbackInitialization()
+    public static void CallbackInitialization()
     {
         //register the callback to be called everytime the scene is loaded
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -95,7 +94,6 @@ public class GameManager : MonoBehaviour
 
         //Call the SetupScene function of the BoardManager script, pass it current level number.
         boardScript.SetupScene(level);
-
     }
 
 

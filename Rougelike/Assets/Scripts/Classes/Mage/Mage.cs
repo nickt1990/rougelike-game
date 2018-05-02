@@ -27,7 +27,6 @@ public class Mage : MageModifier, IClassType
     {
         List<ISkill> allSkills = new List<ISkill>();
 
-        allSkills.Add(new Heal());
         allSkills.Add(new FireBall());
         
         return allSkills;

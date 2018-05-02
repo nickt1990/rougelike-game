@@ -15,9 +15,11 @@
     {
         int modifiedDamage = 0; //Damage that is modified based on the resistances and weaknesses of the defender
 
+        Enemy target = defender as Enemy;
+
         modifiedDamage = CalculateDamage(attacker, defender, this);
 
-        defender.TakeDamage(modifiedDamage);
+        target.TakeDamage(modifiedDamage);
     }
 }
 

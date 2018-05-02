@@ -11,7 +11,8 @@ public enum ClassType
 
 public interface IClassType
 {
-    List<ISkill> skills { get; set; }
+    List<ISkill> skills { get; set; }   
     string className { get; set; }
     string GetClassName();
+    void OnLevelUp(Player player);
 }

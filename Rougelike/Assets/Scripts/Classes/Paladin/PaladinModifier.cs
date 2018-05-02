@@ -12,6 +12,13 @@
         character.maxHP = character.HealthPoints;
         character.healthValue.text = character.HealthPoints.ToString() + "/" + character.maxHP.ToString();
     }
+
+    public void OnLevelUp(Player player)
+    {
+        LevelUp(player, 25, 25, 5, 5, 2);
+
+        player.healthValue.text = player.HealthPoints.ToString() + "/" + player.maxHP.ToString();
+    }
 }
 
 

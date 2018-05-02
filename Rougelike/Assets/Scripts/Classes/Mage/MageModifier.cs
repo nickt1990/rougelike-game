@@ -10,8 +10,16 @@
         character.Speed = character.baseSpeed;                                                      // Speed remains unchanged.
 
         character.maxHP = character.HealthPoints;
-        character.healthValue.text = character.HealthPoints.ToString();
+        character.healthValue.text = character.HealthPoints.ToString() + "/" + character.maxHP.ToString();
     }
+
+    public void OnLevelUp(Player player)
+    {
+        LevelUp(player, 10, 50, 2, 10, 3);
+
+        player.healthValue.text = player.HealthPoints.ToString() + "/" + player.maxHP.ToString();
+    }
+
 }
 
 

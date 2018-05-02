@@ -16,6 +16,18 @@ public class BaseModifier
         character.maxHP = character.HealthPoints;
         character.healthValue.text = character.HealthPoints.ToString() + "/" + character.maxHP.ToString();
     }
+
+    public void LevelUp(Player player, int hpGained, int mpGained, int physAtkGained, int magAtkGained, int speedGained)
+    {
+        player.maxHP += hpGained;
+        player.HealthPoints = player.maxHP;
+        player.MagicPoints += mpGained;
+        player.PhysicalAttack += physAtkGained;
+        player.MagicAttack += magAtkGained;
+        player.Speed += speedGained;
+
+        player.healthValue.text = player.HealthPoints.ToString() + "/" + player.maxHP.ToString();
+    }
 }
 
 

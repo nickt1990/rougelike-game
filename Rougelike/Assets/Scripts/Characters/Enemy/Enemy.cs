@@ -8,6 +8,7 @@ public class Enemy : Character, IAttack
     public AudioClip attackSound1;                      //First of two audio clips to play when attacking the player.
     public AudioClip attackSound2;                      //Second of two audio clips to play when attacking the player.
     public Text EnemyNameText;
+    public Text EnemyDamageText;
 
     [Header("Experience")]
     public int experience;
@@ -29,9 +30,6 @@ public class Enemy : Character, IAttack
 
         // Find the Player GameObject using it's tag and store a reference to its transform component.
         target = GameObject.FindGameObjectWithTag("Player").transform;
-
-        maxHP = HealthPoints;
-        healthValue.text = HealthPoints.ToString();
     }
 
     public void PerformPhysicalAttack<T>(T component) where T : Component
@@ -52,6 +50,28 @@ public class Enemy : Character, IAttack
     public void PerformMagicAttack<T>(T component) where T : Component
     {
         throw new System.NotImplementedException();
+    }
+
+    /// <summary>
+    /// Called when an entity is about to take damage
+    /// </summary>
+    /// <param name="damage"> The amount of HP that the entity is going to lose </param>
+    public void TakeDamage(int damage)
+    {
+        //Set the trigger for the player animator to transition to the playerHit animation.
+
+        //Subtract lost food points from the players total.
+        HP -= damage;
+
+        healthBar.fillAmount -= ((float)damage / (float)maxHP);   // Changes the fill amount to decrease when a character takes damage
+
+        EnemyDamageText.text = "-" + damage;
+
+        //Update the food display with the new total.
+        healthValue.text = HP.ToString() + "/" + maxHP.ToString();
+
+        //Check to see if the entity is dead
+        CheckIfDead();
     }
 }
 

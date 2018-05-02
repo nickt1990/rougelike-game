@@ -149,14 +149,13 @@ public class Character : MonoBehaviour, IStats
 
     [NonSerialized]
     public int Speed;
-    private Character _character;
     #endregion
 
     #endregion
 
     public virtual void Start()
     {
-        //character = this;
+        //DontDestroyOnLoad(gameObject);
 
         //Get a component reference to this object's BoxCollider2D
         boxCollider = GetComponent<BoxCollider2D>();
@@ -198,13 +197,14 @@ public class Character : MonoBehaviour, IStats
     public void PerformPhysicalAttack<T>(T component) where T : Component
     {
         // The component that was passed in is the target that the Character is hitting, so we set it to be so.
-        Character target = component as Character;
+        Enemy target = component as Enemy;
 
         //Call the TakeDamage function of the Character we are hitting.
         target.TakeDamage(PhysicalAttack);
 
         //Set the attack trigger of the player's animation controller in order to play the player's attack animation.
         animator.SetTrigger("playerChop");
+        
     }
 
     public void CastSkill<T>(T component)
@@ -212,6 +212,8 @@ public class Character : MonoBehaviour, IStats
         Character target = component as Character;
 
         classType.skills[0].Cast(this, target);
+
+        animator.SetTrigger("playerChop");
     }
 
     public void PerformMagicAttack<T>(T target) where T : Component
@@ -219,26 +221,6 @@ public class Character : MonoBehaviour, IStats
         throw new NotImplementedException();
     }
     #endregion
-
-    /// <summary>
-    /// Called when an entity is about to take damage
-    /// </summary>
-    /// <param name="damage"> The amount of HP that the entity is going to lose </param>
-    public void TakeDamage(int damage)
-    {
-        //Set the trigger for the player animator to transition to the playerHit animation.
-
-        //Subtract lost food points from the players total.
-        HP -= damage;
-
-        healthBar.fillAmount -= ((float)damage / (float)maxHP);   // Changes the fill amount to decrease when a character takes damage
-
-        //Update the food display with the new total.
-        healthValue.text = HP.ToString() + "/" + maxHP.ToString();
-
-        //Check to see if the entity is dead
-        CheckIfDead();
-    }
 
     public bool CheckIfDead()
     {

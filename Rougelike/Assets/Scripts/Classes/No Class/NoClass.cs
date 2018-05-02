@@ -18,4 +18,11 @@ public class NoClass : BaseModifier, IClassType
     {
         return className;
     }
+
+    public void OnLevelUp(Player player)
+    {
+        LevelUp(player, 15, 15, 5, 5, 5);
+
+        player.healthValue.text = player.HealthPoints.ToString() + "/" + player.maxHP.ToString();
+    }
 }
