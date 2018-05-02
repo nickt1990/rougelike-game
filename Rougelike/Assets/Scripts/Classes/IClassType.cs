@@ -8,11 +8,10 @@ public enum ClassType
     Paladin = 1,
     Mage = 2
 }
+
 public interface IClassType
 {
     List<ISkill> skills { get; set; }
-    IStatModifier statModifier { get; set; }
     string className { get; set; }
     string GetClassName();
-
 }

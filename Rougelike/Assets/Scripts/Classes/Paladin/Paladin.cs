@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-public class Paladin : IClassType
+public class Paladin : PaladinModifier, IClassType
 {
     public string className { get; set; }
 
@@ -13,7 +13,14 @@ public class Paladin : IClassType
 
     public ISkill skill;
 
-    public Paladin(Character character)
+    /// <summary>
+    /// Sets the class name and adds skills to the class
+    /// </summary>
+    /// 
+    /// Base: This is the PaladinModifer, which modifies all stats to fit that of a Paladin.
+    /// 
+    /// <param name="character"> The character that is becoming the mage class </param>
+    public Paladin(Character character) : base(character)
     {
         className = "Paladin";
         statModifier = new PaladinModifier(character);
@@ -25,7 +32,6 @@ public class Paladin : IClassType
     {
         List<ISkill> allSkills = new List<ISkill>();
 
-        allSkills.Add(new FireBall());
         allSkills.Add(new DoubleStab());
         allSkills.Add(new Heal());
 

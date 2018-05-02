@@ -3,19 +3,48 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-public class DamageCalculator
+public class SkillBase
 {
-    public void CalculateDamage(Character attacking, Character defending)
+    int modifiedDamage;
+
+    public int CalculateDamage(Character attacker, Character defender, ISkill skill)
     {
-        if (attacking.GetType() == typeof(Player))
+        modifiedDamage = skill.damage;
+        
+        // If the skill has a damagetype
+        if(skill.damageType != DamageType.None)
         {
-            attacking = (Player)attacking;
-            defending = (Enemy)defending;
+            AddStatDamage(attacker, skill);
         }
-        else
+
+        if(skill.element != Element.None)
         {
-            attacking = (Enemy)attacking;
-            defending = (Player)defending;
+            if (defender.ElementalWeaknesses.Contains(skill.element))    // If enemy has resistance to element, then...
+            {
+                // Damage is halved
+                modifiedDamage = (int)(modifiedDamage * 2);
+            }
+
+            if (defender.ElementalResistances.Contains(skill.element))    // If enemy has resistance to element, then...
+            {
+                // Damage is halved
+                modifiedDamage = (int)(modifiedDamage * .5);
+            }
+        }
+
+        return modifiedDamage;
+    }
+
+    public void AddStatDamage(Character attacker, ISkill skill)
+    {
+        if (skill.damageType == DamageType.Physical)
+        {
+            modifiedDamage += attacker.PhysAtk;
+        }
+
+        if (skill.damageType == DamageType.Magic)
+        {
+            modifiedDamage += attacker.MagAtk;
         }
     }
 }

@@ -10,7 +10,7 @@
         character.Speed = character.baseSpeed - (int)(character.baseSpeed * .25);                   // 25% less speed.
 
         character.maxHP = character.HealthPoints;
-        character.healthValue.text = character.HealthPoints.ToString();
+        character.healthValue.text = character.HealthPoints.ToString() + "/" + character.maxHP.ToString();
     }
 }
 

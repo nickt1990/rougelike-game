@@ -10,6 +10,7 @@ public class PlayerMovement : IMovementBehavior
     public KeyCode use = KeyCode.E;
 
     public Player currentPlayer;
+
     public PlayerMovement(Character character)
     {
         currentPlayer = (Player)character;
@@ -23,21 +24,20 @@ public class PlayerMovement : IMovementBehavior
 
         if (Input.GetKey(left))
         {
-            AttemptMove<Enemy>(-1, 0);
+            AttemptMove<Character>(-1, 0);
         }
         else if (Input.GetKey(right))
         {
-            AttemptMove<Enemy>(1, 0);
+            AttemptMove<Character>(1, 0);
         }
         else if (Input.GetKey(up))
         {
-            AttemptMove<Enemy>(0, 1);
+            AttemptMove<Character>(0, 1);
         }
         else if (Input.GetKey(down))
         {
-            AttemptMove<Enemy>(0, -1);
+            AttemptMove<Character>(0, -1);
         }
-
     }
 
     /// <summary>
@@ -169,7 +169,23 @@ public class PlayerMovement : IMovementBehavior
     /// <param name="component"> The actually type that the thing the player is running into will be </param>
     public void OnCantMove<T>(T component) where T : Component
     {
+        Character objectBeingHit = component as Character;
+
         currentPlayer.PerformPhysicalAttack(component);
+        //currentPlayer.CastSkill(component);   // If you want to cast a skill, uncomment this and comment out PerformPhysicalAttack.
+
+        if (objectBeingHit.CheckIfDead())
+        {
+            Enemy dyingEnemy = component as Enemy;
+
+            currentPlayer.AddExperience(dyingEnemy.experience);
+
+            if (currentPlayer.CheckIfLevel())
+            {
+                currentPlayer.LevelUp();
+            }
+        }
+
     }
 
 

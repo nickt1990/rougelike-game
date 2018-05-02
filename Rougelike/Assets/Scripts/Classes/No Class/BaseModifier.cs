@@ -3,7 +3,7 @@
 /// This class is here simply to ensure that all characters stats get instantiated correctly.
 /// All classes will go through this class at one point or another.
 /// </summary>
-public class BaseModifier : IStatModifier
+public class BaseModifier
 {
     public BaseModifier(Character character)
     {
@@ -14,7 +14,7 @@ public class BaseModifier : IStatModifier
         character.Speed = character.baseSpeed;
 
         character.maxHP = character.HealthPoints;
-        character.healthValue.text = character.HealthPoints.ToString();
+        character.healthValue.text = character.HealthPoints.ToString() + "/" + character.maxHP.ToString();
     }
 }
 

@@ -9,6 +9,9 @@ public class Enemy : Character, IAttack
     public AudioClip attackSound2;                      //Second of two audio clips to play when attacking the player.
     public Text EnemyNameText;
 
+    [Header("Experience")]
+    public int experience;
+
     private Transform target;                           //Transform to attempt to move toward each turn.
     private bool skipMove;                              //Boolean to determine whether or not enemy should skip a turn or move this turn.
 
@@ -26,6 +29,9 @@ public class Enemy : Character, IAttack
 
         // Find the Player GameObject using it's tag and store a reference to its transform component.
         target = GameObject.FindGameObjectWithTag("Player").transform;
+
+        maxHP = HealthPoints;
+        healthValue.text = HealthPoints.ToString();
     }
 
     public void PerformPhysicalAttack<T>(T component) where T : Component

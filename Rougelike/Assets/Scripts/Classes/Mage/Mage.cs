@@ -4,17 +4,22 @@ using System.Linq;
 using System.Text;
 
 
-public class Mage : IClassType
+public class Mage : MageModifier, IClassType
 {
     public string className { get; set; }
 
     public List<ISkill> skills { get; set; }
 
-    public IStatModifier statModifier { get; set; }
-    public Mage(Character character)
+    /// <summary>
+    /// Sets the class name and adds skills to the class
+    /// </summary>
+    /// 
+    /// Base: This is the MageModifier, which modifies all stats to fit that of a mage.
+    /// 
+    /// <param name="character"> The character that is becoming the mage class </param>
+    public Mage(Character character) : base (character)
     {
         className = "Mage";
-        statModifier = new MageModifier(character);
         skills = AddDefaultSkills();
     }
 

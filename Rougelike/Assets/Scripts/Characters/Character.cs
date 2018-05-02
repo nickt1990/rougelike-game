@@ -129,7 +129,7 @@ public class Character : MonoBehaviour, IStats
         }
     }
 
-    public int maxHP;
+    [HideInInspector] public int maxHP;
     #endregion
 
     // After the class modifies the base stats
@@ -193,6 +193,33 @@ public class Character : MonoBehaviour, IStats
 
     }
 
+    #region Attack Functionality
+
+    public void PerformPhysicalAttack<T>(T component) where T : Component
+    {
+        // The component that was passed in is the target that the Character is hitting, so we set it to be so.
+        Character target = component as Character;
+
+        //Call the TakeDamage function of the Character we are hitting.
+        target.TakeDamage(PhysicalAttack);
+
+        //Set the attack trigger of the player's animation controller in order to play the player's attack animation.
+        animator.SetTrigger("playerChop");
+    }
+
+    public void CastSkill<T>(T component)
+    {
+        Character target = component as Character;
+
+        classType.skills[0].Cast(this, target);
+    }
+
+    public void PerformMagicAttack<T>(T target) where T : Component
+    {
+        throw new NotImplementedException();
+    }
+    #endregion
+
     /// <summary>
     /// Called when an entity is about to take damage
     /// </summary>
@@ -207,19 +234,22 @@ public class Character : MonoBehaviour, IStats
         healthBar.fillAmount -= ((float)damage / (float)maxHP);   // Changes the fill amount to decrease when a character takes damage
 
         //Update the food display with the new total.
-        healthValue.text = HP.ToString();
+        healthValue.text = HP.ToString() + "/" + maxHP.ToString();
 
         //Check to see if the entity is dead
         CheckIfDead();
     }
 
-    private void CheckIfDead()
+    public bool CheckIfDead()
     {
         //Check if food point total is less than or equal to zero.
         if (HP <= 0)
         {
             OnDeath();
+            return true;
         }
+
+        return false;
     }
 
     public virtual void OnDeath()
