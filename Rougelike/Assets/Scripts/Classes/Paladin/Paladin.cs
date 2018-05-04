@@ -3,12 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-public class Paladin : PaladinModifier, IClassType
+public class Paladin : BaseClass, IClassType
 {
     public string className { get; set; }
-
-    public IStatModifier statModifier { get; set; }
-
     public List<ISkill> skills { get; set; }
 
     public ISkill skill;
@@ -23,9 +20,21 @@ public class Paladin : PaladinModifier, IClassType
     public Paladin(Character character) : base(character)
     {
         className = "Paladin";
-        statModifier = new PaladinModifier(character);
-        skills = AddDefaultSkills();
 
+        ModifyStats();
+        skills = AddDefaultSkills();
+    }
+
+    public void ModifyStats()
+    {
+        character.HealthPoints = character.HP + (int)(character.HP * .5);                           // 50% more hp.
+        character.MagicPoints = character.MP + (int)(character.MP * .25);                           // 25% more mp.
+        character.PhysicalAttack = character.PhysAtk + (int)(character.PhysAtk * .25);              // 25% more physical attack.
+        character.MagicAttack = character.MagAtk + (int)(character.MagAtk * .25);                   // 25% more magic attack.
+        character.Speed = character.baseSpeed - (int)(character.baseSpeed * .25);                   // 25% less speed.
+
+        character.maxHP = character.HealthPoints;
+        character.healthValue.text = character.HealthPoints.ToString() + "/" + character.maxHP.ToString();
     }
 
     public List<ISkill> AddDefaultSkills()
@@ -43,14 +52,21 @@ public class Paladin : PaladinModifier, IClassType
         return className;
     }
 
-    public void Strength()
+    public void OnLevelUp(Player player)
     {
-        Console.WriteLine("I can heal AND attack");
+        LevelUp(player, 25, 25, 5, 5, 2);
+
+        player.healthValue.text = player.HealthPoints.ToString() + "/" + player.maxHP.ToString();
     }
 
-    public void Weakness()
+    private void AddBaseResistances(Character character)
     {
-        Console.WriteLine("I have no weaknesses.  I am invincible");
+        character.resistances.Add(new Holy());
+    }
+
+    private void AddBaseWeaknesses(Character character)
+    {
+        character.weaknesses.Add(new Shadow());
     }
 }
 

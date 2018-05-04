@@ -9,6 +9,8 @@ public class Enemy : Character, IAttack
     public AudioClip attackSound2;                      //Second of two audio clips to play when attacking the player.
     public Text EnemyNameText;
     public Text EnemyDamageText;
+    public EnemyType enemyType;
+
 
     [Header("Experience")]
     public int experience;
@@ -32,7 +34,7 @@ public class Enemy : Character, IAttack
         target = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
-    public void PerformPhysicalAttack<T>(T component) where T : Component
+    public override void PerformPhysicalAttack<T>(T component)
     {
         //Declare hitPlayer and set it to equal the encountered component.
         Player target = component as Player;
@@ -47,7 +49,7 @@ public class Enemy : Character, IAttack
         SoundManager.instance.RandomizeSfx(attackSound1, attackSound2);
     }
 
-    public void PerformMagicAttack<T>(T component) where T : Component
+    public override void PerformMagicAttack<T>(T component)
     {
         throw new System.NotImplementedException();
     }
@@ -72,6 +74,16 @@ public class Enemy : Character, IAttack
 
         //Check to see if the entity is dead
         CheckIfDead();
+    }
+
+    public void AddNewResistance(IModifiesDamage newResistance)
+    {
+
+    }
+
+    public void AddNewWeakness(IModifiesDamage newWeakness)
+    {
+
     }
 }
 

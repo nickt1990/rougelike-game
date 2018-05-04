@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 222518552980810696}
   - component: {fileID: 114542754399620806}
   m_Layer: 8
-  m_Name: HealthBarValue
+  m_Name: HealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -57,7 +57,7 @@ GameObject:
   - component: {fileID: 222703549159835076}
   - component: {fileID: 114908322256556564}
   m_Layer: 8
-  m_Name: HealthNumberValue
+  m_Name: HealthValue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -126,7 +126,7 @@ GameObject:
   - component: {fileID: 95063659427882564}
   - component: {fileID: 50105339090038516}
   - component: {fileID: 61528736721721510}
-  - component: {fileID: 114685453275122964}
+  - component: {fileID: 114492495172853420}
   m_Layer: 8
   m_Name: ZombieWeak
   m_TagString: Enemy
@@ -307,6 +307,36 @@ MonoBehaviour:
     m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: Dmg
+--- !u!114 &114492495172853420
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1855953470579534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0620ff1d1592194d8c656fe5bc224e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+  healthBar: {fileID: 114542754399620806}
+  healthValue: {fileID: 114908322256556564}
+  _blockingLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  entityName: Zomboy
+  BaseHealthPoints: 125
+  BaseMagicPoints: 10
+  BasePhysicalAttack: 10
+  BaseMagicAttack: 10
+  BaseSpeed: 10
+  maxHP: 0
+  attackSound1: {fileID: 0}
+  attackSound2: {fileID: 0}
+  EnemyNameText: {fileID: 114668072857719270}
+  EnemyDamageText: {fileID: 114477632899286966}
+  enemyType: 1
+  experience: 5
 --- !u!114 &114542754399620806
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -367,37 +397,6 @@ MonoBehaviour:
     m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: Name
---- !u!114 &114685453275122964
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1855953470579534}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d22f79ef0655a41bb9e62823f6e7a3f1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 0}
-  healthBar: {fileID: 114542754399620806}
-  healthValue: {fileID: 114908322256556564}
-  _blockingLayer:
-    serializedVersion: 2
-    m_Bits: 256
-  ElementalWeaknesses: 04000000
-  ElementalResistances: 
-  entityName: Zomboy
-  BaseHealthPoints: 125
-  BaseMagicPoints: 10
-  BasePhysicalAttack: 10
-  BaseMagicAttack: 10
-  BaseSpeed: 10
-  maxHP: 0
-  attackSound1: {fileID: 8300000, guid: 0db8cac2749584a009540aa5671ee80d, type: 3}
-  attackSound2: {fileID: 8300000, guid: 114514a3b3697484ebaa08f7fbf842d3, type: 3}
-  EnemyNameText: {fileID: 114668072857719270}
-  EnemyDamageText: {fileID: 114477632899286966}
-  experience: 5
 --- !u!114 &114908322256556564
 MonoBehaviour:
   m_ObjectHideFlags: 1

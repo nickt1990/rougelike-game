@@ -5,7 +5,7 @@ using System.Collections.Generic;
 /// This class will set the default stats to the character.
 /// All characters start with no class, so all characters will go through the constructor of this class upon their instantiation.
 /// </summary>
-public class NoClass : BaseModifier, IClassType
+public class NoClass : BaseClass, IClassType
 {
     public List<ISkill> skills { get; set; }
     public string className { get; set; }

@@ -38,8 +38,10 @@ public class Character : MonoBehaviour, IStats
     }
 
     [Header("Damage Modification")]
-    public List<Element> ElementalWeaknesses = new List<Element>();   // List of element that the Character is weak against (2x damage taken)
-    public List<Element> ElementalResistances = new List<Element>();  // List of element that the character is strong against (1/2 damage taken)
+    public List<IModifiesDamage> weaknesses = new List<IModifiesDamage>();   // Damage modifiers that deal double damage to this character
+    public List<IModifiesDamage> resistances = new List<IModifiesDamage>();  // Damage modifiers that deal half damage to this character
+    public List<IModifiesDamage> immunities = new List<IModifiesDamage>();   // Damage modifiers that deal no damage to this character
+    public List<IModifiesDamage> advantages = new List<IModifiesDamage>();   // Damage modifiers that heal this character
 
     #region Stats
 
@@ -194,7 +196,7 @@ public class Character : MonoBehaviour, IStats
 
     #region Attack Functionality
 
-    public void PerformPhysicalAttack<T>(T component) where T : Component
+    public virtual void PerformPhysicalAttack<T>(T component) where T : Component
     {
         // The component that was passed in is the target that the Character is hitting, so we set it to be so.
         Enemy target = component as Enemy;
@@ -216,7 +218,7 @@ public class Character : MonoBehaviour, IStats
         animator.SetTrigger("playerChop");
     }
 
-    public void PerformMagicAttack<T>(T target) where T : Component
+    public virtual void PerformMagicAttack<T>(T target) where T : Component
     {
         throw new NotImplementedException();
     }

@@ -109,6 +109,24 @@ public class Player : Character, IAttack
             classType.skills[3].Cast(this, FindTarget("ZombieWeak"));
         }
 
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            playerLevel = 1;
+            SetClassType(new Mage(this));
+            GameManager.instance.ShowNotification("Mage", Color.cyan);
+        }
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            playerLevel = 1;
+            SetClassType(new Paladin(this));
+            GameManager.instance.ShowNotification("Paladin", Color.green);
+        }
+
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            GameManager.instance.ShowNotification(playerLevel.ToString(), Color.white);
+        }
 
     }
 
@@ -210,7 +228,7 @@ public class Player : Character, IAttack
 
         classType.OnLevelUp(this);  // Add the specific class stats to the player
 
-        GameManager.instance.ShowLevelUpNotification();
+        GameManager.instance.ShowNotification("Level Up!", Color.yellow);
     }
 
     public void AddExperience(int gainedExperience)
@@ -219,7 +237,6 @@ public class Player : Character, IAttack
 
         expBar.fillAmount += ((float)gainedExperience / (float)experienceRequiredToLevel);   // Changes the fill amount to decrease when a character takes damage
     }
-
     /// <summary>
     /// Called when an entity is about to take damage
     /// </summary>

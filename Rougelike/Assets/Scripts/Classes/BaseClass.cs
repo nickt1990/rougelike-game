@@ -3,10 +3,17 @@
 /// This class is here simply to ensure that all characters stats get instantiated correctly.
 /// All classes will go through this class at one point or another.
 /// </summary>
-public class BaseModifier
+public class BaseClass
 {
-    public BaseModifier(Character character)
+    public Character character;
+
+    public int experiencePoints;
+    public int skillPoints;
+
+    public BaseClass(Character _character)
     {
+        character = _character;
+
         character.HealthPoints = character.HP;
         character.MagicPoints = character.MP;
         character.PhysicalAttack = character.PhysAtk;
@@ -27,6 +34,17 @@ public class BaseModifier
         player.Speed += speedGained;
 
         player.healthValue.text = player.HealthPoints.ToString() + "/" + player.maxHP.ToString();
+
+    }
+
+    public void AddResistance(Element newResistance)
+    {
+        character.resistances.Add(newResistance);
+    }
+
+    public void AddWeakness(Element newWeakness)
+    {
+        character.weaknesses.Add(newWeakness);
     }
 }
 

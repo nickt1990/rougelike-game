@@ -107,11 +107,12 @@ public class GameManager : MonoBehaviour
         doingSetup = false;
     }
 
-    public void ShowLevelUpNotification()
+    public void ShowNotification(string textToDisplay, Color colorOfText)
     {
         levelUpText = GameObject.Find("LevelUp").GetComponent<Text>();
 
-        levelUpText.text = "Level Up!";
+        levelUpText.color = colorOfText;
+        levelUpText.text = textToDisplay;
 
         Invoke("HideLevelUpNotification", levelStartDelay);
 
