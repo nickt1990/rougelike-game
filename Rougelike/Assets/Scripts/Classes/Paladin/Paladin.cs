@@ -3,13 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-public class Paladin : BaseClass, IClassType
+public class Paladin : ClassBase
 {
-    public string className { get; set; }
-    public List<ISkill> skills { get; set; }
-
-    public ISkill skill;
-
     /// <summary>
     /// Sets the class name and adds skills to the class
     /// </summary>
@@ -23,6 +18,7 @@ public class Paladin : BaseClass, IClassType
 
         ModifyStats();
         skills = AddDefaultSkills();
+
     }
 
     public void ModifyStats()
@@ -47,12 +43,7 @@ public class Paladin : BaseClass, IClassType
         return allSkills;
     }
 
-    public string GetClassName()
-    {
-        return className;
-    }
-
-    public void OnLevelUp(Player player)
+    public override void OnLevelUp(Player player)
     {
         LevelUp(player, 25, 25, 5, 5, 2);
 

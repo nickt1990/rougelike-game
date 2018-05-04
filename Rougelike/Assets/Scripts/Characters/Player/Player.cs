@@ -74,7 +74,7 @@ public class Player : Character, IAttack
         CreateExpTable();
         experienceRequiredToLevel = experienceTable[playerLevel];
 
-        SetClassType(new Paladin(this));
+        SetClassType(new Mage(this));
         SetSkillsToButtons();
     }
 
@@ -129,8 +129,7 @@ public class Player : Character, IAttack
         }
 
     }
-
-    private void SetSkillsToButtons()
+    public void SetSkillsToButtons()
     {
         int i = 0;
 
@@ -149,6 +148,7 @@ public class Player : Character, IAttack
         }
 
     }
+
 
     Character FindTarget(string targetName)
     {

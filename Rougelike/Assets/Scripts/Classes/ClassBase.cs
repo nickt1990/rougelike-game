@@ -1,16 +1,20 @@
 ﻿
+using System.Collections.Generic;
 /// <summary>
 /// This class is here simply to ensure that all characters stats get instantiated correctly.
 /// All classes will go through this class at one point or another.
 /// </summary>
-public class BaseClass
+public class ClassBase : IClassType
 {
     public Character character;
 
-    public int experiencePoints;
-    public int skillPoints;
+    public List<ISkill> skills { get; set; }
+    public string className { get; set; }
 
-    public BaseClass(Character _character)
+    public int experiencePoints { get; set; }
+    public int skillPoints { get; set; }
+
+    public ClassBase(Character _character)
     {
         character = _character;
 
@@ -45,6 +49,16 @@ public class BaseClass
     public void AddWeakness(Element newWeakness)
     {
         character.weaknesses.Add(newWeakness);
+    }
+
+    public string GetClassName()
+    {
+        return className;
+    }
+
+    public virtual void OnLevelUp(Player player)
+    {
+        throw new System.NotImplementedException();
     }
 }
 

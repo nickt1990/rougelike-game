@@ -5,28 +5,36 @@
         base.Start();
 
         enemyType = EnemyType.Undead;
-        AddBaseWeaknesses();
-        AddBaseResistances();
+
+        AddStrengthsAndWeakness();
     }
 
-    public void AddBaseWeaknesses()
+    private void AddStrengthsAndWeakness()
+    {
+        AddBaseWeaknesses();
+        AddBaseResistances();
+        AddBaseImmunities();
+        AddBaseAdvantages();
+    }
+
+    private void AddBaseWeaknesses()
     {
         weaknesses.Add(new Holy());
     }
 
-    public void AddBaseResistances()
+    private void AddBaseResistances()
     {
         resistances.Add(new Fire());
     }
 
-    public void AddBaseImmunities()
+    private void AddBaseImmunities()
     {
 
     }
 
-    public void AddBaseAdvantages()
+    private void AddBaseAdvantages()
     {
-        advantages.Add(new Shadow());
+
     }
 }
 

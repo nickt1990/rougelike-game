@@ -4,11 +4,8 @@ using System.Linq;
 using System.Text;
 
 
-public class Mage : BaseClass, IClassType
+public class Mage : ClassBase
 {
-    public string className { get; set; }
-
-    public List<ISkill> skills { get; set; }
 
     /// <summary>
     /// Sets the class name and adds skills to the class
@@ -37,7 +34,7 @@ public class Mage : BaseClass, IClassType
         character.healthValue.text = character.HealthPoints.ToString() + "/" + character.maxHP.ToString();
     }
 
-    public void OnLevelUp(Player player)
+    public override void OnLevelUp(Player player)
     {
         LevelUp(player, 10, 50, 2, 10, 3);
 
@@ -49,23 +46,22 @@ public class Mage : BaseClass, IClassType
         List<ISkill> allSkills = new List<ISkill>();
 
         allSkills.Add(new FireBall());
+        allSkills.Add(new Blizzard());
+        allSkills.Add(new Bubble());
         
         return allSkills;
     }
 
-    public string GetClassName()
+    private void AddBaseResistances(Character character)
     {
-        return className;
+        character.resistances.Add(new Fire());
+        character.resistances.Add(new Water());
+        character.resistances.Add(new Ice());
     }
 
-    public void Strength()
+    private void AddBaseWeaknesses(Character character)
     {
-        throw new NotImplementedException();
-    }
 
-    public void Weakness()
-    {
-        throw new NotImplementedException();
     }
 }
 

@@ -62,18 +62,44 @@ public class Enemy : Character, IAttack
     {
         //Set the trigger for the player animator to transition to the playerHit animation.
 
-        //Subtract lost food points from the players total.
-        HP -= damage;
+        // Sometimes damage can be negative, causing the character to be healed.  If that heal exceeds their max HP, then...
+        if(HP - damage > maxHP)
+        {
+            HP = maxHP; // Forget how much it healed, and simply set their HP to their maxHP
+        }
+        else // otherwise...
+        {
+            //Subtract damage from players health
+            HP -= damage;
+        }
+        
 
         healthBar.fillAmount -= ((float)damage / (float)maxHP);   // Changes the fill amount to decrease when a character takes damage
 
-        EnemyDamageText.text = "-" + damage;
-
-        //Update the food display with the new total.
-        healthValue.text = HP.ToString() + "/" + maxHP.ToString();
+        DisplayDamage(damage);
 
         //Check to see if the entity is dead
         CheckIfDead();
+    }
+
+    private void DisplayDamage(int damage)
+    {
+        if (damage > 0)
+        {
+            EnemyDamageText.text = "-" + damage.ToString();
+        }
+        else if (damage == 0)
+        {
+            EnemyDamageText.text = damage.ToString();
+        }
+        else if (damage < 0)
+        {
+            EnemyDamageText.text = "+" + damage.ToString().Split('-')[1];
+        }
+
+
+        //Update the healthbar with the new total.
+        healthValue.text = HP.ToString() + "/" + maxHP.ToString();
     }
 
     public void AddNewResistance(IModifiesDamage newResistance)
