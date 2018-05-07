@@ -1,67 +1,70 @@
-﻿public enum element
+﻿public class ElementBase : BaseDamageModifier
 {
-    None = 0,
-    Fire = 1,
-    Ice = 2,
-    Water = 3,
-    Holy = 4,
-    Shadow = 5
-
-};
-
-public class Element : BaseDamageModifier
-{
-
-
+    public StatusEffectBase statusEffect;
+    public void HasStatusEffect(StatusEffectBase _statusEffect)
+    {
+        statusEffect = _statusEffect;
+    }
 
 }
 
-public class Fire : Element
+public class Fire : ElementBase
 {
-    public element elementType;
     public Fire()
     {
-        elementType = element.Fire;
+        
     }
-    
+
+    public Fire(StatusEffectBase _statusEffect)
+    {
+        statusEffect = _statusEffect;
+    }    
 }
 
-public class Ice : Element
+public class Ice : ElementBase
 {
-    public element elementType;
     public Ice()
     {
-        elementType = element.Ice;
+        
+    }
+
+    public Ice(StatusEffectBase _statusEffect)
+    {
+        statusEffect = _statusEffect;
     }
 
 }
 
-public class Water : Element
+public class Water : ElementBase
 {
-    public element elementType;
+    
     public Water()
     {
-        elementType = element.Fire;
+        
     }
 
 }
 
-public class Holy : Element
+public class Holy : ElementBase
 {
-    public element elementType;
     public Holy()
     {
-        elementType = element.Holy;
+    
+    }
+
+    public Holy(StatusEffectBase _statusEffect)
+    {
+        statusEffect = _statusEffect;
     }
 
 }
 
-public class Shadow : Element
+public class Shadow : ElementBase
 {
-    public element elementType;
+    
     public Shadow()
     {
-        elementType = element.Fire;
+    
     }
 
 }

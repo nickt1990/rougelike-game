@@ -38,7 +38,7 @@ public class Paladin : ClassBase
         List<ISkill> allSkills = new List<ISkill>();
 
         allSkills.Add(new DoubleStab());
-        allSkills.Add(new Heal());
+        allSkills.Add(new Cure());
 
         return allSkills;
     }

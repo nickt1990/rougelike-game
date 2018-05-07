@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-
-public class BaseDamageModifier : IModifiesDamage
+﻿public class BaseDamageModifier : IModifiesDamage
 {
     private int _damageModifier;
     public int damageModifier
@@ -20,7 +14,6 @@ public class BaseDamageModifier : IModifiesDamage
     }
 
     public int damage { get; set; }
-
 
     public void SetDamageModifier(int damageMultipliedBy)
     {

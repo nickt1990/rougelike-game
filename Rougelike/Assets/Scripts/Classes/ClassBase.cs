@@ -41,12 +41,12 @@ public class ClassBase : IClassType
 
     }
 
-    public void AddResistance(Element newResistance)
+    public void AddResistance(ElementBase newResistance)
     {
         character.resistances.Add(newResistance);
     }
 
-    public void AddWeakness(Element newWeakness)
+    public void AddWeakness(ElementBase newWeakness)
     {
         character.weaknesses.Add(newWeakness);
     }

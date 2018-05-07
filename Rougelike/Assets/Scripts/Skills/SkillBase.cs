@@ -15,6 +15,13 @@ public class SkillBase : ISkill
     {
         damageModifier = 1;
     }
+    public SkillBase(string _name, int _damage, IModifiesDamage _damageType, IModifiesDamage _element)
+    {
+        name = _name;
+        damage = _damage;
+        damageType = _damageType;
+        element = _element;
+    }
 
     public SkillBase(int _damageModifier)
     {
