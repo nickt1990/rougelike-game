@@ -7,6 +7,7 @@ using System;
 
 public class Player : Character, IAttack
 {
+
     [Header("Experience Bar")]
     public Image expBar;
     public int playerLevel;
@@ -48,12 +49,7 @@ public class Player : Character, IAttack
     public override void Start()
     {
         //------------- Singleton Design Pattern to ensure there is only ever one of each player (1-4) --------------
-        if(player == null)
-        {
-            DontDestroyOnLoad(gameObject);
-            player = this;  // Create Player 1
-        }
-        else if (playerNumber == 2 || playerNumber == 3 || playerNumber == 4)   // By default the player number == 1 unless we manually change it. Therefore we will only enter this if we have manually changed it.
+		if (playerNumber == 1 ||playerNumber == 2 || playerNumber == 3 || playerNumber == 4)   // By default the player number == 1 unless we manually change it. Therefore we will only enter this if we have manually changed it.
         {
             DontDestroyOnLoad(gameObject);
             player = this;  // Create player 2, 3, or 4, depending on the player number
@@ -127,6 +123,10 @@ public class Player : Character, IAttack
         {
             GameManager.instance.ShowNotification(playerLevel.ToString(), Color.white);
         }
+		if (Input.GetKeyDown(KeyCode.KeypadEnter))
+		{
+			movementBehavior.SetControls ();
+		}
 
     }
     public void SetSkillsToButtons()

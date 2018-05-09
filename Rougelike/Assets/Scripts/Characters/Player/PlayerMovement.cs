@@ -16,6 +16,11 @@ public class PlayerMovement : IMovementBehavior
         currentPlayer = (Player)character;
     }
 
+	public void SetControls()
+	{
+
+	}
+
     public void CheckMovement()
     {
         //If it's not the player's turn, exit the function.
