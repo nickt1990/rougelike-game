@@ -8,6 +8,11 @@ namespace Completed
     {
         public Character currentCharacter { get; set; }
 
+		public void SetControls()
+		{
+			throw new NotImplementedException ();
+		}
+
         public void CheckMovement()
         {
             throw new NotImplementedException();

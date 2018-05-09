@@ -18,6 +18,7 @@ public class Character : MonoBehaviour, IStats
     public Image healthBar;
     public Text healthValue;
 
+
     public BoxCollider2D boxCollider { get; set; }
     public Rigidbody2D rb2D { get; set; }
     public float moveTime { get; set; }
@@ -177,6 +178,7 @@ public class Character : MonoBehaviour, IStats
     public void SetMovementBehavior(IMovementBehavior mb)
     {
         movementBehavior = mb;
+		mb.SetControls ();
     }
 
     public void SetDialogueBehavior(IDialogueBehavior db)

@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public bool playersTurn = true;       //Boolean to check if it's players turn, hidden in inspector but public.
 
     public Player player1;
+	public Player player2;
 
     private Text levelText;                                 //Text to display current level number.
     private Text levelUpText;
