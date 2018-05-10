@@ -62,10 +62,6 @@ public class Character : MonoBehaviour
     public List<IModifiesDamage> immunities = new List<IModifiesDamage>();   // Damage modifiers that deal no damage to this character
     public List<IModifiesDamage> advantages = new List<IModifiesDamage>();   // Damage modifiers that heal this character
 
-    // After the class modifies the base stats
-    #region Modified Stats
-    #endregion
-
     public virtual void Start()
     {
         //Get a component reference to this object's BoxCollider2D
@@ -113,7 +109,7 @@ public class Character : MonoBehaviour
 
         //Set the attack trigger of the player's animation controller in order to play the player's attack animation.
         animator.SetTrigger("playerChop");
-        
+
     }
 
     public void CastSkill<T>(T component)
@@ -131,20 +127,5 @@ public class Character : MonoBehaviour
     }
     #endregion
 
-    public bool CheckIfDead()
-    {
-        //Check if food point total is less than or equal to zero.
-        if (characterStats.HP <= 0)
-        {
-            OnDeath();
-            return true;
-        }
 
-        return false;
-    }
-
-    public virtual void OnDeath()
-    {
-        gameObject.SetActive(false);
-    }
 }

@@ -1,5 +1,7 @@
-﻿
+﻿using System.Collections.Generic;
+using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.UI;	//Allows us to use UI.
 
 /// <summary>
 /// The base characteristics that every class must have
@@ -13,6 +15,21 @@ public abstract class ClassType
 
     public int experiencePoints { get; set; }
     public int skillPoints { get; set; }
+
+    #region UI Stuff
+        Button btnSkill1 = GameObject.Find("btnSkill1").GetComponent<Button>();
+        Text txtSkill1 = GameObject.Find("txtSkill1").GetComponent<Text>();
+
+        Button btnSkill2 = GameObject.Find("btnSkill2").GetComponent<Button>();
+        Text txtSkill2 = GameObject.Find("txtSkill2").GetComponent<Text>();
+
+        Button btnSkill3 = GameObject.Find("btnSkill3").GetComponent<Button>();
+        Text txtSkill3 = GameObject.Find("txtSkill3").GetComponent<Text>();
+
+        Button btnSkill4 = GameObject.Find("btnSkill4").GetComponent<Button>();
+        Text txtSkill4 = GameObject.Find("txtSkill4").GetComponent<Text>();
+
+    #endregion
 
     public ClassType(Character _character)
     {
@@ -49,6 +66,29 @@ public abstract class ClassType
 
         skills.Add(newAbility);
     }
+
+    public void SetSkillsToButtons()
+    {
+        int i = 0;
+
+        Button[] buttons = new Button[4] { btnSkill1, btnSkill2, btnSkill3, btnSkill4 };
+        Text[] buttonTexts = new Text[4] { txtSkill1, txtSkill2, txtSkill3, txtSkill4 };
+
+
+        foreach (Ability skill in skills)
+        {
+            buttons[i].GetComponent<Image>().color = Color.green;
+            buttonTexts[i].text = (i + 1) + "." + skills[i].name;
+            i++;
+        }
+
+        for (int j = i; j < buttons.Length; j++)
+        {
+            buttons[j].GetComponent<Image>().color = Color.grey;
+            buttonTexts[j].text = "";
+        }
+    }
+
 
     public void AddResistance(ElementBase newResistance)
     {

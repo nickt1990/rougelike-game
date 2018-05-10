@@ -38,11 +38,19 @@ public abstract class Ability
 
     public virtual void Cast(Character attacker, Character defender)
     {
+        Player caster = attacker as Player;
         Enemy target = defender as Enemy;
+       
+        // Calculate the damage based on the defenders strengths and weaknesses
+        modifiedDamage = damageCalculator.CalculateDamage(damage, defender);
 
-        damageCalculator.CalculateDamage(damage, defender);
+        // Defender takes the modified damage amount
+        target.TakeDamage(modifiedDamage);
 
-        target.TakeDamage(damageCalculator.CalculateDamage(damage, defender));
+        if (target.CheckIfDead())
+        {
+            caster.AddExperience(target.experience);
+        }
     }
 }
 

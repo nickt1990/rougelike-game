@@ -23,8 +23,6 @@ public class Enemy : Character
     private Transform target;                           //Transform to attempt to move toward each turn.
     private bool skipMove;                              //Boolean to determine whether or not enemy should skip a turn or move this turn.
 
-
-
     //Start overrides the virtual Start function of the base class.
     public override void Start()
     {
@@ -119,6 +117,23 @@ public class Enemy : Character
 
         //Update the healthbar with the new total.
         healthValue.text = characterStats.HP.ToString() + "/" + maxHP.ToString();
+    }
+
+    public bool CheckIfDead()
+    {
+        //Check if food point total is less than or equal to zero.
+        if (characterStats.HP <= 0)
+        {
+            OnDeath();
+            return true;
+        }
+
+        return false;
+    }
+
+    public virtual void OnDeath()
+    {
+        gameObject.SetActive(false);
     }
 
     public void AddNewResistance(IModifiesDamage newResistance)

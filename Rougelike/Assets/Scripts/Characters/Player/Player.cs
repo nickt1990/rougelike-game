@@ -11,25 +11,10 @@ public class Player : Character, IAttack
     public Image expBar;
     public int playerLevel;
 
-    [Header("Skill Buttons")]
-    public Button btnSkill1;
-    private Text txtSkill1;
-
-    public Button btnSkill2;
-    private Text txtSkill2;
-
-    public Button btnSkill3;
-    private Text txtSkill3;
-
-    public Button btnSkill4;
-    private Text txtSkill4;
-
     [Header("Unity Junk")]
     public int playerNumber;
     public float restartLevelDelay = 1f;        //Delay time in seconds to restart level.
-
-    public static Player player;
-
+    
     public Canvas playerUI;
 
     
@@ -40,31 +25,11 @@ public class Player : Character, IAttack
 
     public IExecutable executable;
 
-    void Awake()
-    {
-        
-    }
-
+    /// <summary>
+    /// Called when the gameobject with the script attached enters the game
+    /// </summary>
     public override void Start()
     {
-        //------------- Singleton Design Pattern to ensure there is only ever one of each player (1-4) --------------
-        if(player == null)
-        {
-            DontDestroyOnLoad(gameObject);
-            player = this;  // Create Player 1
-        }
-        else if (playerNumber == 2 || playerNumber == 3 || playerNumber == 4)   // By default the player number == 1 unless we manually change it. Therefore we will only enter this if we have manually changed it.
-        {
-            DontDestroyOnLoad(gameObject);
-            player = this;  // Create player 2, 3, or 4, depending on the player number
-        }
-        else if (player != this)    // Otherwise, we destroy the gameobject so that only 1 player can exist
-        {
-            Destroy(gameObject);
-        }
-
-        // ---------------------------------------------------------------------------------------------
-
         base.Start();   // Base classes Start function gives Living Entity all things a Living Entity needs
 
         SetMovementBehavior(new PlayerMovement(this));
@@ -75,9 +40,6 @@ public class Player : Character, IAttack
         experienceRequiredToLevel = experienceTable[playerLevel];
 
         SetClassType(new Mage(this));
-        //characterClass.damageCalculator.AddStatDamageToSkills();
-
-        SetSkillsToButtons();
     }
 
     /// <summary>
@@ -131,45 +93,16 @@ public class Player : Character, IAttack
         }
 
     }
-
-    public void SetSkillsToButtons()
-    {
-        int i = 0;
-
-        txtSkill1 = GameObject.Find("txtSkill1").GetComponent<Text>();
-        txtSkill2 = GameObject.Find("txtSkill2").GetComponent<Text>();
-        txtSkill3 = GameObject.Find("txtSkill3").GetComponent<Text>();
-        txtSkill4 = GameObject.Find("txtSkill4").GetComponent<Text>();
-
-        Button[] buttons = new Button[4] { btnSkill1, btnSkill2, btnSkill3, btnSkill4 };
-        Text[] buttonTexts = new Text[4] { txtSkill1, txtSkill2, txtSkill3, txtSkill4 };
-
-        foreach (Button button in buttons)
-        {
-            button.gameObject.SetActive(false);
-        }
-
-        foreach (Ability skill in characterClass.skills)
-        {
-            buttons[i].gameObject.SetActive(true);
-            buttonTexts[i].text = (i + 1) + "." + characterClass.skills[i].name;
-            i++;
-        }
-
-    }
-
+    /// <summary>
+    /// Finds the target with the given name
+    /// </summary>
+    /// <param name="targetName"> The name of the target to find </param>
+    /// <returns> The target of the attack </returns>
     Character FindTarget(string targetName)
     {
         Character target = GameObject.Find(targetName).GetComponent<Character>();
 
         return target;
-    }
-
-    private void CreateExpTable()
-    {
-        ExperienceTable expTable = new ExperienceTable();
-
-        experienceTable = expTable.CreateExperienceTable();
     }
 
     /// <summary>
@@ -207,57 +140,31 @@ public class Player : Character, IAttack
     {
     }
 
-    public override void OnDeath()
-    {
-        // ~~IMPLEMENT: Check if both players are dead
+    #region Fights
 
-        // If both players are dead, then...
-        GameManager.instance.GameOver();     //Call the GameOver function of GameManager.
-    }
-
-    public bool CheckIfLevel()
+    public override void PerformPhysicalAttack<T>(T component) 
     {
-        if(experience >= experienceRequiredToLevel)
+        // The component that was passed in is the target that the Character is hitting, so we set it to be so.
+        Enemy target = component as Enemy;
+
+        //Call the TakeDamage function of the Character we are hitting.
+        target.TakeDamage(characterClass.classStats.PhysAtk);
+
+        //Set the attack trigger of the player's animation controller in order to play the player's attack animation.
+        animator.SetTrigger("playerChop");
+
+        if (target.CheckIfDead())
         {
-            return true;
+            AddExperience(target.experience);
         }
-
-        return false;
     }
 
-    public void LevelUp()
-    {
-        int excessExperience;
-        excessExperience = experience - experienceRequiredToLevel; // Store the extra that went over the level.
-
-        playerLevel += 1;   // Level up the player.
-
-        experienceRequiredToLevel = experienceTable[playerLevel];   // Change the experience required to level to the next level.
-
-        expBar.fillAmount = 0;
-        expBar.fillAmount += ((float)excessExperience / (float)experienceRequiredToLevel);   // Changes the fill amount to decrease when a character takes damage.
-
-        experience = excessExperience; // Reset the players experience to equal the excess experience.
-
-        characterClass.OnLevelUp();  // Add the specific class stats to the player
-
-        GameManager.instance.ShowNotification("Level Up!", Color.yellow);
-    }
-
-    public void AddExperience(int gainedExperience)
-    {
-        experience += gainedExperience; // Add the gained experience to the players experience
-
-        expBar.fillAmount += ((float)gainedExperience / (float)experienceRequiredToLevel);   // Changes the fill amount to decrease when a character takes damage
-    }
     /// <summary>
     /// Called when an entity is about to take damage
     /// </summary>
     /// <param name="damage"> The amount of HP that the entity is going to lose </param>
     public void TakeDamage(int damage)
     {
-        //Set the trigger for the player animator to transition to the playerHit animation.
-
         // Sometimes damage can be negative, causing the character to be healed.  If that heal exceeds their max HP, then...
         if (characterStats.HP - damage > maxHP)
         {
@@ -280,6 +187,87 @@ public class Player : Character, IAttack
         //Check to see if the entity is dead
         CheckIfDead();
     }
+    #endregion
+
+    #region Levels and Experience
+    /// <summary>
+    /// Check to see if the player has leveled up
+    /// </summary>
+    public void CheckIfLevel()
+    {
+        if (experience >= experienceRequiredToLevel)
+        {
+            LevelUp();
+        }
+    }
+    /// <summary>
+    /// Processes that happen is the player has leveled up
+    /// </summary>
+    public void LevelUp()
+    {
+        int excessExperience;
+        excessExperience = experience - experienceRequiredToLevel; // Store the extra that went over the level.
+
+        playerLevel += 1;   // Level up the player.
+
+        experienceRequiredToLevel = experienceTable[playerLevel];   // Change the experience required to level to the next level.
+
+        expBar.fillAmount = 0;
+        expBar.fillAmount += ((float)excessExperience / (float)experienceRequiredToLevel);   // Changes the fill amount to decrease when a character takes damage.
+
+        experience = excessExperience; // Reset the players experience to equal the excess experience.
+
+        characterClass.OnLevelUp();  // Add the specific class stats to the player
+
+        GameManager.instance.ShowNotification("Level Up!", Color.yellow);
+    }
+
+    /// <summary>
+    /// Add experience to the player, and increment the exp bar
+    /// </summary>
+    /// <param name="gainedExperience"> The experience that has been gained by the player </param>
+    public void AddExperience(int gainedExperience)
+    {
+        experience += gainedExperience; // Add the gained experience to the players experience
+
+        expBar.fillAmount += ((float)gainedExperience / (float)experienceRequiredToLevel);   // Changes the fill amount to decrease when a character takes damage
+
+        CheckIfLevel();
+    }
+
+    /// <summary>
+    /// Create the values of experience it will take for each level
+    /// </summary>
+    private void CreateExpTable()
+    {
+        ExperienceTable expTable = new ExperienceTable();
+
+        experienceTable = expTable.CreateExperienceTable();
+    }
+
+    #endregion
+
+    #region Death
+    public void OnDeath()
+    {
+        // ~~IMPLEMENT: Check if both players are dead
+
+        // If both players are dead, then...
+        GameManager.instance.GameOver();     //Call the GameOver function of GameManager.
+    }
+
+    public bool CheckIfDead()
+    {
+        //Check if food point total is less than or equal to zero.
+        if (characterStats.HP <= 0)
+        {
+            OnDeath();
+            return true;
+        }
+
+        return false;
+    }
+    #endregion
 
 }
 

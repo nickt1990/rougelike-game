@@ -19,6 +19,8 @@ public class Mage : ClassType
         AddAbility(new FireBall());
         AddAbility(new Blizzard());
         AddAbility(new Bubble());
+
+        SetSkillsToButtons();
     }
 
     /// <summary>

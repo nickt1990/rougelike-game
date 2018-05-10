@@ -21,6 +21,8 @@ public class Paladin : ClassType
         // Add Default abilities
         AddAbility(new DoubleStab());
         AddAbility(new Cure());
+
+        SetSkillsToButtons();
     }
 
     public void ModifyStats()
