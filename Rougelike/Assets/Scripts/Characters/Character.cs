@@ -4,17 +4,34 @@ using UnityEngine.UI;	//Allows us to use UI.
 using UnityEngine.SceneManagement;
 using System;
 
-public class Character : MonoBehaviour, IStats
+public class Character : MonoBehaviour
 {
     #region Interfaces
-    public IAttack attackBehavior;              // A character can attack in some way
-    public IDialogueBehavior dialogueBehavior;  // A character can talk in some way
-    public IMovementBehavior movementBehavior;  // A character can move in some way
-    public IClassType classType;                // A character can have a class
+    public IAttack characterAttackBehavior;              // A character can attack in some way
+    public IDialogueBehavior characterDialogueBehavior;  // A character can talk in some way
+    public IMovementBehavior characterMovementBehavior;  // A character can move in some way
+    public IStats characterStats = new CharacterStats();
     #endregion
 
-    [HideInInspector] public Animator animator;					//Used to store a reference to the Player's animator component.
+    public ClassType characterClass;            // Class of a character
+    [HideInInspector] public Animator animator; // Used to store a reference to the Player's animator component.
 
+    [Header("Character Name")]
+    [SerializeField]
+    private string characterName;
+    public string Name
+    {
+        get
+        {
+            return characterName;
+        }
+        set
+        {
+            characterName = value;
+        }
+    }
+
+    [Header("Helpful Components")]
     public Image healthBar;
     public Text healthValue;
 
@@ -37,128 +54,20 @@ public class Character : MonoBehaviour, IStats
         }
     }
 
+    [HideInInspector] public int maxHP;
+
     [Header("Damage Modification")]
     public List<IModifiesDamage> weaknesses = new List<IModifiesDamage>();   // Damage modifiers that deal double damage to this character
     public List<IModifiesDamage> resistances = new List<IModifiesDamage>();  // Damage modifiers that deal half damage to this character
     public List<IModifiesDamage> immunities = new List<IModifiesDamage>();   // Damage modifiers that deal no damage to this character
     public List<IModifiesDamage> advantages = new List<IModifiesDamage>();   // Damage modifiers that heal this character
 
-    #region Stats
-
-    // Used as a base for the class to go off of, and also used if character has no class
-    #region Base Stats
-    [Header("Base Stats")]
-    [SerializeField]
-    private string entityName;
-    public string Name
-    {
-        get
-        {
-            return entityName;
-        }
-        set
-        {
-            entityName = value;
-        }
-    }
-
-    [SerializeField]
-    private int BaseHealthPoints;
-    public int HP
-    {
-        get
-        {
-            return BaseHealthPoints;
-        }
-        set
-        {
-            BaseHealthPoints = value;
-        }
-    }
-
-    [SerializeField]
-    private int BaseMagicPoints;
-    public int MP
-    {
-        get
-        {
-            return BaseMagicPoints;
-        }
-        set
-        {
-            BaseMagicPoints = value;
-        }
-    }
-
-    [SerializeField]
-    private int BasePhysicalAttack;
-    public int PhysAtk
-    {
-        get
-        {
-            return BasePhysicalAttack;
-        }
-        set
-        {
-            BasePhysicalAttack = value;
-        }
-    }
-    [SerializeField]
-    private int BaseMagicAttack;
-    public int MagAtk
-    {
-        get
-        {
-            return BaseMagicAttack;
-        }
-        set
-        {
-            BaseMagicAttack = value;
-        }
-    }
-
-    [SerializeField]
-    private int BaseSpeed;
-    public int baseSpeed
-    {
-        get
-        {
-            return BaseSpeed;
-        }
-        set
-        {
-            BaseSpeed = value;
-        }
-    }
-
-    [HideInInspector] public int maxHP;
-    #endregion
-
     // After the class modifies the base stats
     #region Modified Stats
-    [Header("Class Modified Stats")]
-    [NonSerialized]
-    public int HealthPoints;
-
-    [NonSerialized]
-    public int MagicPoints;
-
-    [NonSerialized]
-    public int PhysicalAttack;
-
-    [NonSerialized]
-    public int MagicAttack;
-
-    [NonSerialized]
-    public int Speed;
-    #endregion
-
     #endregion
 
     public virtual void Start()
     {
-        //DontDestroyOnLoad(gameObject);
-
         //Get a component reference to this object's BoxCollider2D
         boxCollider = GetComponent<BoxCollider2D>();
 
@@ -170,23 +79,21 @@ public class Character : MonoBehaviour, IStats
 
         //Get a component reference to the Player's animator component
         animator = GetComponent<Animator>();
-
-        SetClassType(new NoClass(this));    // Every Character starts with No Class - This can be changed at any time if a specific character needs one.
     }
 
     public void SetMovementBehavior(IMovementBehavior mb)
     {
-        movementBehavior = mb;
+        characterMovementBehavior = mb;
     }
 
     public void SetDialogueBehavior(IDialogueBehavior db)
     {
-        dialogueBehavior = db;
+        characterDialogueBehavior = db;
     }
 
-    public void SetClassType(IClassType ct)
+    public void SetClassType(ClassType newClass)
     {
-        classType = ct;
+        characterClass = newClass;
     }
 
     public void BeginDialogue()
@@ -202,7 +109,7 @@ public class Character : MonoBehaviour, IStats
         Enemy target = component as Enemy;
 
         //Call the TakeDamage function of the Character we are hitting.
-        target.TakeDamage(PhysicalAttack);
+        target.TakeDamage(characterClass.classStats.PhysAtk);
 
         //Set the attack trigger of the player's animation controller in order to play the player's attack animation.
         animator.SetTrigger("playerChop");
@@ -213,7 +120,7 @@ public class Character : MonoBehaviour, IStats
     {
         Character target = component as Character;
 
-        classType.skills[0].Cast(this, target);
+        characterClass.skills[0].Cast(this, target);
 
         animator.SetTrigger("playerChop");
     }
@@ -227,7 +134,7 @@ public class Character : MonoBehaviour, IStats
     public bool CheckIfDead()
     {
         //Check if food point total is less than or equal to zero.
-        if (HP <= 0)
+        if (characterStats.HP <= 0)
         {
             OnDeath();
             return true;

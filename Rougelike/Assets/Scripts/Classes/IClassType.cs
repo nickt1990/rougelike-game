@@ -4,11 +4,12 @@ using System.Text;
 
 public interface IClassType
 {
+    IStats classStats { get; set; }
+    DamageCalculator damageCalculator { get; set; }
     string className { get; set; }
     int experiencePoints { get; set; }
     int skillPoints { get; set; }
-
-    List<ISkill> skills { get; set; }   
     string GetClassName();
-    void OnLevelUp(Player player);
+
+    void OnLevelUp();
 }

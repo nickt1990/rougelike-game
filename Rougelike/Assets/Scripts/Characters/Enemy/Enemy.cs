@@ -3,14 +3,19 @@ using System.Collections.Generic;
 using UnityEngine.UI;   //Allows us to use UI.
 
 
-public class Enemy : Character, IAttack
+public class Enemy : Character
 {
     public AudioClip attackSound1;                      //First of two audio clips to play when attacking the player.
     public AudioClip attackSound2;                      //Second of two audio clips to play when attacking the player.
     public Text EnemyNameText;
     public Text EnemyDamageText;
-    public EnemyType enemyType;
 
+    [Header("Stats")]
+    public int healthPoints;
+    public int magicPoints;
+    public int physicalAttack;
+    public int magicAttack;
+    public int speed;
 
     [Header("Experience")]
     public int experience;
@@ -18,10 +23,15 @@ public class Enemy : Character, IAttack
     private Transform target;                           //Transform to attempt to move toward each turn.
     private bool skipMove;                              //Boolean to determine whether or not enemy should skip a turn or move this turn.
 
+
+
     //Start overrides the virtual Start function of the base class.
     public override void Start()
     {
         base.Start();   // We call the base class Start function to give everything required to be a living entity.
+
+        SetStats();
+        SetClassType(new NoClass(this));    // Every Character starts with No Class - This can be changed at any time if a specific character needs one.
 
         // Register this enemy with our instance of GameManager by adding it to a list of Enemy objects. 
         // This allows the GameManager to issue movement commands.
@@ -34,13 +44,22 @@ public class Enemy : Character, IAttack
         target = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
+    public void SetStats()
+    {
+        characterStats.HP = healthPoints;
+        characterStats.MP = magicPoints;
+        characterStats.PhysAtk = physicalAttack;
+        characterStats.MagAtk = magicAttack;
+        characterStats.Speed = speed;
+    }
+
     public override void PerformPhysicalAttack<T>(T component)
     {
         //Declare hitPlayer and set it to equal the encountered component.
         Player target = component as Player;
 
         //Call the LoseFood function of hitPlayer passing it playerDamage, the amount of foodpoints to be subtracted.
-        target.TakeDamage(PhysAtk);
+        target.TakeDamage(characterStats.PhysAtk);
 
         //Set the attack trigger of animator to trigger Enemy attack animation.
         animator.SetTrigger("enemyAttack");
@@ -63,14 +82,14 @@ public class Enemy : Character, IAttack
         //Set the trigger for the player animator to transition to the playerHit animation.
 
         // Sometimes damage can be negative, causing the character to be healed.  If that heal exceeds their max HP, then...
-        if(HP - damage > maxHP)
+        if(characterStats.HP - damage > maxHP)
         {
-            HP = maxHP; // Forget how much it healed, and simply set their HP to their maxHP
+            characterStats.HP = maxHP; // Forget how much it healed, and simply set their HP to their maxHP
         }
         else // otherwise...
         {
             //Subtract damage from players health
-            HP -= damage;
+            characterStats.HP -= damage;
         }
         
 
@@ -99,7 +118,7 @@ public class Enemy : Character, IAttack
 
 
         //Update the healthbar with the new total.
-        healthValue.text = HP.ToString() + "/" + maxHP.ToString();
+        healthValue.text = characterStats.HP.ToString() + "/" + maxHP.ToString();
     }
 
     public void AddNewResistance(IModifiesDamage newResistance)

@@ -1,24 +1,14 @@
-﻿enum StatusEffect
-{
-    None = 0,
-    Heal = 1,
-    Blind = 2,
-    Burn = 3,
-    Freeze = 4,
-    Enhanced = 5
-}
-
-public class StatusEffectBase : BaseDamageModifier
+﻿public class StatusEffect : BaseDamageModifier
 {
     
 }
 
-public class Blind : StatusEffectBase
+public class Blind : StatusEffect
 {
 
 }
 
-public class Burn : StatusEffectBase
+public class Burn : StatusEffect
 {
     public Burn()
     {
@@ -26,15 +16,11 @@ public class Burn : StatusEffectBase
     }
 }
 
-public class Heal : StatusEffectBase
+public class Heal : StatusEffect
 {
     public Heal()
     {
         damageModifier = -1;
-    }
-    public Heal(int _damageModifier)
-    {
-        damageModifier = _damageModifier;
     }
 }
 

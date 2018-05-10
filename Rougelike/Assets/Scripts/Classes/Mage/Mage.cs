@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 
 
-public class Mage : ClassBase
+public class Mage : ClassType
 {
 
     /// <summary>
@@ -16,40 +16,31 @@ public class Mage : ClassBase
         className = "Mage";
 
         ModifyStats();
-        skills = AddDefaultSkills();
+        AddAbility(new FireBall());
+        AddAbility(new Blizzard());
+        AddAbility(new Bubble());
     }
+
     /// <summary>
     /// Modify all stats so that they are specific to a mage
     /// </summary>
     public void ModifyStats()
-    {                                                                                               // Mage receives:
+    {                                                                               // Mage receives:
+        classStats.HP = classStats.HP - (int)(classStats.HP * .5);                  // 50% less hp.
+        classStats.MP = classStats.MP * 2;                                          // 100% more mp.
+        classStats.PhysAtk = classStats.PhysAtk - (int)(classStats.PhysAtk * .5);   // 50% less physical attack.
+        classStats.MagAtk = classStats.MagAtk * 2;                                  // 100% more magic attack.
+        classStats.Speed = classStats.Speed;                                        // Speed remains unchanged.
 
-        character.HealthPoints = character.HP - (int)(character.HP * .5);                           // 50% less hp.
-        character.MagicPoints = character.MP * 2;                                                   // 100% more mp.
-        character.PhysicalAttack = character.PhysAtk - (int)(character.PhysAtk * .5);               // 50% less physical attack.
-        character.MagicAttack = character.MagAtk * 2;                                               // 100% more magic attack.
-        character.Speed = character.baseSpeed;                                                      // Speed remains unchanged.
-
-        character.maxHP = character.HealthPoints;
-        character.healthValue.text = character.HealthPoints.ToString() + "/" + character.maxHP.ToString();
+        character.maxHP = classStats.HP;
+        character.healthValue.text = classStats.HP.ToString() + "/" + character.maxHP.ToString();
     }
 
-    public override void OnLevelUp(Player player)
+    public override void OnLevelUp()
     {
-        LevelUp(player, 10, 50, 2, 10, 3);
+        LevelUp(10, 50, 2, 10, 3);
 
-        player.healthValue.text = player.HealthPoints.ToString() + "/" + player.maxHP.ToString();
-    }
-
-    public List<ISkill> AddDefaultSkills()
-    {
-        List<ISkill> allSkills = new List<ISkill>();
-
-        allSkills.Add(new FireBall());
-        allSkills.Add(new Blizzard());
-        allSkills.Add(new Bubble());
-        
-        return allSkills;
+        character.healthValue.text = classStats.HP.ToString() + "/" + character.maxHP.ToString();
     }
 
     private void AddBaseResistances(Character character)

@@ -75,6 +75,8 @@ public class Player : Character, IAttack
         experienceRequiredToLevel = experienceTable[playerLevel];
 
         SetClassType(new Mage(this));
+        //characterClass.damageCalculator.AddStatDamageToSkills();
+
         SetSkillsToButtons();
     }
 
@@ -87,26 +89,26 @@ public class Player : Character, IAttack
         if (!GameManager.instance.playersTurn)
             return;
 
-        movementBehavior.CheckMovement();
+        characterMovementBehavior.CheckMovement();
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            classType.skills[0].Cast(this, FindTarget("ZombieWeak"));
+            characterClass.skills[0].Cast(this, FindTarget("ZombieWeak"));
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            classType.skills[1].Cast(this, FindTarget("ZombieWeak"));
+            characterClass.skills[1].Cast(this, FindTarget("ZombieWeak"));
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            classType.skills[2].Cast(this, FindTarget("ZombieWeak"));
+            characterClass.skills[2].Cast(this, FindTarget("ZombieWeak"));
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
-            classType.skills[3].Cast(this, FindTarget("ZombieWeak"));
+            characterClass.skills[3].Cast(this, FindTarget("ZombieWeak"));
         }
 
         if (Input.GetKeyDown(KeyCode.M))
@@ -129,6 +131,7 @@ public class Player : Character, IAttack
         }
 
     }
+
     public void SetSkillsToButtons()
     {
         int i = 0;
@@ -141,14 +144,19 @@ public class Player : Character, IAttack
         Button[] buttons = new Button[4] { btnSkill1, btnSkill2, btnSkill3, btnSkill4 };
         Text[] buttonTexts = new Text[4] { txtSkill1, txtSkill2, txtSkill3, txtSkill4 };
 
-        foreach (ISkill skill in classType.skills)
+        foreach (Button button in buttons)
         {
-            buttonTexts[i].text = (i + 1) + "." + classType.skills[i].name;
+            button.gameObject.SetActive(false);
+        }
+
+        foreach (Ability skill in characterClass.skills)
+        {
+            buttons[i].gameObject.SetActive(true);
+            buttonTexts[i].text = (i + 1) + "." + characterClass.skills[i].name;
             i++;
         }
 
     }
-
 
     Character FindTarget(string targetName)
     {
@@ -174,8 +182,13 @@ public class Player : Character, IAttack
         {
             enabled = false;
             Invoke("Restart", restartLevelDelay);
-            StartCoroutine(movementBehavior.SmoothMovement(new Vector3(0, 0, 0))); // Move the player to the starting position of the next room
+            StartCoroutine(characterMovementBehavior.SmoothMovement(new Vector3(0, 0, 0))); // Move the player to the starting position of the next room
             enabled = true;
+        }
+        else if (other.tag == "Food" || other.tag == "Soda")
+        {
+            TakeDamage(-25);
+            other.gameObject.SetActive(false);
         }
     }
 
@@ -226,7 +239,7 @@ public class Player : Character, IAttack
 
         experience = excessExperience; // Reset the players experience to equal the excess experience.
 
-        classType.OnLevelUp(this);  // Add the specific class stats to the player
+        characterClass.OnLevelUp();  // Add the specific class stats to the player
 
         GameManager.instance.ShowNotification("Level Up!", Color.yellow);
     }
@@ -245,14 +258,24 @@ public class Player : Character, IAttack
     {
         //Set the trigger for the player animator to transition to the playerHit animation.
 
+        // Sometimes damage can be negative, causing the character to be healed.  If that heal exceeds their max HP, then...
+        if (characterStats.HP - damage > maxHP)
+        {
+            characterStats.HP = maxHP; // Forget how much it healed, and simply set their HP to their maxHP
+        }
+        else // otherwise...
+        {
+            //Subtract damage from players health
+            characterStats.HP -= damage;
+        }
+
         //Subtract lost food points from the players total.
-        HP -= damage;
+        characterStats.HP -= damage;
 
         healthBar.fillAmount -= ((float)damage / (float)maxHP);   // Changes the fill amount to decrease when a character takes damage
 
-
         //Update the food display with the new total.
-        healthValue.text = HP.ToString() + "/" + maxHP.ToString();
+        healthValue.text = characterStats.HP.ToString() + "/" + maxHP.ToString();
 
         //Check to see if the entity is dead
         CheckIfDead();

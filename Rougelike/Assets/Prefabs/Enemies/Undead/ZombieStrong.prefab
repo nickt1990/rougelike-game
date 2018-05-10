@@ -108,24 +108,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
+  characterName: ZombieStrong
   healthBar: {fileID: 114092112249466814}
   healthValue: {fileID: 114244169730640390}
   _blockingLayer:
     serializedVersion: 2
     m_Bits: 256
-  ElementalWeaknesses: 
-  ElementalResistances: 
-  entityName: ZombMAN
-  BaseHealthPoints: 200
-  BaseMagicPoints: 20
-  BasePhysicalAttack: 20
-  BaseMagicAttack: 20
-  BaseSpeed: 20
   maxHP: 0
   attackSound1: {fileID: 8300000, guid: 0db8cac2749584a009540aa5671ee80d, type: 3}
   attackSound2: {fileID: 8300000, guid: 114514a3b3697484ebaa08f7fbf842d3, type: 3}
   EnemyNameText: {fileID: 114372700745539292}
   EnemyDamageText: {fileID: 114926696918227532}
+  healthPoints: 200
+  magicPoints: 10
+  physicalAttack: 10
+  magicAttack: 10
+  speed: 10
   experience: 20
 --- !u!212 &21261064
 SpriteRenderer:
@@ -474,7 +472,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Name
+  m_Text: 
 --- !u!222 &222079855058425238
 CanvasRenderer:
   m_ObjectHideFlags: 1

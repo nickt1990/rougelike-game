@@ -9,23 +9,22 @@ public enum DamageType
 
 public class BaseDamageType : BaseDamageModifier
 {
-    
+
 }
 
 public class PhysicalDamageType : BaseDamageType
 {
-
-    public PhysicalDamageType(int statDamage)
+    public PhysicalDamageType()
     {
-        damage += statDamage;
+        
     }
 }
 
 public class MagicDamageType : BaseDamageType
 {
-    public MagicDamageType(int statDamage)
+    public MagicDamageType()
     {
-        damage += statDamage;
+        
     }
 }
 

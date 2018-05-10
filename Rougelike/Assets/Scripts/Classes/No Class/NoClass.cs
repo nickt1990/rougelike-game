@@ -5,7 +5,7 @@ using System.Collections.Generic;
 /// This class will set the default stats to the character.
 /// All characters start with no class, so all characters will go through the constructor of this class upon their instantiation.
 /// </summary>
-public class NoClass : ClassBase, IClassType
+public class NoClass : ClassType
 {
 
     public NoClass(Character character) : base(character)
@@ -13,10 +13,10 @@ public class NoClass : ClassBase, IClassType
         className = "No Class";
     }
 
-    public override void OnLevelUp(Player player)
+    public override void OnLevelUp()
     {
-        LevelUp(player, 15, 15, 5, 5, 5);
+        LevelUp(15, 15, 5, 5, 5);
 
-        player.healthValue.text = player.HealthPoints.ToString() + "/" + player.maxHP.ToString();
+        character.healthValue.text = classStats.HP.ToString() + "/" + character.maxHP.ToString();
     }
 }

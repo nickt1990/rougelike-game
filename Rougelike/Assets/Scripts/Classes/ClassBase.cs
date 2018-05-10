@@ -1,44 +1,53 @@
 ﻿
 using System.Collections.Generic;
-/// <summary>
-/// This class is here simply to ensure that all characters stats get instantiated correctly.
-/// All classes will go through this class at one point or another.
-/// </summary>
-public class ClassBase : IClassType
-{
-    public Character character;
 
-    public List<ISkill> skills { get; set; }
+/// <summary>
+/// The base characteristics that every class must have
+/// </summary>
+public abstract class ClassType
+{
+    public List<Ability> skills = new List<Ability>();
+    public Character character;
+    public IStats classStats { get; set; }
     public string className { get; set; }
 
     public int experiencePoints { get; set; }
     public int skillPoints { get; set; }
 
-    public ClassBase(Character _character)
+    public ClassType(Character _character)
     {
+        classStats = new ClassStats();
+
         character = _character;
 
-        character.HealthPoints = character.HP;
-        character.MagicPoints = character.MP;
-        character.PhysicalAttack = character.PhysAtk;
-        character.MagicAttack = character.MagAtk;
-        character.Speed = character.baseSpeed;
+        classStats.HP = character.characterStats.HP;
+        classStats.MP = character.characterStats.MP;
+        classStats.PhysAtk = character.characterStats.PhysAtk;
+        classStats.MagAtk = character.characterStats.MagAtk;
+        classStats.Speed = character.characterStats.Speed;
 
-        character.maxHP = character.HealthPoints;
-        character.healthValue.text = character.HealthPoints.ToString() + "/" + character.maxHP.ToString();
+        character.maxHP = classStats.HP;
+        character.healthValue.text = classStats.HP.ToString() + "/" + character.maxHP.ToString();
     }
 
-    public void LevelUp(Player player, int hpGained, int mpGained, int physAtkGained, int magAtkGained, int speedGained)
+    public void LevelUp(int hpGained, int mpGained, int physAtkGained, int magAtkGained, int speedGained)
     {
-        player.maxHP += hpGained;
-        player.HealthPoints = player.maxHP;
-        player.MagicPoints += mpGained;
-        player.PhysicalAttack += physAtkGained;
-        player.MagicAttack += magAtkGained;
-        player.Speed += speedGained;
+        classStats.HP += hpGained;
+        classStats.MP = mpGained;
+        classStats.PhysAtk = physAtkGained;
+        classStats.MagAtk = magAtkGained;
+        classStats.Speed = speedGained;
 
-        player.healthValue.text = player.HealthPoints.ToString() + "/" + player.maxHP.ToString();
+        character.maxHP = classStats.HP;
+        character.healthValue.text = classStats.HP.ToString() + "/" + character.maxHP.ToString();
 
+    }
+
+    public void AddAbility(Ability newAbility)
+    {
+        newAbility.AddStatDamage(this);
+
+        skills.Add(newAbility);
     }
 
     public void AddResistance(ElementBase newResistance)
@@ -56,7 +65,7 @@ public class ClassBase : IClassType
         return className;
     }
 
-    public virtual void OnLevelUp(Player player)
+    public virtual void OnLevelUp()
     {
         throw new System.NotImplementedException();
     }

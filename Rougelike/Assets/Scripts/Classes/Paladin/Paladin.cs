@@ -3,51 +3,53 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-public class Paladin : ClassBase
+public class Paladin : ClassType
 {
     /// <summary>
     /// Sets the class name and adds skills to the class
     /// </summary>
     /// 
-    /// Base: This is the PaladinModifer, which modifies all stats to fit that of a Paladin.
+    /// Base: This is the ClassBase, which takes care of adding base stats
     /// 
     /// <param name="character"> The character that is becoming the mage class </param>
-    public Paladin(Character character) : base(character)
+    public Paladin(Character character) : base (character)
     {
         className = "Paladin";
 
         ModifyStats();
-        skills = AddDefaultSkills();
 
+        // Add Default abilities
+        AddAbility(new DoubleStab());
+        AddAbility(new Cure());
     }
 
     public void ModifyStats()
-    {
-        character.HealthPoints = character.HP + (int)(character.HP * .5);                           // 50% more hp.
-        character.MagicPoints = character.MP + (int)(character.MP * .25);                           // 25% more mp.
-        character.PhysicalAttack = character.PhysAtk + (int)(character.PhysAtk * .25);              // 25% more physical attack.
-        character.MagicAttack = character.MagAtk + (int)(character.MagAtk * .25);                   // 25% more magic attack.
-        character.Speed = character.baseSpeed - (int)(character.baseSpeed * .25);                   // 25% less speed.
+    {                                                                               // Paladin recieves:
+        classStats.HP = classStats.HP + (int)(classStats.HP * .5);                  // 50% more hp.
+        classStats.MP = classStats.MP + (int)(classStats.MP * .25);                 // 25% more mp.
+        classStats.PhysAtk = classStats.PhysAtk + (int)(classStats.PhysAtk * .25);  // 25% more physical attack.
+        classStats.MagAtk= classStats.MagAtk + (int)(classStats.MagAtk * .25);      // 25% more magic attack.
+        classStats.Speed = classStats.Speed - (int)(classStats.Speed * .25);        // 25% less speed.
 
-        character.maxHP = character.HealthPoints;
-        character.healthValue.text = character.HealthPoints.ToString() + "/" + character.maxHP.ToString();
+        character.maxHP = classStats.HP;
+        character.healthValue.text = classStats.HP.ToString() + "/" + character.maxHP.ToString();
     }
 
-    public List<ISkill> AddDefaultSkills()
+    public List<IAbility> AddDefaultSkills()
     {
-        List<ISkill> allSkills = new List<ISkill>();
+        List<IAbility> allSkills = new List<IAbility>();
 
-        allSkills.Add(new DoubleStab());
-        allSkills.Add(new Cure());
+        //allSkills.Add(new DoubleStab());
+        //allSkills.Add(new Cure());
 
         return allSkills;
     }
 
-    public override void OnLevelUp(Player player)
+    public override void OnLevelUp()
     {
-        LevelUp(player, 25, 25, 5, 5, 2);
+        LevelUp(25, 25, 5, 5, 2);
 
-        player.healthValue.text = player.HealthPoints.ToString() + "/" + player.maxHP.ToString();
+        character.healthValue.text = classStats.HP.ToString() + "/" + character.maxHP.ToString();
     }
 
     private void AddBaseResistances(Character character)
