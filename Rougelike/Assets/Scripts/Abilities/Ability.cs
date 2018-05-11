@@ -1,5 +1,6 @@
-﻿using System;
-
+﻿/// <summary>
+/// The parent class of all skills and spells - Gives them their basic properties.
+/// </summary>
 public abstract class Ability
 {
     public string name { get; set; }
@@ -12,10 +13,14 @@ public abstract class Ability
     public int modifiedDamage; // The actual damage after the modifier (and everything) has been applied
     int damageModifier; // The percentage in which the damage will be modified
 
+    /// <summary>
+    /// Base constructor that simply adds a damage calculator to the ability
+    /// </summary>
     public Ability()
     {
         damageCalculator = new DamageCalculator(this);
     }
+
     public Ability(string _name, int _damage, BaseDamageType _damageType, ElementBase _element)
     {
         name = _name;
@@ -33,9 +38,14 @@ public abstract class Ability
 
     public virtual void AddStatDamage(ClassType characterClass)
     {
-        
+        // Overriden by child classes - Do not delete
     }
 
+    /// <summary>
+    /// Rules that every ability must follow when cast
+    /// </summary>
+    /// <param name="attacker"> Character casting the spell </param>
+    /// <param name="defender"> Character being hit by the spell</param>
     public virtual void Cast(Character attacker, Character defender)
     {
         Player caster = attacker as Player;

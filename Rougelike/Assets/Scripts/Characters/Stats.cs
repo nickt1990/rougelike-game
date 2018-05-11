@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 
-public class CharacterStats : IStats
+/// <summary>
+/// Holds all stats of a character and/or class
+/// </summary>
+public class Stats : IStats
 {
     private int _maxHP;
 

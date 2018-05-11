@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-
+﻿/// <summary>
+/// All abilities have a damage calculator attached to them - It calculates damage based on weaknesse, resistances, etc.
+/// </summary>
 public class DamageCalculator
 {
     Ability skill;
@@ -22,6 +19,12 @@ public class DamageCalculator
         return finalDamage;
     }
 
+    /// <summary>
+    /// Checks the strengths and weaknesses of an enemy, calculates the new damage, and returns it.
+    /// </summary>
+    /// <param name="damageBeingModified"> The damage that is to be changed </param>
+    /// <param name="defender"> The character we check the stengths and weaknesses of </param>
+    /// <returns> The newly calculated damage </returns>
     public int CheckStrengthsAndWeaknesses(int damageBeingModified, Character defender)
     {
         int modifiedDamage = damageBeingModified;

@@ -3,13 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-//public enum ExperienceTable
-//{
-//    Level_1 = 10,
-//    Level_2 = 20,
-//    Level_3 = 40
-//};
-
+/// <summary>
+/// The amount of experience that the character will take in order for them to level up
+/// </summary>
 public class ExperienceTable
 {
     public Dictionary<int, int> CreateExperienceTable()

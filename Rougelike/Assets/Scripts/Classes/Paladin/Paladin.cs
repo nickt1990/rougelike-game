@@ -22,31 +22,30 @@ public class Paladin : ClassType
         AddAbility(new DoubleStab());
         AddAbility(new Cure());
 
+        AddBaseResistances();
+        AddBaseWeaknesses();
+
         SetSkillsToButtons();
     }
 
+    /// <summary>
+    /// Modify the character stats to fit into the class stats
+    /// </summary>
     public void ModifyStats()
-    {                                                                               // Paladin recieves:
-        classStats.HP = classStats.HP + (int)(classStats.HP * .5);                  // 50% more hp.
-        classStats.MP = classStats.MP + (int)(classStats.MP * .25);                 // 25% more mp.
-        classStats.PhysAtk = classStats.PhysAtk + (int)(classStats.PhysAtk * .25);  // 25% more physical attack.
-        classStats.MagAtk= classStats.MagAtk + (int)(classStats.MagAtk * .25);      // 25% more magic attack.
-        classStats.Speed = classStats.Speed - (int)(classStats.Speed * .25);        // 25% less speed.
+    {                                                               // Paladin recieves:
+        classStats.HP += (int)(classStats.HP * .5);                 // 50% more hp.
+        classStats.MP += (int)(classStats.MP * .25);                // 25% more mp.
+        classStats.PhysAtk += (int)(classStats.PhysAtk * .25);      // 25% more physical attack.
+        classStats.MagAtk += (int)(classStats.MagAtk * .25);        // 25% more magic attack.
+        classStats.Speed -= (int)(classStats.Speed * .25);          // 25% less speed.
 
         character.maxHP = classStats.HP;
         character.healthValue.text = classStats.HP.ToString() + "/" + character.maxHP.ToString();
     }
 
-    public List<IAbility> AddDefaultSkills()
-    {
-        List<IAbility> allSkills = new List<IAbility>();
-
-        //allSkills.Add(new DoubleStab());
-        //allSkills.Add(new Cure());
-
-        return allSkills;
-    }
-
+    /// <summary>
+    /// Handles everything that occurs when a Paladin levels up
+    /// </summary>
     public override void OnLevelUp()
     {
         LevelUp(25, 25, 5, 5, 2);
@@ -54,12 +53,20 @@ public class Paladin : ClassType
         character.healthValue.text = classStats.HP.ToString() + "/" + character.maxHP.ToString();
     }
 
-    private void AddBaseResistances(Character character)
+    /// <summary>
+    /// Add base resistances for Paladins
+    /// </summary>
+    /// <param name="character"></param>
+    private void AddBaseResistances()
     {
         character.resistances.Add(new Holy());
     }
 
-    private void AddBaseWeaknesses(Character character)
+    /// <summary>
+    /// Add Base Weaknesses for Paladins
+    /// </summary>
+    /// <param name="character"></param>
+    private void AddBaseWeaknesses()
     {
         character.weaknesses.Add(new Shadow());
     }

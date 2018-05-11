@@ -2,11 +2,8 @@
 
 public class Skill : Ability
 {
-    int damageModifier; // The percentage in which the damage will be modified
-
     public Skill()
     {
-        damageModifier = 1;
         damageType = new PhysicalDamageType();
     }
     public Skill(string _name, int _damage, BaseDamageType _damageType, ElementBase _element)
@@ -17,11 +14,10 @@ public class Skill : Ability
         element = _element;
     }
 
-    public Skill(int _damageModifier)
-    {
-        damageModifier = _damageModifier;
-    }
-
+    /// <summary>
+    /// A skill is a physical damage ability, so we apply the physical attack of the class with said skill
+    /// </summary>
+    /// <param name="characterClass"> The class that has been given a skill </param>
     public override void AddStatDamage(ClassType characterClass)
     {
         damage += characterClass.classStats.PhysAtk;

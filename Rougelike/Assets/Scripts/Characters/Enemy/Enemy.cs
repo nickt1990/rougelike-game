@@ -42,6 +42,9 @@ public class Enemy : Character
         target = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
+    /// <summary>
+    /// Set the stats of the enemy based on the Unity GUI fields
+    /// </summary>
     public void SetStats()
     {
         characterStats.HP = healthPoints;

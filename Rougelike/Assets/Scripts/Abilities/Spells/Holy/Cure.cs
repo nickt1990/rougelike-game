@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+﻿/// <summary>
+/// A holy spell that can target an ally and heal them.
+/// </summary>
 public class Cure : HolySpell
 { 
     public Cure() : base(new Heal())

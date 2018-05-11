@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-
+﻿/// <summary>
+/// Base class that all water-based spells will inherit from
+/// </summary>
 public class WaterSpell : Spell
 {
     /// <summary>

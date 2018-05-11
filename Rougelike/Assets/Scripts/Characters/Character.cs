@@ -10,7 +10,7 @@ public class Character : MonoBehaviour
     public IAttack characterAttackBehavior;              // A character can attack in some way
     public IDialogueBehavior characterDialogueBehavior;  // A character can talk in some way
     public IMovementBehavior characterMovementBehavior;  // A character can move in some way
-    public IStats characterStats = new CharacterStats();
+    public IStats characterStats = new Stats();
     #endregion
 
     public ClassType characterClass;            // Class of a character
@@ -82,11 +82,19 @@ public class Character : MonoBehaviour
         characterMovementBehavior = mb;
     }
 
+    /// <summary>
+    /// Set how the character will speak
+    /// </summary>
+    /// <param name="db"> The specific way a character will speak </param>
     public void SetDialogueBehavior(IDialogueBehavior db)
     {
         characterDialogueBehavior = db;
     }
 
+    /// <summary>
+    /// Set the class type of the character
+    /// </summary>
+    /// <param name="newClass">The class you would like the character to become </param>
     public void SetClassType(ClassType newClass)
     {
         characterClass = newClass;

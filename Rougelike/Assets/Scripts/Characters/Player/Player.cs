@@ -55,22 +55,22 @@ public class Player : Character, IAttack
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            characterClass.skills[0].Cast(this, FindTarget("ZombieWeak"));
+            characterClass.skills[0].Cast(this, FindTarget("Turtle"));
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            characterClass.skills[1].Cast(this, FindTarget("ZombieWeak"));
+            characterClass.skills[1].Cast(this, FindTarget("Turtle"));
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            characterClass.skills[2].Cast(this, FindTarget("ZombieWeak"));
+            characterClass.skills[2].Cast(this, FindTarget("Turtle"));
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
-            characterClass.skills[3].Cast(this, FindTarget("ZombieWeak"));
+            characterClass.skills[3].Cast(this, FindTarget("Turtle"));
         }
 
         if (Input.GetKeyDown(KeyCode.M))
@@ -142,6 +142,9 @@ public class Player : Character, IAttack
 
     #region Fights
 
+    /// <summary>
+    /// Perform a basic physical attack as a character
+    /// </summary>
     public override void PerformPhysicalAttack<T>(T component) 
     {
         // The component that was passed in is the target that the Character is hitting, so we set it to be so.
@@ -248,6 +251,9 @@ public class Player : Character, IAttack
     #endregion
 
     #region Death
+    /// <summary>
+    /// What happens when a player dies
+    /// </summary>
     public void OnDeath()
     {
         // ~~IMPLEMENT: Check if both players are dead
@@ -255,7 +261,10 @@ public class Player : Character, IAttack
         // If both players are dead, then...
         GameManager.instance.GameOver();     //Call the GameOver function of GameManager.
     }
-
+    /// <summary>
+    /// Check if a players HP is below 0
+    /// </summary>
+    /// <returns> TRUE: If the HP is below 0, FALSE: if the HP is above 0 </returns>
     public bool CheckIfDead()
     {
         //Check if food point total is less than or equal to zero.

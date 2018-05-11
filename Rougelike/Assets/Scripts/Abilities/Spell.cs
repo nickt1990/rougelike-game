@@ -2,11 +2,8 @@
 
 public class Spell : Ability
 {
-    int damageModifier; // The percentage in which the damage will be modified
-
     public Spell()
     {
-        damageModifier = 1;
         damageType = new MagicDamageType();
     }
     public Spell(string _name, int _damage, BaseDamageType _damageType, ElementBase _element)
@@ -17,11 +14,10 @@ public class Spell : Ability
         element = _element;
     }
 
-    public Spell(int _damageModifier)
-    {
-        damageModifier = _damageModifier;
-    }
-
+    /// <summary>
+    /// A spell is a magic-type move, so this method will apply the characters classes magic attack to its damage
+    /// </summary>
+    /// <param name="characterClass"> The class that we grab tha magic attack value from </param>
     public override void AddStatDamage(ClassType characterClass)
     {
         damage += characterClass.classStats.MagAtk;
