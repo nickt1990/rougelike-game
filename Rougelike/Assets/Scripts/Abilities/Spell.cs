@@ -6,7 +6,7 @@ public class Spell : Ability
     {
         damageType = new MagicDamageType();
     }
-    public Spell(string _name, int _damage, BaseDamageType _damageType, ElementBase _element)
+    public Spell(string _name, int _damage, BaseDamageType _damageType, Element _element)
     {
         name = _name;
         damage = _damage;

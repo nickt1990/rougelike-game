@@ -139,12 +139,12 @@ public class Enemy : Character
         gameObject.SetActive(false);
     }
 
-    public void AddNewResistance(IModifiesDamage newResistance)
+    public void AddNewResistance(Effect newResistance)
     {
 
     }
 
-    public void AddNewWeakness(IModifiesDamage newWeakness)
+    public void AddNewWeakness(Effect newWeakness)
     {
 
     }

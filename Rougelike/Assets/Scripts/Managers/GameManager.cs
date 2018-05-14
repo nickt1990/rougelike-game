@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public bool playersTurn = true;       //Boolean to check if it's players turn, hidden in inspector but public.
 
     public Player player1;
-    public Player player2;
+    //public Player player2;
 
     private Text levelText;                                 //Text to display current level number.
     private Text levelUpText;
@@ -45,9 +45,6 @@ public class GameManager : MonoBehaviour
         //Assign enemies to a new List of Enemy objects.
         enemies = new List<Character>();
 
-        //Get a component reference to the attached BoardManager script
-        boardScript = GetComponent<BoardManager>();
-
         //Call the InitGame function to initialize the first level 
         InitGame();
     }
@@ -75,34 +72,17 @@ public class GameManager : MonoBehaviour
         //While doingSetup is true the player can't move, prevent player from moving while title card is up.
         doingSetup = true;
 
-        //Get a reference to our image LevelImage by finding it by name.
-        levelImage = GameObject.Find("LevelImage");
-
-        //Get a reference to our text LevelText's text component by finding it by name and calling GetComponent.
-        levelText = GameObject.Find("LevelText").GetComponent<Text>();
-
-        //Set the text of levelText to the string "Day" and append the current level number.
-        levelText.text = "Floor " + level;
-
-        //Set levelImage to active blocking player's view of the game board during setup.
-        levelImage.SetActive(true);
-
         //Call the HideLevelImage function with a delay in seconds of levelStartDelay.
         Invoke("HideLevelImage", levelStartDelay);
 
         //Clear any Enemy objects in our List to prepare for next level.
         enemies.Clear();
-
-        //Call the SetupScene function of the BoardManager script, pass it current level number.
-        boardScript.SetupScene(level);
     }
 
 
     //Hides black image used between levels
     void HideLevelImage()
     {
-        //Disable the levelImage gameObject.
-        levelImage.SetActive(false);
 
         //Set doingSetup to false allowing player to move again.
         doingSetup = false;

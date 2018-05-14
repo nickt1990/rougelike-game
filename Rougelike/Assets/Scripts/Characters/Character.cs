@@ -57,10 +57,10 @@ public class Character : MonoBehaviour
     [HideInInspector] public int maxHP;
 
     [Header("Damage Modification")]
-    public List<IModifiesDamage> weaknesses = new List<IModifiesDamage>();   // Damage modifiers that deal double damage to this character
-    public List<IModifiesDamage> resistances = new List<IModifiesDamage>();  // Damage modifiers that deal half damage to this character
-    public List<IModifiesDamage> immunities = new List<IModifiesDamage>();   // Damage modifiers that deal no damage to this character
-    public List<IModifiesDamage> advantages = new List<IModifiesDamage>();   // Damage modifiers that heal this character
+    public List<Effect> weaknesses = new List<Effect>();   // Damage modifiers that deal double damage to this character
+    public List<Effect> resistances = new List<Effect>();  // Damage modifiers that deal half damage to this character
+    public List<Effect> immunities = new List<Effect>();   // Damage modifiers that deal no damage to this character
+    public List<Effect> advantages = new List<Effect>();   // Damage modifiers that heal this character
 
     public virtual void Start()
     {

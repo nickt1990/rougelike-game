@@ -1,12 +1,12 @@
 ﻿/// <summary>
 /// The parent class of all skills and spells - Gives them their basic properties.
 /// </summary>
-public abstract class Ability
+public abstract class Ability : IDamageModifier
 {
     public string name { get; set; }
     public int damage { get; set; }
     public BaseDamageType damageType { get; set; }
-    public ElementBase element { get; set; }
+    public Element element { get; set; }
     public StatusEffect statusEffect { get; set; }
     public DamageCalculator damageCalculator;
 
@@ -21,7 +21,7 @@ public abstract class Ability
         damageCalculator = new DamageCalculator(this);
     }
 
-    public Ability(string _name, int _damage, BaseDamageType _damageType, ElementBase _element)
+    public Ability(string _name, int _damage, BaseDamageType _damageType, Element _element)
     {
         name = _name;
         damage = _damage;

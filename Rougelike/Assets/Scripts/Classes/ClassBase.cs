@@ -179,7 +179,7 @@ public abstract class ClassType
     /// A resistance is an element that will deal half damage
     /// </summary>
     /// <param name="newResistance"> The element that the class is resistant to </param>
-    public void AddResistance(ElementBase newResistance)
+    public void AddResistance(Element newResistance)
     {
         character.resistances.Add(newResistance);
     }
@@ -189,7 +189,7 @@ public abstract class ClassType
     /// A weakness is an element that will deal double damage
     /// </summary>
     /// <param name="newWeakness"> The element that will deal 2x damage to this class </param>
-    public void AddWeakness(ElementBase newWeakness)
+    public void AddWeakness(Element newWeakness)
     {
         character.weaknesses.Add(newWeakness);
     }
@@ -199,7 +199,7 @@ public abstract class ClassType
     /// An immunity is an element that will deal no damage to this class
     /// </summary>
     /// <param name="newImmunity"> The element that will deal no damage to this class</param>
-    public void AddImmunity(ElementBase newImmunity)
+    public void AddImmunity(Element newImmunity)
     {
         character.immunities.Add(newImmunity);
     }
@@ -209,7 +209,7 @@ public abstract class ClassType
     /// An advantage is an element that will heal this class instead of harm it
     /// </summary>
     /// <param name="newAdvantage"> The element that will heal this class </param>
-    public void AddAdvantage(ElementBase newAdvantage)
+    public void AddAdvantage(Element newAdvantage)
     {
         character.advantages.Add(newAdvantage);
     }

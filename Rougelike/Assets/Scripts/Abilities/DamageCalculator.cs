@@ -3,11 +3,11 @@
 /// </summary>
 public class DamageCalculator
 {
-    Ability skill;
+    IDamageModifier damageModifier;
     int finalDamage;
-    public DamageCalculator(Ability _skill)
+    public DamageCalculator(IDamageModifier _damageModifier)
     {
-        skill = _skill;
+        damageModifier = _damageModifier;
     }
 
     /// <summary>
@@ -29,12 +29,12 @@ public class DamageCalculator
     {
         int modifiedDamage = damageBeingModified;
 
-        if (skill.element != null)
+        if (damageModifier.element != null)
         {
             // Check if the defender is weak to that element
             foreach (var weakness in defender.weaknesses)
             {
-                if (weakness.GetType() == skill.element.GetType()) // Because we are using classes, we have to go by its types.  If the type is found in their weaknesses, then...
+                if (weakness.GetType() == damageModifier.element.GetType()) // Because we are using classes, we have to go by its types.  If the type is found in their weaknesses, then...
                 {
                     // Damage is doubled
                     modifiedDamage = (int)(modifiedDamage * 2);
@@ -44,7 +44,7 @@ public class DamageCalculator
             // Check if the defender is resistant to the element
             foreach (var resistance in defender.resistances)
             {
-                if (resistance.GetType() == skill.element.GetType()) // Because we are using classes, we have to go by its types.  If the type is found in their resistances, then...
+                if (resistance.GetType() == damageModifier.element.GetType()) // Because we are using classes, we have to go by its types.  If the type is found in their resistances, then...
                 {
                     // Damage is halved
                     modifiedDamage = (int)(modifiedDamage * .5);
@@ -54,7 +54,7 @@ public class DamageCalculator
             // Check if the defender is immune to the element
             foreach (var immunity in defender.immunities)
             {
-                if (immunity.GetType() == skill.element.GetType()) // Because we are using classes, we have to go by its types.  If the type is found in their resistances, then...
+                if (immunity.GetType() == damageModifier.element.GetType()) // Because we are using classes, we have to go by its types.  If the type is found in their resistances, then...
                 {
                     // Damage is set to nothing
                     modifiedDamage = 0;
@@ -64,7 +64,7 @@ public class DamageCalculator
             // Check if the defender heals from the element
             foreach (var advantage in defender.advantages)
             {
-                if (advantage.GetType() == skill.element.GetType()) // Because we are using classes, we have to go by its types.  If the type is found in their resistances, then...
+                if (advantage.GetType() == damageModifier.element.GetType()) // Because we are using classes, we have to go by its types.  If the type is found in their resistances, then...
                 {
                     // Damage is set to negative, Healing the enemy
                     modifiedDamage = (int)(modifiedDamage * -1);
