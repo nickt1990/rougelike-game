@@ -190,6 +190,12 @@ public class Player : Character, IAttack
             TakeDamage(-25);
             other.gameObject.SetActive(false);
         }
+		else if (other.tag == "Door")
+		{
+			enabled = false;
+			StartCoroutine(characterMovementBehavior.SmoothMovement(new Vector3(0.5f, 0.5f, 0))); // Move the player to the starting position of the next room
+			enabled = true;
+		}
     }
 
     /// <summary>
