@@ -8,7 +8,7 @@ using UnityEngine.UI;                   //Allows us to use UI.
 public class GameManager : MonoBehaviour
 {
     public float levelStartDelay = 2f;                      //Time to wait before starting level, in seconds.
-    public float turnDelay = 0.1f;                          //Delay between each Player turn.
+    public float turnDelay = 5.5f;                          //Delay between each Player turn.
     public static GameManager instance = null;              //Static instance of GameManager which allows it to be accessed by any other script.
     [HideInInspector] public bool playersTurn = true;       //Boolean to check if it's players turn, hidden in inspector but public.
 
@@ -17,11 +17,11 @@ public class GameManager : MonoBehaviour
     private Text levelText;                                 //Text to display current level number.
     private Text levelUpText;
     private GameObject levelImage;                          //Image to block out level as levels are being set up, background for levelText.
-    private BoardManager boardScript;                       //Store a reference to our BoardManager which will set up the level.
+    //private BoardManager boardScript;                       //Store a reference to our BoardManager which will set up the level.
     private int level = 1;                                  //Current level number, expressed in game as "Day 1".
     private List<Character> enemies;                            //List of all Enemy units, used to issue them move commands.
     private bool enemiesMoving;                             //Boolean to check if enemies are moving.
-    private bool doingSetup = true;                         //Boolean to check if we're setting up board, prevent Player from moving during setup.
+    private bool doingSetup = false;                         //Boolean to check if we're setting up board, prevent Player from moving during setup.
 
     //Awake is always called before any Start functions
     void Awake()
@@ -44,11 +44,8 @@ public class GameManager : MonoBehaviour
         //Assign enemies to a new List of Enemy objects.
         enemies = new List<Character>();
 
-        //Get a component reference to the attached BoardManager script
-        boardScript = GetComponent<BoardManager>();
-
         //Call the InitGame function to initialize the first level 
-        InitGame();
+        //InitGame();
     }
 
     //this is called only once, and the paramter tell it to be called only after the scene was loaded
@@ -93,7 +90,7 @@ public class GameManager : MonoBehaviour
         enemies.Clear();
 
         //Call the SetupScene function of the BoardManager script, pass it current level number.
-        boardScript.SetupScene(level);
+        //boardScript.SetupScene(level);
     }
 
 
@@ -130,6 +127,7 @@ public class GameManager : MonoBehaviour
         if (playersTurn || enemiesMoving || doingSetup)
             return; //If any of these are true, return and do not start MoveEnemies.
 
+		playersTurn = true;
         //Start moving enemies.
         StartCoroutine(MoveEnemies());
     }
