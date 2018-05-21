@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-
+/// <summary>
+/// Active skill that is often used by Paladin
+/// </summary>
 public class Smite : Skill
 {
     public Smite()

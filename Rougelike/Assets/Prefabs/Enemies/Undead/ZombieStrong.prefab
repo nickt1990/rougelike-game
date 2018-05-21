@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 9561064}
   - component: {fileID: 5061064}
   - component: {fileID: 6161064}
-  - component: {fileID: 11461064}
+  - component: {fileID: 114975835497633960}
   m_Layer: 8
   m_Name: ZombieStrong
   m_TagString: Enemy
@@ -96,35 +96,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &11461064
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 161064}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d22f79ef0655a41bb9e62823f6e7a3f1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 0}
-  characterName: ZombieStrong
-  healthBar: {fileID: 114092112249466814}
-  healthValue: {fileID: 114244169730640390}
-  _blockingLayer:
-    serializedVersion: 2
-    m_Bits: 256
-  maxHP: 0
-  attackSound1: {fileID: 8300000, guid: 0db8cac2749584a009540aa5671ee80d, type: 3}
-  attackSound2: {fileID: 8300000, guid: 114514a3b3697484ebaa08f7fbf842d3, type: 3}
-  EnemyNameText: {fileID: 114372700745539292}
-  EnemyDamageText: {fileID: 114926696918227532}
-  healthPoints: 200
-  magicPoints: 10
-  physicalAttack: 10
-  magicAttack: 10
-  speed: 10
-  experience: 20
 --- !u!212 &21261064
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -473,6 +444,35 @@ MonoBehaviour:
     m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: 
+--- !u!114 &114975835497633960
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 161064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0620ff1d1592194d8c656fe5bc224e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+  characterName: ZombieStrong
+  healthBar: {fileID: 114092112249466814}
+  healthValue: {fileID: 114244169730640390}
+  _blockingLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  maxHP: 0
+  attackSound1: {fileID: 0}
+  attackSound2: {fileID: 0}
+  EnemyNameText: {fileID: 114372700745539292}
+  EnemyDamageText: {fileID: 114926696918227532}
+  healthPoints: 200
+  magicPoints: 10
+  physicalAttack: 10
+  magicAttack: 10
+  speed: 10
+  experience: 20
 --- !u!222 &222079855058425238
 CanvasRenderer:
   m_ObjectHideFlags: 1

@@ -1,4 +1,7 @@
-﻿public class Blizzard : IceSpell
+﻿/// <summary>
+/// An ice-based spell that hits every enemy in the area
+/// </summary>
+public class Blizzard : IceSpell
 {
     public Blizzard()
     {

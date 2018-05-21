@@ -1,4 +1,7 @@
-﻿public class Bubble : WaterSpell
+﻿/// <summary>
+/// A spell that deals water damage in an small area in front of the caster
+/// </summary>
+public class Bubble : WaterSpell
 {
     public Bubble()
     {

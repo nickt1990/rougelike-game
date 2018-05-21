@@ -23,8 +23,6 @@ public class Enemy : Character
     private Transform target;                           //Transform to attempt to move toward each turn.
     private bool skipMove;                              //Boolean to determine whether or not enemy should skip a turn or move this turn.
 
-
-
     //Start overrides the virtual Start function of the base class.
     public override void Start()
     {
@@ -44,6 +42,9 @@ public class Enemy : Character
         target = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
+    /// <summary>
+    /// Set the stats of the enemy based on the Unity GUI fields
+    /// </summary>
     public void SetStats()
     {
         characterStats.HP = healthPoints;
@@ -121,12 +122,29 @@ public class Enemy : Character
         healthValue.text = characterStats.HP.ToString() + "/" + maxHP.ToString();
     }
 
-    public void AddNewResistance(IModifiesDamage newResistance)
+    public bool CheckIfDead()
+    {
+        //Check if food point total is less than or equal to zero.
+        if (characterStats.HP <= 0)
+        {
+            OnDeath();
+            return true;
+        }
+
+        return false;
+    }
+
+    public virtual void OnDeath()
+    {
+        gameObject.SetActive(false);
+    }
+
+    public void AddNewResistance(Effect newResistance)
     {
 
     }
 
-    public void AddNewWeakness(IModifiesDamage newWeakness)
+    public void AddNewWeakness(Effect newWeakness)
     {
 
     }

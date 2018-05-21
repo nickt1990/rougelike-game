@@ -1,4 +1,7 @@
-﻿public class ShadowBall : ShadowSpell
+﻿/// <summary>
+/// A shadow-based spell that hits in a circle around the caster
+/// </summary>
+public class ShadowBall : ShadowSpell
 {
     public ShadowBall()
     {

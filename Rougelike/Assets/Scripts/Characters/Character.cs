@@ -10,7 +10,7 @@ public class Character : MonoBehaviour
     public IAttack characterAttackBehavior;              // A character can attack in some way
     public IDialogueBehavior characterDialogueBehavior;  // A character can talk in some way
     public IMovementBehavior characterMovementBehavior;  // A character can move in some way
-    public IStats characterStats = new CharacterStats();
+    public IStats characterStats = new Stats();
     #endregion
 
     public ClassType characterClass;            // Class of a character
@@ -57,14 +57,10 @@ public class Character : MonoBehaviour
     [HideInInspector] public int maxHP;
 
     [Header("Damage Modification")]
-    public List<IModifiesDamage> weaknesses = new List<IModifiesDamage>();   // Damage modifiers that deal double damage to this character
-    public List<IModifiesDamage> resistances = new List<IModifiesDamage>();  // Damage modifiers that deal half damage to this character
-    public List<IModifiesDamage> immunities = new List<IModifiesDamage>();   // Damage modifiers that deal no damage to this character
-    public List<IModifiesDamage> advantages = new List<IModifiesDamage>();   // Damage modifiers that heal this character
-
-    // After the class modifies the base stats
-    #region Modified Stats
-    #endregion
+    public List<Effect> weaknesses = new List<Effect>();   // Damage modifiers that deal double damage to this character
+    public List<Effect> resistances = new List<Effect>();  // Damage modifiers that deal half damage to this character
+    public List<Effect> immunities = new List<Effect>();   // Damage modifiers that deal no damage to this character
+    public List<Effect> advantages = new List<Effect>();   // Damage modifiers that heal this character
 
     public virtual void Start()
     {
@@ -86,11 +82,19 @@ public class Character : MonoBehaviour
         characterMovementBehavior = mb;
     }
 
+    /// <summary>
+    /// Set how the character will speak
+    /// </summary>
+    /// <param name="db"> The specific way a character will speak </param>
     public void SetDialogueBehavior(IDialogueBehavior db)
     {
         characterDialogueBehavior = db;
     }
 
+    /// <summary>
+    /// Set the class type of the character
+    /// </summary>
+    /// <param name="newClass">The class you would like the character to become </param>
     public void SetClassType(ClassType newClass)
     {
         characterClass = newClass;
@@ -113,7 +117,7 @@ public class Character : MonoBehaviour
 
         //Set the attack trigger of the player's animation controller in order to play the player's attack animation.
         animator.SetTrigger("playerChop");
-        
+
     }
 
     public void CastSkill<T>(T component)
@@ -131,20 +135,5 @@ public class Character : MonoBehaviour
     }
     #endregion
 
-    public bool CheckIfDead()
-    {
-        //Check if food point total is less than or equal to zero.
-        if (characterStats.HP <= 0)
-        {
-            OnDeath();
-            return true;
-        }
 
-        return false;
-    }
-
-    public virtual void OnDeath()
-    {
-        gameObject.SetActive(false);
-    }
 }

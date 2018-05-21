@@ -1,4 +1,7 @@
-﻿public class FireBall : FireSpell
+﻿/// <summary>
+/// A Fire spell that hits a single target, dealing a lot of damage
+/// </summary>
+public class FireBall : FireSpell
 {
     public FireBall()
     {

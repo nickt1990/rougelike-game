@@ -7,12 +7,14 @@ using System.Collections.Generic;
 /// </summary>
 public class NoClass : ClassType
 {
-
     public NoClass(Character character) : base(character)
     {
         className = "No Class";
     }
 
+    /// <summary>
+    /// What happens when a character with no class levels up
+    /// </summary>
     public override void OnLevelUp()
     {
         LevelUp(15, 15, 5, 5, 5);

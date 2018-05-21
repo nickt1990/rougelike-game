@@ -172,19 +172,6 @@ public class PlayerMovement : IMovementBehavior
         Character objectBeingHit = component as Character;
 
         currentPlayer.PerformPhysicalAttack(component);
-        //currentPlayer.CastSkill(component);   // If you want to cast a skill, uncomment this and comment out PerformPhysicalAttack.
-
-        if (objectBeingHit.CheckIfDead())
-        {
-            Enemy dyingEnemy = component as Enemy;
-
-            currentPlayer.AddExperience(dyingEnemy.experience);
-
-            if (currentPlayer.CheckIfLevel())
-            {
-                currentPlayer.LevelUp();
-            }
-        }
 
     }
 
