@@ -6,7 +6,7 @@ public class Skill : Ability
     {
         damageType = new PhysicalDamageType();
     }
-    public Skill(string _name, int _damage, BaseDamageType _damageType, Element _element)
+    public Skill(string _name, int _damage, DamageType _damageType, Element _element)
     {
         name = _name;
         damage = _damage;

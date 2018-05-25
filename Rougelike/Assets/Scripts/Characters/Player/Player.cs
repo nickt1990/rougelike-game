@@ -7,6 +7,8 @@ using System;
 
 public class Player : Character, IAttack
 {
+    public const string TESTING_ENEMY = "ZombieStrong";
+
     [Header("Experience Bar")]
     public Image expBar;
     public int playerLevel;
@@ -55,22 +57,22 @@ public class Player : Character, IAttack
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            characterClass.skills[0].Cast(this, FindTarget("Turtle"));
+            characterClass.skills[0].Cast(this, FindTarget(TESTING_ENEMY));
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            characterClass.skills[1].Cast(this, FindTarget("Turtle"));
+            characterClass.skills[1].Cast(this, FindTarget(TESTING_ENEMY));
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            characterClass.skills[2].Cast(this, FindTarget("Turtle"));
+            characterClass.skills[2].Cast(this, FindTarget(TESTING_ENEMY));
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
-            characterClass.skills[3].Cast(this, FindTarget("Turtle"));
+            characterClass.skills[3].Cast(this, FindTarget(TESTING_ENEMY));
         }
 
         if (Input.GetKeyDown(KeyCode.M))
@@ -93,6 +95,19 @@ public class Player : Character, IAttack
         }
 
     }
+
+    void EquipItem(Equipment location, Equipment equipment)
+    {
+        if(location.equipmentType == equipment.equipmentType)
+        {
+            location = equipment;
+        }
+        else
+        {
+            Console.WriteLine("You cannot equip that type of equipment here.");
+        }
+    }
+
     /// <summary>
     /// Finds the target with the given name
     /// </summary>
@@ -157,7 +172,7 @@ public class Player : Character, IAttack
         Enemy target = component as Enemy;
 
         //Call the TakeDamage function of the Character we are hitting.
-        target.TakeDamage(characterClass.classStats.PhysAtk);
+        target.TakeDamage(characterClass.classStats.PhysAtk + (eqpMainHand.stats.PhysAtk + eqpOffHand.stats.PhysAtk));
 
         //Set the attack trigger of the player's animation controller in order to play the player's attack animation.
         animator.SetTrigger("playerChop");

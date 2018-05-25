@@ -32,7 +32,7 @@
 
     private void AddBaseAdvantages()
     {
-
+        advantages.Clear();
     }
 }
 

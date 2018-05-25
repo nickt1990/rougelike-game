@@ -4,11 +4,31 @@ using UnityEngine;
 
 public class Sword : Equipment
 {
-    public int damage;
-    public Sword(string _name, int _damage, Element _element)
+
+    public Sword(string Name, int HealthPoints, int MagicPoints, int PhysicalAttack, int MagicAttack, int Speed)
     {
-        name = _name;
-        damage = _damage;
-        element = _element;
+        equipmentName = Name;
+        stats.HP = HealthPoints;
+        stats.MP = MagicPoints;
+        stats.PhysAtk = PhysicalAttack;
+        stats.MagAtk = MagicAttack;
+        stats.Speed = Speed;
+        this.element = element;
+
+        equipmentType = EquipmentType.Weapon;
+
+    }
+
+    public Sword(string Name, int HealthPoints, int MagicPoints, int PhysicalAttack, int MagicAttack, int Speed, Element element)
+    {
+        equipmentName = Name;
+        stats.HP = HealthPoints;
+        stats.MP = MagicPoints;
+        stats.PhysAtk = PhysicalAttack;
+        stats.MagAtk = MagicAttack;
+        stats.Speed = Speed;
+        this.element = element;
+
+        equipmentType = EquipmentType.Weapon;
     }
 }

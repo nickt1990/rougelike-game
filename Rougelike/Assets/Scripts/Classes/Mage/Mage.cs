@@ -6,7 +6,7 @@ using System.Text;
 
 public class Mage : ClassType
 {
-
+    Character thisCharacter;
     /// <summary>
     /// Sets the class name and adds skills to the class
     /// </summary>
@@ -15,15 +15,19 @@ public class Mage : ClassType
     {
         className = "Mage";
 
+        thisCharacter = character;
+
         ModifyStats();
+
         AddAbility(new FireBall());
         AddAbility(new Blizzard());
         AddAbility(new Bubble());
 
         SetSkillsToButtons();
 
-        AddBaseResistances();
-        AddBaseWeaknesses();
+        AddResistance(new Fire());
+        AddResistance(new Water());
+        AddResistance(new Ice());
     }
 
     /// <summary>
@@ -31,11 +35,11 @@ public class Mage : ClassType
     /// </summary>
     public void ModifyStats()
     {                                                           // Mage receives:
-        classStats.HP += (int)(classStats.HP * -.5);            // 50% less hp.
-        classStats.MP += classStats.MP;                         // 100% more mp.
-        classStats.PhysAtk += (int)(classStats.PhysAtk * .5);   // 50% less physical attack.
-        classStats.MagAtk += classStats.MagAtk;                 // 100% more magic attack.
-        classStats.Speed += 0;                                  // Speed remains unchanged.
+        classStats.HP = (int)(thisCharacter.characterStats.HP * -.5);            // 50% less hp.
+        classStats.MP = thisCharacter.characterStats.MP;                         // 100% more mp.
+        classStats.PhysAtk = (int)(thisCharacter.characterStats.PhysAtk * .5);   // 50% less physical attack.
+        classStats.MagAtk = thisCharacter.characterStats.MagAtk;                 // 100% more magic attack.
+        classStats.Speed = thisCharacter.characterStats.Speed;                                  // Speed remains unchanged.
 
         character.maxHP = classStats.HP;
         character.healthValue.text = classStats.HP.ToString() + "/" + character.maxHP.ToString();
@@ -49,26 +53,6 @@ public class Mage : ClassType
         LevelUp(10, 50, 2, 10, 3);
 
         character.healthValue.text = classStats.HP.ToString() + "/" + character.maxHP.ToString();
-    }
-
-    /// <summary>
-    /// Add base resistances for a Mage
-    /// </summary>
-    /// <param name="character"></param>
-    private void AddBaseResistances()
-    {
-        character.resistances.Add(new Fire());
-        character.resistances.Add(new Water());
-        character.resistances.Add(new Ice());
-    }
-
-    /// <summary>
-    /// Add a weakness for a Mage
-    /// </summary>
-    /// <param name="character"></param>
-    private void AddBaseWeaknesses()
-    {
-
     }
 }
 

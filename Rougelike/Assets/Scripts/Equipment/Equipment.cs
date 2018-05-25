@@ -3,16 +3,39 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-
-public class Equipment : IDamageModifier
+public enum EquipmentType
 {
-    public string name;
+    None   = 0,
+    Weapon = 1,
+    Armor  = 2
+}
+
+public class Equipment : DamageModifier
+{
+    public IStats stats = new Stats();
+    public EquipmentType equipmentType;
     public Element element { get; set; }
-    public DamageCalculator damageCalculator;
+
+    public string equipmentName;
 
     public Equipment()
     {
-        damageCalculator = new DamageCalculator(this);
+        stats.HP = 0;
+        stats.MP = 0;
+        stats.PhysAtk = 0;
+        stats.MagAtk = 0;
+        stats.Speed = 0;
+    }
+    
+    public Equipment(EquipmentType _equipmentType)
+    {
+        stats.HP = 0;
+        stats.MP = 0;
+        stats.PhysAtk = 0;
+        stats.MagAtk = 0;
+        stats.Speed = 0;
+
+        equipmentType = _equipmentType;
     }
 
     public void OnPickUp()

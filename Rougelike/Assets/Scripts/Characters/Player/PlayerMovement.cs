@@ -22,21 +22,21 @@ public class PlayerMovement : IMovementBehavior
         if (!GameManager.instance.playersTurn)
             return;
 
-        if (Input.GetKey(left))
+        if (Input.GetKeyDown(left))
         {
-            AttemptMove<Character>(-1, 0);
+            AttemptMove<Character>(-1f, 0);
         }
-        else if (Input.GetKey(right))
+        else if (Input.GetKeyDown(right))
         {
-            AttemptMove<Character>(1, 0);
+            AttemptMove<Character>(1f, 0);
         }
-        else if (Input.GetKey(up))
+        else if (Input.GetKeyDown(up))
         {
-            AttemptMove<Character>(0, 1);
+            AttemptMove<Character>(0, 1f);
         }
-        else if (Input.GetKey(down))
+        else if (Input.GetKeyDown(down))
         {
-            AttemptMove<Character>(0, -1);
+            AttemptMove<Character>(0, -1f);
         }
     }
 
@@ -47,7 +47,7 @@ public class PlayerMovement : IMovementBehavior
     /// <param name="yDir"> Direction of y that the player will move. </param>
     /// <param name="hit"> What the player hits, if anything. </param>
     /// <returns> TRUE: if the player has moved.  FALSE: If the player did not </returns>
-    public bool Move(int xDir, int yDir, out RaycastHit2D hit)
+    public bool Move(float xDir, float yDir, out RaycastHit2D hit)
     {
         //Store start position to move from, based on objects current transform position.
         Vector2 start = currentPlayer.transform.position;
@@ -111,7 +111,7 @@ public class PlayerMovement : IMovementBehavior
     /// <typeparam name="T"> What the player will be running into (if anything) </typeparam>
     /// <param name="xDir"> The direction of x that the player will be moved </param>
     /// <param name="yDir"> The direction of y that the player will be moved</param>
-    public void AttemptMove<T>(int xDir, int yDir)
+    public void AttemptMove<T>(float xDir, float yDir)
         where T : Component
     {
         RaycastHit2D hit;
@@ -125,12 +125,6 @@ public class PlayerMovement : IMovementBehavior
             //SoundManager.instance.RandomizeSfx(moveSound1, moveSound2);
         }
 
-        //If Move returns true, meaning Player was able to move into an empty space.
-        if (Move(xDir, yDir, out hit))
-        {
-            //Call RandomizeSfx of SoundManager to play the move sound, passing in two audio clips to choose from.
-        }
-
         //Since the player has moved and lost food points, check if the game has ended.
         //CheckIfGameOver();
 
@@ -138,7 +132,7 @@ public class PlayerMovement : IMovementBehavior
         GameManager.instance.playersTurn = false;
     }
 
-    public void CheckMove<T>(int xDir, int yDir)
+    public void CheckMove<T>(float xDir, float yDir)
         where T : Component
     {
         //Hit will store whatever our linecast hits when Move is called.

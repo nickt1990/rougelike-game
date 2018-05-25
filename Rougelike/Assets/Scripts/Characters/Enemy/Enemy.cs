@@ -148,6 +148,16 @@ public class Enemy : Character
     {
 
     }
+
+    public void AddNewImmunity(Effect newImmunity)
+    {
+
+    }
+
+    public void AddNewAdvantage(Effect newAdvantage)
+    {
+
+    }
 }
 
 

@@ -13,6 +13,14 @@ public class Character : MonoBehaviour
     public IStats characterStats = new Stats();
     #endregion
 
+    #region Equipment
+    public Equipment eqpMainHand = new Equipment(EquipmentType.Weapon);
+    public Equipment eqpOffHand = new Equipment(EquipmentType.Weapon);
+    public Equipment eqpHat = new Equipment(EquipmentType.Armor);
+    public Equipment eqpArmor = new Equipment(EquipmentType.Armor);
+    public Equipment eqpBoots = new Equipment(EquipmentType.Armor);
+    #endregion
+
     public ClassType characterClass;            // Class of a character
     [HideInInspector] public Animator animator; // Used to store a reference to the Player's animator component.
 
@@ -60,7 +68,7 @@ public class Character : MonoBehaviour
     public List<Effect> weaknesses = new List<Effect>();   // Damage modifiers that deal double damage to this character
     public List<Effect> resistances = new List<Effect>();  // Damage modifiers that deal half damage to this character
     public List<Effect> immunities = new List<Effect>();   // Damage modifiers that deal no damage to this character
-    public List<Effect> advantages = new List<Effect>();   // Damage modifiers that heal this character
+    public List<Effect> advantages = new List<Effect>() { new Holy(new Heal()) };   // Damage modifiers that heal this character - By default everyone has advantage to healing, naturally.
 
     public virtual void Start()
     {
@@ -113,7 +121,7 @@ public class Character : MonoBehaviour
         Enemy target = component as Enemy;
 
         //Call the TakeDamage function of the Character we are hitting.
-        target.TakeDamage(characterClass.classStats.PhysAtk);
+        target.TakeDamage(characterClass.classStats.PhysAtk + (eqpMainHand.stats.PhysAtk + eqpOffHand.stats.PhysAtk));
 
         //Set the attack trigger of the player's animation controller in order to play the player's attack animation.
         animator.SetTrigger("playerChop");

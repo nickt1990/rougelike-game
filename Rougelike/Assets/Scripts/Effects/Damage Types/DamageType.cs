@@ -1,18 +1,9 @@
-﻿using System.Collections.Generic;
-
-public enum DamageType
-{
-    None = 0,
-    Physical = 1,
-    Magic = 2
-}
-
-public class BaseDamageType : Effect
+﻿public class DamageType : Effect
 {
 
 }
 
-public class PhysicalDamageType : BaseDamageType
+public class PhysicalDamageType : DamageType
 {
     public PhysicalDamageType()
     {
@@ -20,7 +11,7 @@ public class PhysicalDamageType : BaseDamageType
     }
 }
 
-public class MagicDamageType : BaseDamageType
+public class MagicDamageType : DamageType
 {
     public MagicDamageType()
     {

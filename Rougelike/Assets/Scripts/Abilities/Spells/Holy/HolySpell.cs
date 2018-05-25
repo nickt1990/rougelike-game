@@ -21,6 +21,7 @@ public class HolySpell : Spell
     public HolySpell(StatusEffect statusEffect)
     {
         element = new Holy(statusEffect);
+        damageModifier = statusEffect.damageModifier;
     }
 
     /// <summary>
@@ -46,6 +47,8 @@ public class HolySpell : Spell
         _name = name;
         _damage = damage;
         element = new Holy(statusEffect);
+
+        damageModifier = statusEffect.damageModifier;
     }
 }
 

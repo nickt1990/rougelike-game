@@ -1,17 +1,17 @@
 ﻿/// <summary>
 /// The parent class of all skills and spells - Gives them their basic properties.
 /// </summary>
-public abstract class Ability : IDamageModifier
+public abstract class Ability : DamageModifier
 {
     public string name { get; set; }
     public int damage { get; set; }
-    public BaseDamageType damageType { get; set; }
+    public DamageType damageType { get; set; }
     public Element element { get; set; }
     public StatusEffect statusEffect { get; set; }
     public DamageCalculator damageCalculator;
 
     public int modifiedDamage; // The actual damage after the modifier (and everything) has been applied
-    int damageModifier; // The percentage in which the damage will be modified
+    public int damageModifier = 1; // The percentage in which the damage will be modified
 
     /// <summary>
     /// Base constructor that simply adds a damage calculator to the ability
@@ -21,7 +21,7 @@ public abstract class Ability : IDamageModifier
         damageCalculator = new DamageCalculator(this);
     }
 
-    public Ability(string _name, int _damage, BaseDamageType _damageType, Element _element)
+    public Ability(string _name, int _damage, DamageType _damageType, Element _element)
     {
         name = _name;
         damage = _damage;
