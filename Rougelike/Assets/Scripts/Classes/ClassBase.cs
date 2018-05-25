@@ -158,20 +158,20 @@ public abstract class ClassType
             btnSkill4 = GameObject.Find("btnSkill4_Player1").GetComponent<Button>();
             txtSkill1 = GameObject.Find("txtSkill4_Player1").GetComponent<Text>();
         }
-        else if (playerNumber == 2)
-        {
-            btnSkill1 = GameObject.Find("btnSkill1_Player2").GetComponent<Button>();
-            txtSkill1 = GameObject.Find("txtSkill1_Player2").GetComponent<Text>();
+        //else if (playerNumber == 2)
+        //{
+        //    btnSkill1 = GameObject.Find("btnSkill1_Player2").GetComponent<Button>();
+        //    txtSkill1 = GameObject.Find("txtSkill1_Player2").GetComponent<Text>();
 
-            btnSkill2 = GameObject.Find("btnSkill2_Player2").GetComponent<Button>();
-            txtSkill1 = GameObject.Find("txtSkill2_Player2").GetComponent<Text>();
+        //    btnSkill2 = GameObject.Find("btnSkill2_Player2").GetComponent<Button>();
+        //    txtSkill1 = GameObject.Find("txtSkill2_Player2").GetComponent<Text>();
 
-            btnSkill3 = GameObject.Find("btnSkill3_Player2").GetComponent<Button>();
-            txtSkill1 = GameObject.Find("txtSkill3_Player2").GetComponent<Text>();
+        //    btnSkill3 = GameObject.Find("btnSkill3_Player2").GetComponent<Button>();
+        //    txtSkill1 = GameObject.Find("txtSkill3_Player2").GetComponent<Text>();
 
-            btnSkill4 = GameObject.Find("btnSkill4_Player2").GetComponent<Button>();
-            txtSkill1 = GameObject.Find("txtSkill4_Player2").GetComponent<Text>();
-        }
+        //    btnSkill4 = GameObject.Find("btnSkill4_Player2").GetComponent<Button>();
+        //    txtSkill1 = GameObject.Find("txtSkill4_Player2").GetComponent<Text>();
+        //}
     }
 
     /// <summary>
