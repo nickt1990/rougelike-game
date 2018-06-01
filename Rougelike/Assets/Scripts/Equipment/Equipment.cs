@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-public enum EquipmentType
+﻿public enum EquipmentType
 {
     None   = 0,
     Weapon = 1,

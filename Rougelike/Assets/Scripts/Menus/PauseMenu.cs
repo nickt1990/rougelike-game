@@ -1,27 +1,27 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Experimental.UIElements;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine;
+using UnityEngine.UI;
 
-public class PauseMenu : MonoBehaviour {
-
+public class PauseMenu : MonoBehaviour
+{
     public static bool GameIsPaused = false;
 
     public GameObject PauseMenuUI;
-    public GameObject InventoryMenuUI;
-    public Button button;
-    public void OnMouseUpAsButton()
-    {
-        
-    }
 
-    private GameObject currentMenu;
+    public Button[] pauseMenuButtons;
 
-    private void Start()
+    private Button resumeButton;
+    private Button inventoryButton;
+    private Button quitButton;
+
+    public PauseMenu()
     {
-        currentMenu = PauseMenuUI;
+        PauseMenuUI = GameObject.Find("PauseMenu");
+
+        resumeButton = GameObject.Find("ResumeButton").GetComponent<Button>();
+        inventoryButton = GameObject.Find("InventoryButton").GetComponent<Button>();
+        quitButton = GameObject.Find("QuitButton").GetComponent<Button>();
+
+        AddButtons();
     }
 
     // Update is called once per frame
@@ -37,8 +37,23 @@ public class PauseMenu : MonoBehaviour {
             {
                 Pause();
             }
-        }	
-	}
+        }
+    }
+
+    private void AddButtons()
+    {
+        pauseMenuButtons = new Button[] { resumeButton, inventoryButton, quitButton };
+    }
+
+    public void LoadInventory()
+    {
+        
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
 
     public void Pause()
     {
@@ -53,15 +68,5 @@ public class PauseMenu : MonoBehaviour {
         PauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
         GameIsPaused = false;
-    }
-
-    public void LoadInventory()
-    {
-        
-    }
-
-    public void QuitGame()
-    {
-        Application.Quit();
     }
 }
