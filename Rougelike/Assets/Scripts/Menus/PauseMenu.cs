@@ -7,22 +7,24 @@ public class PauseMenu : MonoBehaviour
 
     public GameObject PauseMenuUI;
 
+    [HideInInspector]
     public Button[] pauseMenuButtons;
 
-    private Button resumeButton;
-    private Button inventoryButton;
-    private Button quitButton;
+    public Button resumeButton;
+    public Button inventoryButton;
+    public Button quitButton;
 
-    public PauseMenu()
+    private void Start()
     {
-        PauseMenuUI = GameObject.Find("PauseMenu");
-
-        resumeButton = GameObject.Find("ResumeButton").GetComponent<Button>();
-        inventoryButton = GameObject.Find("InventoryButton").GetComponent<Button>();
-        quitButton = GameObject.Find("QuitButton").GetComponent<Button>();
-
         AddButtons();
     }
+
+    //public PauseMenu()
+    //{
+    //    //resumeButton = GameObject.Find("ResumeButton").GetComponent<Button>();
+
+    //    AddButtons();
+    //}
 
     // Update is called once per frame
     void Update ()
