@@ -22,19 +22,19 @@ public class PlayerMovement : IMovementBehavior
         if (!GameManager.instance.playersTurn)
             return;
 
-        if (Input.GetKey(left))
+        if (Input.GetKeyDown(left))
         {
             AttemptMove<Character>(-1, 0);
         }
-        else if (Input.GetKey(right))
+        else if (Input.GetKeyDown(right))
         {
             AttemptMove<Character>(1, 0);
         }
-        else if (Input.GetKey(up))
+        else if (Input.GetKeyDown(up))
         {
             AttemptMove<Character>(0, 1);
         }
-        else if (Input.GetKey(down))
+        else if (Input.GetKeyDown(down))
         {
             AttemptMove<Character>(0, -1);
         }
@@ -120,10 +120,10 @@ public class PlayerMovement : IMovementBehavior
         CheckMove<T>(xDir, yDir);
 
         //Hit allows us to reference the result of the Linecast done in Move.
-        if (Move(xDir, yDir, out hit))
-        {
-            //SoundManager.instance.RandomizeSfx(moveSound1, moveSound2);
-        }
+        //if (Move(xDir, yDir, out hit))
+        //{
+        //    //SoundManager.instance.RandomizeSfx(moveSound1, moveSound2);
+        //}
 
         //If Move returns true, meaning Player was able to move into an empty space.
         if (Move(xDir, yDir, out hit))

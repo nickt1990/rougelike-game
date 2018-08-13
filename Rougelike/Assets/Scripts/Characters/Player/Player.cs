@@ -157,7 +157,7 @@ public class Player : Character, IAttack
         Enemy target = component as Enemy;
 
         //Call the TakeDamage function of the Character we are hitting.
-        target.TakeDamage(characterClass.classStats.PhysAtk);
+        //target.TakeDamage(characterClass.classStats.PhysAtk); //todo damage
 
         //Set the attack trigger of the player's animation controller in order to play the player's attack animation.
         animator.SetTrigger("playerChop");
