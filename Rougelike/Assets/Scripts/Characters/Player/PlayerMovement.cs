@@ -120,10 +120,6 @@ public class PlayerMovement : IMovementBehavior
         CheckMove<T>(xDir, yDir);
 
         //Hit allows us to reference the result of the Linecast done in Move.
-        if (Move(xDir, yDir, out hit))
-        {
-            //SoundManager.instance.RandomizeSfx(moveSound1, moveSound2);
-        }
 
         //Since the player has moved and lost food points, check if the game has ended.
         //CheckIfGameOver();
