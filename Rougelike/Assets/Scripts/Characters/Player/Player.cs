@@ -144,7 +144,6 @@ public class Player : Character, IAttack
 			StartCoroutine(characterMovementBehavior.SmoothMovement(new Vector3(0.5f, 0.5f, 0))); // Move the player to the starting position of the next room
 			enabled = true;
 		}
-<<<<<<< HEAD
 	}
 
 	/// <summary>
@@ -155,12 +154,6 @@ public class Player : Character, IAttack
 		SceneManager.LoadScene(0);
 	}
 
-	/// <summary>
-	/// When the player gets disabled, this will run
-	/// </summary>
-	private void OnDisable()
-	{
-	}
 
 	#region Fights
 
@@ -299,162 +292,5 @@ public class Player : Character, IAttack
 		return false;
 	}
 	#endregion
-=======
-    }
-
-    /// <summary>
-    /// Used when a new scene is being loaded
-    /// </summary>
-    private void Restart()
-    {
-        SceneManager.LoadScene(0);
-    }
-
-    /// <summary>
-    /// When the player gets disabled, this will run
-    /// </summary>
-    private void OnDisable()
-    {
-    }
-
-    #region Fights
-
-    /// <summary>
-    /// Perform a basic physical attack as a character
-    /// </summary>
-    public override void PerformPhysicalAttack<T>(T component) 
-    {
-        // The component that was passed in is the target that the Character is hitting, so we set it to be so.
-        Enemy target = component as Enemy;
-
-        //Call the TakeDamage function of the Character we are hitting.
-        //target.TakeDamage(characterClass.classStats.PhysAtk); //todo damage
-
-        //Set the attack trigger of the player's animation controller in order to play the player's attack animation.
-        animator.SetTrigger("playerChop");
-
-        if (target.CheckIfDead())
-        {
-            AddExperience(target.experience);
-        }
-    }
-
-    /// <summary>
-    /// Called when an entity is about to take damage
-    /// </summary>
-    /// <param name="damage"> The amount of HP that the entity is going to lose </param>
-    public void TakeDamage(int damage)
-    {
-        // Sometimes damage can be negative, causing the character to be healed.  If that heal exceeds their max HP, then...
-        if (characterStats.HP - damage > maxHP)
-        {
-            characterStats.HP = maxHP; // Forget how much it healed, and simply set their HP to their maxHP
-        }
-        else // otherwise...
-        {
-            //Subtract damage from players health
-            characterStats.HP -= damage;
-        }
-
-        //Subtract lost food points from the players total.
-        characterStats.HP -= damage;
-
-        healthBar.fillAmount -= ((float)damage / (float)maxHP);   // Changes the fill amount to decrease when a character takes damage
-
-        //Update the food display with the new total.
-        healthValue.text = characterStats.HP.ToString() + "/" + maxHP.ToString();
-
-        //Check to see if the entity is dead
-        CheckIfDead();
-    }
-    #endregion
-
-    #region Levels and Experience
-    /// <summary>
-    /// Check to see if the player has leveled up
-    /// </summary>
-    public void CheckIfLevel()
-    {
-        if (experience >= experienceRequiredToLevel)
-        {
-            LevelUp();
-        }
-    }
-    /// <summary>
-    /// Processes that happen is the player has leveled up
-    /// </summary>
-    public void LevelUp()
-    {
-        int excessExperience;
-        excessExperience = experience - experienceRequiredToLevel; // Store the extra that went over the level.
-
-        playerLevel += 1;   // Level up the player.
-
-        experienceRequiredToLevel = experienceTable[playerLevel];   // Change the experience required to level to the next level.
-
-        expBar.fillAmount = 0;
-        expBar.fillAmount += ((float)excessExperience / (float)experienceRequiredToLevel);   // Changes the fill amount to decrease when a character takes damage.
-
-        experience = excessExperience; // Reset the players experience to equal the excess experience.
-
-        characterClass.OnLevelUp();  // Add the specific class stats to the player
-
-        GameManager.instance.ShowNotification("Level Up!", Color.yellow);
-    }
-
-    /// <summary>
-    /// Add experience to the player, and increment the exp bar
-    /// </summary>
-    /// <param name="gainedExperience"> The experience that has been gained by the player </param>
-    public void AddExperience(int gainedExperience)
-    {
-        experience += gainedExperience; // Add the gained experience to the players experience
-
-        expBar.fillAmount += ((float)gainedExperience / (float)experienceRequiredToLevel);   // Changes the fill amount to decrease when a character takes damage
-
-        CheckIfLevel();
-    }
-
-    /// <summary>
-    /// Create the values of experience it will take for each level
-    /// </summary>
-    private void CreateExpTable()
-    {
-        ExperienceTable expTable = new ExperienceTable();
-
-        experienceTable = expTable.CreateExperienceTable();
-    }
-
-    #endregion
-
-    #region Death
-    /// <summary>
-    /// What happens when a player dies
-    /// </summary>
-    public void OnDeath()
-    {
-        // ~~IMPLEMENT: Check if both players are dead
-
-        // If both players are dead, then...
-        GameManager.instance.GameOver();     //Call the GameOver function of GameManager.
-    }
-    /// <summary>
-    /// Check if a players HP is below 0
-    /// </summary>
-    /// <returns> TRUE: If the HP is below 0, FALSE: if the HP is above 0 </returns>
-    public bool CheckIfDead()
-    {
-        //Check if food point total is less than or equal to zero.
-        if (characterStats.HP <= 0)
-        {
-            OnDeath();
-            return true;
-        }
-
-        return false;
-    }
-    #endregion
->>>>>>> Nicks-Branch
-
-}
+	}
 
