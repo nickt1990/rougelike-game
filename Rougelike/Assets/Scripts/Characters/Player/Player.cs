@@ -13,7 +13,11 @@ public class Player : Character, IAttack
 	public Image expBar;
 	public int playerLevel;
 
-	[Header("Unity Junk")]
+    [Header("Battle Bar")]
+    public Image battleBar;
+    public int btlBarValue;
+
+    [Header("Unity Junk")]
 	public int playerNumber;
 	public float restartLevelDelay = 1f;        //Delay time in seconds to restart level.
 	
@@ -53,7 +57,7 @@ public class Player : Character, IAttack
 		if (!GameManager.instance.playersTurn)
 			return;
 
-		characterMovementBehavior.CheckMovement();
+        characterMovementBehavior.CheckMovement();
 
 		if (Input.GetKeyDown(KeyCode.Alpha1))
 		{
@@ -91,10 +95,11 @@ public class Player : Character, IAttack
 
 		if (Input.GetKeyDown(KeyCode.L))
 		{
-			GameManager.instance.ShowNotification(playerLevel.ToString(), Color.white);
-		}
+			//GameManager.instance.ShowNotification(playerLevel.ToString(), Color.white);
+        }
 
-	}
+        battleBar.fillAmount -= ((float)5 / (float)maxHP);
+    }
 
 	void EquipItem(Equipment location, Equipment equipment)
 	{
