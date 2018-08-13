@@ -1,45 +1,27 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class PauseMenu : MonoBehaviour
+public abstract class Menu : MonoBehaviour
 {
-    public static bool GameIsPaused = false;
+    MenuController menuController = new MenuController();
+}
 
-    public GameObject PauseMenuUI;
-
+public class PauseMenu : Menu
+{
     [HideInInspector]
     public Button[] pauseMenuButtons;
 
-    public Button resumeButton;
-    public Button inventoryButton;
-    public Button quitButton;
+    private Button resumeButton;
+    private Button inventoryButton;
+    private Button quitButton;
 
-    private void Start()
+    public PauseMenu()
     {
+        resumeButton = GameObject.Find("ResumeButton").GetComponent<Button>();
+        inventoryButton = GameObject.Find("InventoryButton").GetComponent<Button>();
+        quitButton = GameObject.Find("QuitButton").GetComponent<Button>();
+
         AddButtons();
-    }
-
-    //public PauseMenu()
-    //{
-    //    //resumeButton = GameObject.Find("ResumeButton").GetComponent<Button>();
-
-    //    AddButtons();
-    //}
-
-    // Update is called once per frame
-    void Update ()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            if (GameIsPaused)
-            {
-                Resume();
-            }
-            else
-            {
-                Pause();
-            }
-        }
     }
 
     private void AddButtons()
@@ -55,20 +37,5 @@ public class PauseMenu : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
-    }
-
-    public void Pause()
-    {
-        PauseMenuUI.SetActive(true);
-
-        Time.timeScale = 0f;
-        GameIsPaused = true;
-    }
-
-    public void Resume()
-    {
-        PauseMenuUI.SetActive(false);
-        Time.timeScale = 1f;
-        GameIsPaused = false;
     }
 }

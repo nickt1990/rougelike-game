@@ -1,77 +1,99 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class MenuController : MonoBehaviour
 {
+    public static bool GameIsPaused = false;
+
+    public MenuBehavior menuBehavior;
+
+    public GameObject PauseMenuUI;
+    public GameObject InventoryMenuUI;
+    public GameObject itemSlot;
+
+    public int currentMenuIndex = 0;
+    public Dictionary<GameObject, Menu> MenuOrder;
+
     private PauseMenu pauseMenu;
 
     private Button currentButton;
     private Button previousButton;
 
-    private int currentIndex = 0;
+    private GameObject currentMenu;
+    private GameObject previousMenu;
+
+    public void Pause()
+    {
+        PauseMenuUI.SetActive(true);
+
+        Time.timeScale = 0f;
+        GameIsPaused = true;
+
+        currentButton = pauseMenu.pauseMenuButtons[0];
+
+        MenuOrder.Add(PauseMenuUI, pauseMenu);
+
+        currentMenu = PauseMenuUI;
+
+        pauseMenu.pauseMenuButtons[0].GetComponentInChildren<Text>().color = Color.red;
+    }
+
+    public void Resume()
+    {
+        PauseMenuUI.SetActive(false);
+        Time.timeScale = 1f;
+        GameIsPaused = false;
+    }
+
+    private void SetMenuBehavior(MenuBehavior mb)
+    {
+        menuBehavior = mb;
+    }
+
+    public void OpenMenu(GameObject menuUI)
+    {
+        previousMenu = currentMenu;
+        currentMenu = menuUI;
+
+        previousMenu.SetActive(false);
+        currentMenu.SetActive(true);
+    }
 
     private void Start()
     {
-        pauseMenu = new PauseMenu();
+        if(PauseMenuUI.activeSelf == false)
+        {
+            PauseMenuUI.SetActive(true);
+        }
+
+        SetMenuBehavior(new MainMenu());
+
+        pauseMenu = menuBehavior.GetCurrentMenu() as PauseMenu;
+
+        PauseMenuUI.SetActive(false);
     }
 
     private void Update()
     {
-        if (PauseMenu.GameIsPaused)
+        if (GameIsPaused)
         {
-            if (Input.GetKeyDown(KeyCode.Return))
+            if (!Input.GetKeyDown(KeyCode.None))    // If any key has been pressed then...
             {
-                currentButton.onClick.Invoke();
+                menuBehavior.CheckInput();  // Checks which key was pressed
             }
-            else if (Input.GetKeyDown(KeyCode.UpArrow))
+            
+        }
+        else if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (GameIsPaused)
             {
-                MoveUp();
+                Resume();
             }
-            else if (Input.GetKeyDown(KeyCode.DownArrow))
+            else
             {
-                MoveDown();
+                Pause();
             }
         }
-    }
-
-    private void MoveDown()
-    {
-        if (currentIndex < pauseMenu.pauseMenuButtons.Length - 1)
-        {
-            previousButton = pauseMenu.pauseMenuButtons[currentIndex];
-            previousButton.GetComponentInChildren<Text>().color = Color.white;
-
-            currentIndex++;
-
-            currentButton = pauseMenu.pauseMenuButtons[currentIndex];
-            currentButton.GetComponentInChildren<Text>().color = Color.red;
-        }
-    }
-
-    private void MoveUp()
-    {
-        if (currentIndex > 0)
-        {
-            previousButton = pauseMenu.pauseMenuButtons[currentIndex];
-            previousButton.GetComponentInChildren<Text>().color = Color.white;
-
-            currentIndex--;
-
-            currentButton = pauseMenu.pauseMenuButtons[currentIndex];
-            currentButton.GetComponentInChildren<Text>().color = Color.red;
-        }
-    }
-}
-
-public class MenuButton : Button
-{
-    public void Selected()
-    {
-        GetComponent<Image>().color = colors.highlightedColor;
-    }
-
-    public void DeSelected()
-    {
-        GetComponent<Image>().color = colors.normalColor;
     }
 }

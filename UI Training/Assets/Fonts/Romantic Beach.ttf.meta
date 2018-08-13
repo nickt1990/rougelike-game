@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 74e1bd44500c9ae4e90ce40aeb4bf7e0
+timeCreated: 1529691334
+licenseType: Free
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Romantic Beach
+  fontNames:
+  - Romantic Beach
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
