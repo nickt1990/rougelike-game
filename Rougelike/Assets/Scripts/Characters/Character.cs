@@ -10,6 +10,7 @@ public class Character : MonoBehaviour
     public IAttack characterAttackBehavior;              // A character can attack in some way
     public IDialogueBehavior characterDialogueBehavior;  // A character can talk in some way
     public IMovementBehavior characterMovementBehavior;  // A character can move in some way
+    public IControlBehavior characterControlBehavior;    // Button presses on a controller
     public IStats characterStats = new Stats();
     #endregion
 
@@ -88,6 +89,11 @@ public class Character : MonoBehaviour
     public void SetMovementBehavior(IMovementBehavior mb)
     {
         characterMovementBehavior = mb;
+    }
+
+    public void SetControlBehavior(IControlBehavior cb)
+    {
+        characterControlBehavior = cb;
     }
 
     /// <summary>

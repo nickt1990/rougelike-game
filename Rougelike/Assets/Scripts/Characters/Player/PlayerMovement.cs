@@ -19,7 +19,7 @@ public class PlayerMovement : IMovementBehavior
     public void CheckMovement()
     {
         //If it's not the player's turn, exit the function.
-        if (!GameManager.instance.playersTurn || MenuController.GameIsPaused == true)
+        if (!GameManager.instance.playersTurn) // || MenuController.GameIsPaused == true)
             return;
 
         if (Input.GetKeyDown(left))

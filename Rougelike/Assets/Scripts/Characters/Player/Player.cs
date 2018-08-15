@@ -32,8 +32,10 @@ public class Player : Character, IAttack
     private int experienceRequiredToLevel;
 
     private Dictionary<int, int> experienceTable;
-
+    
     public IExecutable executable;
+
+    GameObject PauseMenu;
 
     /// <summary>
     /// Called when the gameobject with the script attached enters the game
@@ -50,6 +52,8 @@ public class Player : Character, IAttack
         experienceRequiredToLevel = experienceTable[playerLevel];
 
         SetClassType(new Mage(this));
+
+        PauseMenu = GameObject.Find("PauseMenu");
     }
 
     /// <summary>
@@ -64,6 +68,12 @@ public class Player : Character, IAttack
         checkBattleBar();
 
         characterMovementBehavior.CheckMovement();
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SetMovementBehavior(new PauseMenuControls());
+            PauseMenu.SetActive(true);   
+        }
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
@@ -90,6 +100,7 @@ public class Player : Character, IAttack
             playerLevel = 1;
             SetClassType(new Mage(this));
             GameManager.instance.ShowNotification("Mage", Color.cyan);
+            GetComponent<SpriteRenderer>().color = Color.cyan;
         }
 
         if (Input.GetKeyDown(KeyCode.P))
@@ -97,6 +108,7 @@ public class Player : Character, IAttack
             playerLevel = 1;
             SetClassType(new Paladin(this));
             GameManager.instance.ShowNotification("Paladin", Color.green);
+            GetComponent<SpriteRenderer>().color = Color.yellow;
         }
 
         if (Input.GetKeyDown(KeyCode.L))
@@ -110,6 +122,11 @@ public class Player : Character, IAttack
             {
                 GameManager.instance.ShowNotification("Sweet Spot!", Color.white);
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            
         }
     }
 
