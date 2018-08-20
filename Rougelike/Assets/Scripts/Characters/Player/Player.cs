@@ -47,7 +47,7 @@ public class Player : Character, IAttack
     
     public IExecutable executable;
 
-    GameObject PauseMenu;
+    GameObject pauseMenu;
 
     /// <summary>
     /// Called when the gameobject with the script attached enters the game
@@ -65,7 +65,9 @@ public class Player : Character, IAttack
 
         SetClassType(new Mage(this));
 
-        PauseMenu = GameObject.Find("PauseMenu");
+        pauseMenu = GameObject.Find("PauseMenu");
+
+        pauseMenu.SetActive(false);
     }
 
     /// <summary>
@@ -77,78 +79,88 @@ public class Player : Character, IAttack
         if (!GameManager.instance.playersTurn)
             return;
 
-        battleBarValue = battleBar.fillAmount;
-
-        CheckBattleBar();
-
-        characterMovementBehavior.CheckInput(SweetSpot);
-
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (pauseMenu.activeInHierarchy == false)
         {
-            SetMovementBehavior(new PauseMenuControls());
-            PauseMenu.SetActive(true);   
-        }
+            battleBarValue = battleBar.fillAmount;
 
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            characterClass.skills[0].Cast(this, FindTarget(TESTING_ENEMY));
-        }
+            CheckBattleBar();
 
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            characterClass.skills[1].Cast(this, FindTarget(TESTING_ENEMY));
-        }
+            characterMovementBehavior.CheckInput(SweetSpot);
 
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            characterClass.skills[2].Cast(this, FindTarget(TESTING_ENEMY));
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            characterClass.skills[3].Cast(this, FindTarget(TESTING_ENEMY));
-        }
-
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            playerLevel = 1;
-            SetClassType(new Mage(this));
-            GameManager.instance.ShowNotification("Mage", Color.cyan);
-            GetComponent<SpriteRenderer>().color = Color.cyan;
-        }
-
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            playerLevel = 1;
-            SetClassType(new Paladin(this));
-            GameManager.instance.ShowNotification("Paladin", Color.green);
-            GetComponent<SpriteRenderer>().color = Color.yellow;
-        }
-
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            //GameManager.instance.ShowNotification(playerLevel.ToString(), Color.white);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            if (SweetSpot == 2)
+            if (Input.GetKeyDown(KeyCode.Escape))
             {
-                chargeAmount++;
-                var message = String.Format("CHRG: {0}", chargeAmount);
-                GameManager.instance.ShowNotification(message, Color.green);
+                Time.timeScale = 0;
+                SetMovementBehavior(new MenuControls());
+                pauseMenu.SetActive(true);
             }
-            else if (SweetSpot == 1)
-            {
-                chargeAmount = 0;
-                GameManager.instance.ShowNotification("Bad hit.", Color.red);
-            }
-            battleBar.fillAmount = 0;
-        }
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                characterClass.skills[0].Cast(this, FindTarget(TESTING_ENEMY));
+            }
+
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                characterClass.skills[1].Cast(this, FindTarget(TESTING_ENEMY));
+            }
+
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                characterClass.skills[2].Cast(this, FindTarget(TESTING_ENEMY));
+            }
+
+            if (Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                characterClass.skills[3].Cast(this, FindTarget(TESTING_ENEMY));
+            }
+
+            if (Input.GetKeyDown(KeyCode.M))
+            {
+                playerLevel = 1;
+                SetClassType(new Mage(this));
+                GameManager.instance.ShowNotification("Mage", Color.cyan);
+                GetComponent<SpriteRenderer>().color = Color.cyan;
+            }
+
+            if (Input.GetKeyDown(KeyCode.P))
+            {
+                playerLevel = 1;
+                SetClassType(new Paladin(this));
+                GameManager.instance.ShowNotification("Paladin", Color.green);
+                GetComponent<SpriteRenderer>().color = Color.yellow;
+            }
+
+            if (Input.GetKeyDown(KeyCode.L))
+            {
+                //GameManager.instance.ShowNotification(playerLevel.ToString(), Color.white);
+            }
+
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                if (SweetSpot == 2)
+                {
+                    chargeAmount++;
+                    var message = String.Format("CHRG: {0}", chargeAmount);
+                    GameManager.instance.ShowNotification(message, Color.green);
+                }
+                else if (SweetSpot == 1)
+                {
+                    chargeAmount = 0;
+                    GameManager.instance.ShowNotification("Bad hit.", Color.red);
+                }
+                battleBar.fillAmount = 0;
+            }
+        }
+        else
         {
-            
+            characterMovementBehavior.CheckMovement();
+
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                SetMovementBehavior(new PlayerMovement(this));
+                pauseMenu.SetActive(false);
+                Time.timeScale = 1;
+            }
         }
     }
 

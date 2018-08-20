@@ -47,6 +47,8 @@ public class GameManager : MonoBehaviour
 		//Assign enemies to a new List of Enemy objects.
 		enemies = new List<Character>();
 
+		PauseMenu pauseMenu = new PauseMenu();
+
 		//Call the InitGame function to initialize the first level 
 		//InitGame();
 	}
