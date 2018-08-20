@@ -5,7 +5,8 @@ using System.Collections;
 public interface IMovementBehavior
 {
     void CheckMovement();
-    void CheckInput(int sweetSpot);
+
+    //void InitiateMove(KeyCode direction);
 
     IEnumerator SmoothMovement(Vector3 end);
 }

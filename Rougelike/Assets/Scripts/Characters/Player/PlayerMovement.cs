@@ -17,7 +17,7 @@ public class PlayerMovement : IMovementBehavior
         currentPlayer = (Player)character;
     }
 
-    public void CheckInput(int sweetSpot)
+    public void CheckMovement()
     {
         //If it's not the player's turn, exit the function.
         if (!GameManager.instance.playersTurn) // || MenuController.GameIsPaused == true)
@@ -39,11 +39,6 @@ public class PlayerMovement : IMovementBehavior
         {
             InitiateMove(down);
         }
-    }
-
-    public void CheckMovement()
-    {
-        throw new NotImplementedException();
     }
 
     public void InitiateMove(KeyCode direction)
