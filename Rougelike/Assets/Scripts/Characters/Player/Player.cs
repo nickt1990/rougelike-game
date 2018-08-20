@@ -19,14 +19,26 @@ public class Player : Character, IAttack
 
     [Header("Unity Junk")]
     public int playerNumber;
-    public float restartLevelDelay = 1f;        //Delay time in seconds to restart level.
+    public float restartLevelDelay = 1f;    //Delay time in seconds to restart level.
 
     public Canvas playerUI;
 
+    public int chargeAmount = 0;
     public float minAmount = 0;
     public float maxAmount = 100;
     public bool direction = false;
-    public bool sweetSpot = false;
+    private int _SweetSpot;
+    public int SweetSpot
+    {
+        get{return _SweetSpot;}
+        set
+        {
+            if ( value < 1 || value > 3 )
+                throw new ArgumentException("Not valid sweetspot.");
+            _SweetSpot = value;
+        }
+    }
+    public float battleBarValue = 0;
 
     private int experience;
     private int experienceRequiredToLevel;
@@ -65,9 +77,11 @@ public class Player : Character, IAttack
         if (!GameManager.instance.playersTurn)
             return;
 
-        checkBattleBar();
+        battleBarValue = battleBar.fillAmount;
 
-        characterMovementBehavior.CheckMovement();
+        CheckBattleBar();
+
+        characterMovementBehavior.CheckInput(SweetSpot);
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -118,10 +132,18 @@ public class Player : Character, IAttack
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (sweetSpot)
+            if (SweetSpot == 2)
             {
-                GameManager.instance.ShowNotification("Sweet Spot!", Color.white);
+                chargeAmount++;
+                var message = String.Format("CHRG: {0}", chargeAmount);
+                GameManager.instance.ShowNotification(message, Color.green);
             }
+            else if (SweetSpot == 1)
+            {
+                chargeAmount = 0;
+                GameManager.instance.ShowNotification("Bad hit.", Color.red);
+            }
+            battleBar.fillAmount = 0;
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -130,36 +152,25 @@ public class Player : Character, IAttack
         }
     }
 
-    private void checkBattleBar()
+    private void CheckBattleBar()
     {
-        if (battleBar.fillAmount > .4 && battleBar.fillAmount < .6)
+        if (battleBarValue >= .80 && battleBarValue <= 1)
         {
             battleBar.GetComponent<Image>().color = Color.green;
-            sweetSpot = true;
+            SweetSpot = 2;
         }
         else
         {
             battleBar.GetComponent<Image>().color = Color.red;
-            sweetSpot = false;
+            SweetSpot = 1;
         }
+
+        battleBar.fillAmount += ((float).015 / (float)maxAmount);
 
         if (battleBar.fillAmount == maxAmount)
         {
-            direction = false;
-        }
-
-        if (battleBar.fillAmount == minAmount)
-        {
-            direction = true;
-        }
-
-        if (direction)
-        {
-            battleBar.fillAmount += ((float).01 / (float)maxAmount);
-        }
-        else
-        {
-            battleBar.fillAmount -= ((float).01 / (float)maxAmount);
+            battleBar.fillAmount = 0;
+            chargeAmount = 0;
         }
     }
 

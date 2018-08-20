@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class PlayerMovement : IMovementBehavior
 {
@@ -16,27 +17,55 @@ public class PlayerMovement : IMovementBehavior
         currentPlayer = (Player)character;
     }
 
-    public void CheckMovement()
+    public void CheckInput(int sweetSpot)
     {
         //If it's not the player's turn, exit the function.
         if (!GameManager.instance.playersTurn) // || MenuController.GameIsPaused == true)
             return;
 
-        if (Input.GetKeyDown(left))
+        if (Input.GetKey(left))
         {
-            AttemptMove<Character>(-1f, 0);
+            InitiateMove(left);
         }
-        else if (Input.GetKeyDown(right))
+        else if (Input.GetKey(right))
         {
-            AttemptMove<Character>(1f, 0);
+            InitiateMove(right);
         }
-        else if (Input.GetKeyDown(up))
+        else if (Input.GetKey(up))
         {
-            AttemptMove<Character>(0, 1f);
+            InitiateMove(up);
         }
-        else if (Input.GetKeyDown(down))
+        else if (Input.GetKey(down))
         {
-            AttemptMove<Character>(0, -1f);
+            InitiateMove(down);
+        }
+    }
+
+    public void CheckMovement()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void InitiateMove(KeyCode direction)
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (direction == left)
+            {
+                AttemptMove<Character>(-1f, 0);
+            }
+            if (direction == right)
+            {
+                AttemptMove<Character>(1f, 0);
+            }
+            if (direction == up)
+            {
+                AttemptMove<Character>(0, 1f);
+            }
+            if (direction == down)
+            {
+                AttemptMove<Character>(0, -1f);
+            }
         }
     }
 

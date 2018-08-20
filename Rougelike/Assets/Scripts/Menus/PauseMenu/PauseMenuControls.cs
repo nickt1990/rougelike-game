@@ -17,6 +17,11 @@ public class PauseMenuControls : IMovementBehavior
         }
     }
 
+    public void CheckInput(int sweetspot)
+    {
+        throw new NotImplementedException();
+    }
+
     public IEnumerator SmoothMovement(Vector3 end)
     {
         throw new NotImplementedException();

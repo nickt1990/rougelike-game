@@ -13,6 +13,11 @@ namespace Completed
             throw new NotImplementedException();
         }
 
+        public void CheckInput(int sweetspot)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerator SmoothMovement(Vector3 end)
         {
             throw new NotImplementedException();
