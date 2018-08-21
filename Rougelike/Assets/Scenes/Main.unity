@@ -718,7 +718,6 @@ Prefab:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-<<<<<<< HEAD
     - target: {fileID: 114556043226031570, guid: 1304239677abf0342ae074184db3cdfa,
         type: 2}
       propertyPath: m_Color.a
@@ -726,24 +725,6 @@ Prefab:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114741435301697266, guid: 1304239677abf0342ae074184db3cdfa, type: 2}
-=======
-    - target: {fileID: 224762550288585666, guid: 1304239677abf0342ae074184db3cdfa,
-        type: 2}
-      propertyPath: m_LocalScale.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224762550288585666, guid: 1304239677abf0342ae074184db3cdfa,
-        type: 2}
-      propertyPath: m_LocalScale.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224762550288585666, guid: 1304239677abf0342ae074184db3cdfa,
-        type: 2}
-      propertyPath: m_LocalScale.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
->>>>>>> 0e9fcdd1b57ca0e9212c38a4153abbc4effcaf30
   m_SourcePrefab: {fileID: 100100000, guid: 1304239677abf0342ae074184db3cdfa, type: 2}
   m_IsPrefabAsset: 0
 --- !u!1 &564146267
@@ -1406,7 +1387,6 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1372439045}
   m_CullTransparentMesh: 0
-<<<<<<< HEAD
 --- !u!1 &1505887191 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1575213201050084, guid: 1304239677abf0342ae074184db3cdfa,
@@ -1424,8 +1404,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonTemplate: {fileID: 951036336}
-=======
->>>>>>> 0e9fcdd1b57ca0e9212c38a4153abbc4effcaf30
 --- !u!1 &1544488359
 GameObject:
   m_ObjectHideFlags: 0
@@ -2041,8 +2019,8 @@ TilemapRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1162973713
-  m_SortingLayer: 1
+  m_SortingLayerID: -900995045
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
@@ -3897,7 +3875,6 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
-<<<<<<< HEAD
 --- !u!1 &2036872249 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1623721745427036, guid: 1304239677abf0342ae074184db3cdfa,
@@ -3926,8 +3903,6 @@ MonoBehaviour:
   m_Spacing: {x: 75, y: 5}
   m_Constraint: 1
   m_ConstraintCount: 2
-=======
->>>>>>> 0e9fcdd1b57ca0e9212c38a4153abbc4effcaf30
 --- !u!114 &2063728654 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 11446652, guid: 28b53fc28d3a140c392f0e2d919f9de1,
