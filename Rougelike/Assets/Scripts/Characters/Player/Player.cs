@@ -7,7 +7,7 @@ using System;
 
 public class Player : Character, IAttack
 {
-    public const string TESTING_ENEMY = "ZombieStrong";
+    public const string TESTING_ENEMY = "Turtle";
 
     [Header("Experience Bar")]
     public Image expBar;
@@ -30,10 +30,10 @@ public class Player : Character, IAttack
     private int _SweetSpot;
     public int SweetSpot
     {
-        get{return _SweetSpot;}
+        get { return _SweetSpot; }
         set
         {
-            if ( value < 1 || value > 3 )
+            if (value < 1 || value > 3)
                 throw new ArgumentException("Not valid sweetspot.");
             _SweetSpot = value;
         }
@@ -44,7 +44,7 @@ public class Player : Character, IAttack
     private int experienceRequiredToLevel;
 
     private Dictionary<int, int> experienceTable;
-    
+
     public IExecutable executable;
 
     GameObject pauseMenu;
@@ -168,6 +168,10 @@ public class Player : Character, IAttack
         if (battleBarValue >= .80 && battleBarValue <= 1)
         {
             battleBar.GetComponent<Image>().color = Color.green;
+        }
+
+        if (battleBarValue >= .79 && battleBarValue <= 1 || battleBarValue <= .02)
+        {
             SweetSpot = 2;
         }
         else
@@ -176,7 +180,7 @@ public class Player : Character, IAttack
             SweetSpot = 1;
         }
 
-        battleBar.fillAmount += ((float).015 / (float)maxAmount);
+        battleBar.fillAmount += ((float).02 / (float)maxAmount);
 
         if (battleBar.fillAmount == maxAmount)
         {
@@ -255,7 +259,7 @@ public class Player : Character, IAttack
         Enemy target = component as Enemy;
 
         //Call the TakeDamage function of the Character we are hitting.
-        target.TakeDamage(characterClass.classStats.PhysAtk + (eqpMainHand.stats.PhysAtk + eqpOffHand.stats.PhysAtk));
+        target.TakeDamage(characterClass.classStats.PhysAtk + (eqpMainHand.stats.PhysAtk + eqpOffHand.stats.PhysAtk + (chargeAmount * chargeAmount / 2)));
 
         //Set the attack trigger of the player's animation controller in order to play the player's attack animation.
         animator.SetTrigger("playerChop");
