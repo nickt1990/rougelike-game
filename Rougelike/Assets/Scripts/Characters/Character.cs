@@ -1,25 +1,24 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.UI;	//Allows us to use UI.
-using UnityEngine.SceneManagement;
 using System;
 
 public class Character : MonoBehaviour
 {
     #region Interfaces
-    public IAttack characterAttackBehavior;              // A character can attack in some way
-    public IDialogueBehavior characterDialogueBehavior;  // A character can talk in some way
-    public IMovementBehavior characterMovementBehavior;  // A character can move in some way
-    public IControlBehavior characterControlBehavior;    // Button presses on a controller
-    public IStats characterStats = new Stats();
+        public IAttack characterAttackBehavior;              // A character can attack in some way
+        public IDialogueBehavior characterDialogueBehavior;  // A character can talk in some way
+        public IMovementBehavior characterMovementBehavior;  // A character can move in some way
+        public IControlBehavior characterControlBehavior;    // Button presses on a controller
+        public IStats characterStats = new Stats();
     #endregion
 
     #region Equipment
-    public Equipment eqpMainHand = new Equipment(EquipmentType.Weapon);
-    public Equipment eqpOffHand = new Equipment(EquipmentType.Weapon);
-    public Equipment eqpHat = new Equipment(EquipmentType.Armor);
-    public Equipment eqpArmor = new Equipment(EquipmentType.Armor);
-    public Equipment eqpBoots = new Equipment(EquipmentType.Armor);
+        public Equipment eqpMainHand = new Equipment(EquipmentType.Weapon);
+        public Equipment eqpOffHand = new Equipment(EquipmentType.Weapon);
+        public Equipment eqpHat = new Equipment(EquipmentType.Armor);
+        public Equipment eqpArmor = new Equipment(EquipmentType.Armor);
+        public Equipment eqpBoots = new Equipment(EquipmentType.Armor);
     #endregion
 
     public ClassType characterClass;            // Class of a character

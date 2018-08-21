@@ -85,13 +85,12 @@ public class Player : Character, IAttack
 
             CheckBattleBar();
 
-            characterMovementBehavior.CheckInput(SweetSpot);
+            characterMovementBehavior.CheckMovement();
 
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 Time.timeScale = 0;
                 SetMovementBehavior(new MenuControls());
-                pauseMenu.SetActive(true);
             }
 
             if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -154,7 +153,7 @@ public class Player : Character, IAttack
         else
         {
             characterMovementBehavior.CheckMovement();
-
+            
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 SetMovementBehavior(new PlayerMovement(this));

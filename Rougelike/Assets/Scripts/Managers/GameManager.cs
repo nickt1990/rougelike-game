@@ -48,6 +48,7 @@ public class GameManager : MonoBehaviour
 		enemies = new List<Character>();
 
 		PauseMenu pauseMenu = new PauseMenu();
+        InventoryMenu inventoryMenu = new InventoryMenu();
 
 		//Call the InitGame function to initialize the first level 
 		//InitGame();

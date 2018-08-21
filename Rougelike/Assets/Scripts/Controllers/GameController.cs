@@ -3,7 +3,6 @@
 class GameController : MonoBehaviour
 {
     public static GameController playerUI;
-    public static PauseMenu pauseMenu;
     private void Start()
     {
         if (playerUI == null)

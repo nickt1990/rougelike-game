@@ -8,7 +8,11 @@ using UnityEngine.UI;
 
 class MenuControls : IMovementBehavior
 {
-    private static PauseMenu pauseMenu;
+    private static PauseMenu pauseMenu = new PauseMenu();
+    private static InventoryMenu inventoryMenu = new InventoryMenu();
+
+    private IMenu currentMenu;
+    private IMenu previousMenu;
 
     private Button previousButton;
     private Button currentButton;
@@ -16,14 +20,13 @@ class MenuControls : IMovementBehavior
 
     public MenuControls()
     {
+        currentMenu = pauseMenu;
+        pauseMenu.OpenMenu();
+        inventoryMenu.CloseMenu();
+
         currentIndex = 0;
         currentButton = PauseMenu.buttons[currentIndex];
         currentButton.GetComponentInChildren<Text>().color = Color.red;
-    }
-
-    public void CheckInput(int sweetSpot)
-    {
-        throw new NotImplementedException();
     }
 
     public void CheckMovement()
@@ -47,6 +50,10 @@ class MenuControls : IMovementBehavior
 
             currentButton = PauseMenu.buttons[currentIndex];
             currentButton.GetComponentInChildren<Text>().color = Color.red;
+        }
+        else if (Input.GetKeyDown(KeyCode.Return))
+        {
+            currentButton.onClick.Invoke();
         }
 
     }
